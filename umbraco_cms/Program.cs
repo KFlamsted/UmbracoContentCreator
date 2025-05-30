@@ -5,10 +5,6 @@ using Nikcio.UHeadless.Defaults.ContentItems;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
-// .AddBackOffice()
-// .AddWebsite()
-// .AddComposers()
-
 builder.CreateUmbracoBuilder()
     .AddBackOffice()
     .AddWebsite()
