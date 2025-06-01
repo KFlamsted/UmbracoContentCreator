@@ -34,7 +34,7 @@ if (!builder.Environment.IsDevelopment())
     {
         Tool =
         {
-            Enable = false,
+            Enable = true,
         }
     });
 }

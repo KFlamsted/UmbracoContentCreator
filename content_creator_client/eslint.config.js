@@ -23,6 +23,8 @@ export default tseslint.config(
         'warn',
         { allowConstantExport: true },
       ],
+      // Disable no-empty-object-type for TypeScript
+      '@typescript-eslint/no-empty-object-type': 'off',
     },
   },
 )
