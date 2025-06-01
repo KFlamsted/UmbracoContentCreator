@@ -5,6 +5,20 @@ using Nikcio.UHeadless.Defaults.ContentItems;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
+// Add CORS services only in development
+if (builder.Environment.IsDevelopment())
+{
+    builder.Services.AddCors(options =>
+    {
+        options.AddDefaultPolicy(policy =>
+        {
+            policy.AllowAnyOrigin()
+                  .AllowAnyHeader()
+                  .AllowAnyMethod();
+        });
+    });
+}
+
 builder.CreateUmbracoBuilder()
     .AddBackOffice()
     .AddWebsite()
@@ -21,6 +35,12 @@ builder.CreateUmbracoBuilder()
 WebApplication app = builder.Build();
 
 await app.BootUmbracoAsync();
+
+// Use CORS middleware only in development
+if (app.Environment.IsDevelopment())
+{
+    app.UseCors();
+}
 
 app.UseAuthentication();
 app.UseAuthorization();
