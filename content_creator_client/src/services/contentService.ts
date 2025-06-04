@@ -27,9 +27,7 @@ export const fetchContentByRoute = async <T, TProperties = Record<string, unknow
   contentType: string
 ): Promise<T> => {
   const result = await executeContentApiQuery<TProperties>(contentType)
-  console.log('API response:', result)
   const content = result
-  console.log('Fetched content:', content)
 
   if (!content) {
     throw new Error('Content not found')

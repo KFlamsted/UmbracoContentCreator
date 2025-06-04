@@ -20,6 +20,7 @@ export const useHomePage = () => {
     }
 
     loadContent()
+    console.log('useHomePage effect triggered')
   }, [])
 
   return { content, loading, error }
