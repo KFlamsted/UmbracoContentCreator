@@ -42,11 +42,6 @@ const App: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-blue-200 flex flex-col items-center justify-center px-4 py-8">
-      {/* Tailwind test element - remove this after testing */}
-      <div className="bg-red-500 text-white p-4 mb-4 rounded-lg border-4 border-yellow-400">
-        TAILWIND TEST: If you see red background with yellow border, Tailwind is working!
-      </div>
-      
       <div className="w-full max-w-2xl bg-white rounded-lg shadow-md p-6 mb-6">
         <h1 className="text-3xl font-bold text-center text-gray-900">
           {content.pageTitle}
