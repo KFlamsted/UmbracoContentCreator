@@ -1,5 +1,5 @@
-import type { HomePage } from '../models/HomePage'
-import type { IUmbracoContentResponse, IHomePageProperties } from '../models/common/UmbracoCommon'
+import type { HomePage } from '../model/HomePage'
+import type { IUmbracoContentResponse, IHomePageProperties } from '../model/common/UmbracoCommon'
 
 const executeContentApiQuery = async <TProperties = Record<string, unknown>>(
   contentType: string

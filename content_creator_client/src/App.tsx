@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import parse from 'html-react-parser'
 import './App.css'
-import type { HomePage } from './models/HomePage'
+import type { HomePage } from './model/HomePage'
 import { fetchHomePage } from './services/contentService'
 
 const App: React.FC = () => {
