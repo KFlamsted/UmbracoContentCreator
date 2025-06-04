@@ -17,6 +17,7 @@ if (builder.Environment.IsDevelopment())
 builder.CreateUmbracoBuilder()
     .AddBackOffice()
     .AddWebsite()
+    .AddDeliveryApi()
     .AddComposers()
     .Build();
 
