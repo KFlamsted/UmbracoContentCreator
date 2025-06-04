@@ -25,27 +25,30 @@ export interface IUmbracoRoute {
   }
 }
 
-export interface IUmbracoItem {
+export interface IUmbracoItem<TProperties = Record<string, unknown>> {
   contentType: string
   name: string
   createDate: string
   updateDate: string
   route: IUmbracoRoute
   id: string
-  properties: {
-    pageTitle?: string
-    bodyText?: {
-      markup: string
-      blocks: IUmbracoBlock[]
-    }
-    footerText?: string
-    // TODO: Add other property types as they are discovered/needed
-    [key: string]: unknown
-  }
+  properties: TProperties
   cultures: IUmbracoCultures
 }
 
-export interface IUmbracoContentResponse {
+export interface IUmbracoContentResponse<TProperties = Record<string, unknown>> {
   total: number
-  items: IUmbracoItem[]
+  items: IUmbracoItem<TProperties>[]
+}
+
+// HomePage specific properties
+export interface IHomePageProperties {
+  pageTitle?: string
+  bodyText?: {
+    markup: string
+    blocks: IUmbracoBlock[]
+  }
+  footerText?: string
+  // TODO: Add other HomePage specific properties as needed
+  [key: string]: unknown
 }
