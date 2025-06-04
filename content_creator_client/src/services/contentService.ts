@@ -1,63 +1,20 @@
 import type { HomePage } from '../models/HomePage'
+import type { IUmbracoContentResponse } from '../models/common/UmbracoCommon'
 
-// TODO: Define proper block content structure when blocks are actually used
-interface UmbracoBlock {
-  contentUdi: string
-  settingsUdi?: string
-  content: {
-    contentType: string
-    properties: Record<string, unknown>
-  }
-  settings?: {
-    contentType: string
-    properties: Record<string, unknown>
-  }
-}
-
-// TODO: Define proper culture structure based on Umbraco's multi-language setup
-interface UmbracoCultures {
-  [key: string]: unknown
-}
-
-interface UmbracoContentResponse {
-  total: number
-  items: Array<{
-    contentType: string
-    name: string
-    createDate: string
-    updateDate: string
-    route: {
-      path: string
-      startItem: {
-        id: string
-        path: string
-      }
-    }
-    id: string
-    properties: {
-      pageTitle?: string
-      bodyText?: {
-        markup: string
-        blocks: UmbracoBlock[]
-      }
-      footerText?: string
-      // TODO: Add other property types as they are discovered/needed
-      [key: string]: unknown
-    }
-    cultures: UmbracoCultures
-  }>
-}
-
-const executeContentApiQuery = async (): Promise<UmbracoContentResponse> => {
+const executeContentApiQuery = async (
+  contentType: string
+): Promise<IUmbracoContentResponse> => {
   const apiUrl = import.meta.env.VITE_API_URL
 
-  const response = await fetch(`${apiUrl}/umbraco/delivery/api/v2/content`)
+  const response = await fetch(
+    `${apiUrl}/umbraco/delivery/api/v2/content?filter=contentType:${contentType}`
+  )
 
   if (!response.ok) {
     throw new Error(`HTTP error! status: ${response.status}`)
   }
 
-  const result: UmbracoContentResponse = await response.json()
+  const result: IUmbracoContentResponse = await response.json()
 
   if (result.total === 0 || !result.items.length) {
     throw new Error('Content not found')
@@ -66,12 +23,12 @@ const executeContentApiQuery = async (): Promise<UmbracoContentResponse> => {
   return result
 }
 
-export const fetchContentByRoute = async <T>(): Promise<T> => {
-  const result = await executeContentApiQuery()
-
-  const homepageContent = result.items?.find(
-    (content) => content.contentType === 'homePage'
-  )
+export const fetchContentByRoute = async <T>(
+  contentType: string
+): Promise<T> => {
+  const result = await executeContentApiQuery(contentType)
+  console.log('API response:', result)
+  const homepageContent = result.items?.[0]
   console.log('Fetched content:', homepageContent)
 
   if (!homepageContent) {
@@ -86,5 +43,5 @@ export const fetchContentByRoute = async <T>(): Promise<T> => {
 }
 
 export const fetchHomePage = async (): Promise<HomePage> => {
-  return fetchContentByRoute<HomePage>()
+  return fetchContentByRoute<HomePage>('homePage')
 }
