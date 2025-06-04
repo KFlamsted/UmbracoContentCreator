@@ -1,58 +1,21 @@
-import { useState, useEffect } from 'react'
-import parse from 'html-react-parser'
+import { useState, useCallback } from 'react'
 import './App.css'
-import type { HomePage } from './model/HomePage'
-import { fetchHomePage } from './services/contentService'
+import HomePageContainer from './containers/homePage/HomePageContainer'
+import AppShell from './components/appShell/AppShell'
 
 const App: React.FC = () => {
-  const [content, setContent] = useState<HomePage>({})
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
-  useEffect(() => {
-    const loadContent = async () => {
-      try {
-        const data = await fetchHomePage()
-        setContent(data)
-      } catch (err) {
-        setError(err instanceof Error ? err.message : 'An error occurred')
-      } finally {
-        setLoading(false)
-      }
-    }
-
-    loadContent()
+  const handleStateChange = useCallback((newLoading: boolean, newError: string | null) => {
+    setLoading(newLoading)
+    setError(newError)
   }, [])
 
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-blue-200 flex flex-col items-center justify-center px-4">
-        <div className="text-lg text-gray-600">Loading...</div>
-      </div>
-    )
-  }
-
-  if (error) {
-    return (
-      <div className="min-h-screen bg-blue-200 flex flex-col items-center justify-center px-4">
-        <div className="text-lg text-red-600">Error: {error}</div>
-      </div>
-    )
-  }
-
   return (
-    <div className="min-h-screen bg-blue-200 flex flex-col items-center justify-center px-4 py-8">
-      <div className="w-full max-w-4xl bg-white rounded-lg shadow-md p-6 mb-6">
-        <h1 className="text-3xl font-bold text-center text-gray-900">
-          {content.pageTitle}
-        </h1>
-      </div>
-      <div className="w-full max-w-4xl bg-white rounded-lg shadow-md p-6">
-        <div className="text-lg text-gray-700">
-          {content.bodyText ? parse(content.bodyText) : ''}
-        </div>
-      </div>
-    </div>
+    <AppShell loading={loading} error={error}>
+      <HomePageContainer onStateChange={handleStateChange} />
+    </AppShell>
   )
 }
 
