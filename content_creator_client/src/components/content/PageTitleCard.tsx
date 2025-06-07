@@ -1,11 +1,13 @@
+import { TITLE_CARD_CLASSES, TITLE_CLASSES } from '../../styles/constants'
+
 interface PageTitleCardProps {
   title?: string
 }
 
 const PageTitleCard: React.FC<PageTitleCardProps> = ({ title }) => {
   return (
-    <div className="w-full max-w-6xl bg-white rounded-lg shadow-md p-6 mb-6">
-      <h1 className="text-3xl font-bold text-center text-gray-900">
+    <div className={TITLE_CARD_CLASSES}>
+      <h1 className={TITLE_CLASSES}>
         {title}
       </h1>
     </div>

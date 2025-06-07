@@ -1,4 +1,5 @@
 import parse from 'html-react-parser'
+import { CARD_CLASSES, BODY_TEXT_CLASSES } from '../../styles/constants'
 
 interface BodyTextCardProps {
   bodyText?: string
@@ -7,8 +8,8 @@ interface BodyTextCardProps {
 const BodyTextCard: React.FC<BodyTextCardProps> = ({ bodyText }) => {
 
   return (
-    <div className="w-full max-w-6xl bg-white rounded-lg shadow-md p-6">
-      <div className="text-lg text-gray-700 prose prose-lg max-w-none [&_ul]:list-disc [&_ul]:pl-6 [&_ol]:list-decimal [&_ol]:pl-6">
+    <div className={CARD_CLASSES}>
+      <div className={BODY_TEXT_CLASSES}>
         {bodyText ? parse(bodyText) : ''}
       </div>
     </div>
