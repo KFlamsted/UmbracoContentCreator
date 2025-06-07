@@ -52,3 +52,19 @@ export interface IHomePageProperties {
   // TODO: Add other HomePage specific properties as needed
   [key: string]: unknown
 }
+
+// News specific properties
+export interface INewsProperties {
+  categoryFilterOptions?: string[]
+  defaultSortOrder?: string
+  description?: {
+    markup: string
+    blocks: IUmbracoBlock[]
+  }
+  mainImage?: unknown // MediaWithCrops from Umbraco
+  newsPerPage?: number
+  showFeaturedNews?: boolean
+  title?: string
+  // TODO: Add other News specific properties as needed
+  [key: string]: unknown
+}

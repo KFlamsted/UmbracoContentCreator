@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { useHomePage } from '../../hooks/useHomePage'
+import { useHomePage } from '../../hooks/PageLoadHooks'
 import PageTitleCard from '../../components/content/PageTitleCard'
 import BodyTextCard from '../../components/content/BodyTextCard'
 

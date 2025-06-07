@@ -1,16 +1,17 @@
 import { useState, useEffect } from 'react'
 import type { HomePage } from '../model/HomePage'
-import { fetchHomePage } from '../services/contentService'
+import type { News } from '../model/News'
+import { fetchHomePage, fetchNewsPage } from '../services/PageLoaderService'
 
-export const useHomePage = () => {
-  const [content, setContent] = useState<HomePage>({})
+const useContent = <T>(fetchFunction: () => Promise<T>) => {
+  const [content, setContent] = useState<T>({} as T)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
     const loadContent = async () => {
       try {
-        const data = await fetchHomePage()
+        const data = await fetchFunction()
         setContent(data)
       } catch (err) {
         setError(err instanceof Error ? err.message : 'An error occurred')
@@ -20,8 +21,11 @@ export const useHomePage = () => {
     }
 
     loadContent()
-    console.log('useHomePage effect triggered')
-  }, [])
+  }, [fetchFunction])
 
   return { content, loading, error }
 }
+
+// Keep the original useHomePage for backward compatibility
+export const useHomePage = () => useContent<HomePage>(fetchHomePage)
+export const useNewsPage = () => useContent<News>(fetchNewsPage)
