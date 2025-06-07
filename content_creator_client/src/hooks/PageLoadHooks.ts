@@ -26,6 +26,5 @@ const useContent = <T>(fetchFunction: () => Promise<T>) => {
   return { content, loading, error }
 }
 
-// Keep the original useHomePage for backward compatibility
 export const useHomePage = () => useContent<HomePage>(fetchHomePage)
 export const useNewsPage = () => useContent<News>(fetchNewsPage)
