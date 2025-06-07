@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react'
+import { APP_SHELL_CONTAINER_CLASSES, LOADING_MESSAGE_CLASSES, ERROR_MESSAGE_CLASSES } from '../../styles/constants'
 
 interface AppShellProps {
   children: ReactNode
@@ -8,12 +9,12 @@ interface AppShellProps {
 
 const AppShell: React.FC<AppShellProps> = ({ children, loading, error }) => {
   return (
-    <div className="min-h-screen bg-blue-200 flex flex-col items-center justify-center px-4 py-8">
+    <div className={APP_SHELL_CONTAINER_CLASSES}>
       {loading && (
-        <div className="text-lg text-gray-600">Loading...</div>
+        <div className={LOADING_MESSAGE_CLASSES}>Loading...</div>
       )}
       {error && (
-        <div className="text-lg text-red-600">Error: {error}</div>
+        <div className={ERROR_MESSAGE_CLASSES}>Error: {error}</div>
       )}
       {/* Always render children so React hooks can execute, but hide visually when loading/error */}
       <div style={{ display: loading || error ? 'none' : 'contents' }}>
