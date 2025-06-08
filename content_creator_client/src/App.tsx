@@ -1,6 +1,7 @@
 import { useState, useCallback } from 'react'
+import { BrowserRouter } from 'react-router-dom'
 import './App.css'
-import HomePageContainer from './containers/homePage/HomePageContainer'
+import AppRoutes from './Routes'
 import AppShell from './components/appShell/AppShell'
 
 const App: React.FC = () => {
@@ -13,9 +14,11 @@ const App: React.FC = () => {
   }, [])
 
   return (
-    <AppShell loading={loading} error={error}>
-      <HomePageContainer onStateChange={handleStateChange} />
-    </AppShell>
+    <BrowserRouter>
+      <AppShell loading={loading} error={error}>
+        <AppRoutes onStateChange={handleStateChange} />
+      </AppShell>
+    </BrowserRouter>
   )
 }
 
