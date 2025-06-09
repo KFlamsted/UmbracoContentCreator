@@ -34,7 +34,7 @@ export const BACKGROUND_BLUE = 'bg-blue-200'
 export const FLEX = 'flex'
 export const FLEX_COL = 'flex-col'
 export const ITEMS_CENTER = 'items-center'
-export const JUSTIFY_CENTER = 'justify-center'
+export const JUSTIFY_START = 'justify-start'
 export const PADDING_X_4 = 'px-4'
 export const PADDING_Y_8 = 'py-8'
 
@@ -43,7 +43,8 @@ export const TEXT_GRAY_600 = 'text-gray-600'
 export const TEXT_RED_600 = 'text-red-600'
 
 // Combined layout classes
-export const APP_SHELL_CONTAINER_CLASSES = `${MIN_HEIGHT_SCREEN} ${BACKGROUND_BLUE} ${FLEX} ${FLEX_COL} ${ITEMS_CENTER} ${JUSTIFY_CENTER} ${PADDING_X_4} ${PADDING_Y_8}`
+export const APP_SHELL_CONTAINER_CLASSES = `${MIN_HEIGHT_SCREEN} ${BACKGROUND_BLUE} ${FLEX} ${FLEX_COL} ${ITEMS_CENTER} ${JUSTIFY_START} ${PADDING_X_4} ${PADDING_Y_8}`
+export const CONTENT_CONTAINER_CLASSES = `${BACKGROUND_BLUE} ${FLEX} ${FLEX_COL} ${ITEMS_CENTER} ${PADDING_X_4} ${PADDING_Y_8}`
 export const LOADING_MESSAGE_CLASSES = `${TEXT_SIZE_LARGE} ${TEXT_GRAY_600}`
 export const ERROR_MESSAGE_CLASSES = `${TEXT_SIZE_LARGE} ${TEXT_RED_600}`
 
