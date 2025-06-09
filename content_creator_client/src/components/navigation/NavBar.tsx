@@ -1,4 +1,14 @@
 import type { ReactNode } from 'react'
+import { 
+  NAVBAR_BUTTON_BASE_CLASSES, 
+  NAVBAR_BUTTON_SELECTED_CLASSES, 
+  NAVBAR_BUTTON_DEFAULT_CLASSES,
+  ICON_CONTAINER,
+  ICON_SIZE,
+  NAVBAR_CLASSES,
+  NAVBAR_CONTAINER_CLASSES,
+  NAVBAR_FLEX_CLASSES
+} from '../../styles/constants'
 
 interface NavBarButtonProps {
   children?: ReactNode
@@ -13,21 +23,20 @@ const NavBarButton: React.FC<NavBarButtonProps> = ({
   isSelected = false, 
   onClick 
 }) => {
-  const baseClasses = 'px-6 py-3 w-32 rounded-lg font-medium transition-colors cursor-pointer focus:outline-none focus:ring-0 focus:border-none active:outline-none active:ring-0 active:border-none'
   const selectedClasses = isSelected 
-    ? 'bg-blue-600 text-gray-500 hover:bg-blue-700' 
-    : 'bg-white text-gray-800 hover:bg-blue-50 hover:text-gray-900'
+    ? NAVBAR_BUTTON_SELECTED_CLASSES
+    : NAVBAR_BUTTON_DEFAULT_CLASSES
     
   return (
     <button 
-      className={`${baseClasses} ${selectedClasses}`}
+      className={`${NAVBAR_BUTTON_BASE_CLASSES} ${selectedClasses}`}
       onClick={onClick}
       style={{ outline: 'none', border: 'none' }}
     >
       {isHomePageButton ? (
-        <div className="flex items-center justify-center w-full h-full">
+        <div className={ICON_CONTAINER}>
           <svg 
-            className="w-6 h-6" 
+            className={ICON_SIZE}
             fill="currentColor" 
             viewBox="0 0 20 20"
           >
@@ -47,9 +56,9 @@ interface NavBarProps {
 
 const NavBar: React.FC<NavBarProps> = ({ children }) => {
   return (
-    <nav className="w-full bg-blue-200 py-4">
-      <div className="w-full max-w-6xl mx-auto">
-        <div className="flex gap-4">
+    <nav className={NAVBAR_CLASSES}>
+      <div className={NAVBAR_CONTAINER_CLASSES}>
+        <div className={NAVBAR_FLEX_CLASSES}>
           {children}
         </div>
       </div>
