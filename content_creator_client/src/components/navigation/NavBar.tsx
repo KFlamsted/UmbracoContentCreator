@@ -13,7 +13,7 @@ const NavBarButton: React.FC<NavBarButtonProps> = ({
   isSelected = false, 
   onClick 
 }) => {
-  const baseClasses = 'px-6 py-3 rounded-lg font-medium transition-colors cursor-pointer focus:outline-none focus:ring-0 focus:border-none active:outline-none active:ring-0 active:border-none'
+  const baseClasses = 'px-6 py-3 w-32 rounded-lg font-medium transition-colors cursor-pointer focus:outline-none focus:ring-0 focus:border-none active:outline-none active:ring-0 active:border-none'
   const selectedClasses = isSelected 
     ? 'bg-blue-600 text-gray-500 hover:bg-blue-700' 
     : 'bg-white text-gray-800 hover:bg-blue-50 hover:text-gray-900'
@@ -25,7 +25,7 @@ const NavBarButton: React.FC<NavBarButtonProps> = ({
       style={{ outline: 'none', border: 'none' }}
     >
       {isHomePageButton ? (
-        <div className="flex items-center justify-center w-8 h-8">
+        <div className="flex items-center justify-center w-full h-full">
           <svg 
             className="w-6 h-6" 
             fill="currentColor" 
