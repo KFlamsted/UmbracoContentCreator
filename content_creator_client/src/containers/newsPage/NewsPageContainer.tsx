@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { useNewsPage } from '../../hooks/PageLoadHooks'
 import PageTitleCard from '../../components/content/PageTitleCard'
 import BodyTextCard from '../../components/content/BodyTextCard'
+import MainImageCard from '../../components/content/MainImageCard'
 
 interface NewsPageContainerProps {
   onStateChange?: (loading: boolean, error: string | null) => void
@@ -14,9 +15,11 @@ const NewsPageContainer: React.FC<NewsPageContainerProps> = ({ onStateChange }) 
     onStateChange?.(loading, error)
   }, [loading, error, onStateChange])
 
+  console.log('NewsPageContainer content:', content)
   return (
     <>
       <PageTitleCard title={content.title} />
+      <MainImageCard mainImage={content.mainImage} alt={content.title} />
       <BodyTextCard bodyText={content.description?.markup} />
     </>
   )
