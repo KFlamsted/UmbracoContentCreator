@@ -5,7 +5,7 @@ import type { NewsItemPage, AuthorReference, Link } from '../model/NewsItemPage'
 import type { ImageCropperValue } from '../model/common/ImageCropperValue'
 import type { IUmbracoBlock, IUmbracoItem } from '../model/common/UmbracoCommon'
 import { fetchHomePage, fetchNewsPage } from '../services/PageLoaderService'
-import { fetchChildrenById } from '../services/contentService'
+import { fetchChildrenById } from '../services/ContentService2'
 import type { IUmbracoContentResponse } from '../model/common/UmbracoCommon'
 
 const useContent = <T>(fetchFunction: () => Promise<T>) => {
