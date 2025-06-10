@@ -5,7 +5,7 @@ import type {
   IHomePageProperties,
   INewsProperties,
 } from '../model/common/UmbracoCommon'
-import { executeContentApiQuery } from './ContentService'
+import { executeContentApiQuery } from './contentService'
 
 export const fetchHomePage = async (): Promise<HomePage> => {
   const result = await executeContentApiQuery<IHomePageProperties>('homePage')
@@ -30,11 +30,15 @@ export const fetchNewsPage = async (): Promise<News> => {
     throw new Error('Content not found')
   }
 
+  // Extract the first image from the mainImage array and map to ImageCropperValue
+  const mainImageArray = newsContent.properties.mainImage as unknown as ImageCropperValue[]
+  const mainImage = mainImageArray && mainImageArray.length > 0 ? mainImageArray[0] : undefined
+
   return {
     categoryFilterOptions: newsContent.properties.categoryFilterOptions,
     defaultSortOrder: newsContent.properties.defaultSortOrder,
     description: newsContent.properties.description,
-    mainImage: newsContent.properties.mainImage as unknown as ImageCropperValue, // TODO: Map MediaWithCrops to ImageCropperValue
+    mainImage,
     newsPerPage: newsContent.properties.newsPerPage,
     showFeaturedNews: newsContent.properties.showFeaturedNews,
     title: newsContent.properties.title,

@@ -8,14 +8,15 @@ interface NewsPageContainerProps {
   onStateChange?: (loading: boolean, error: string | null) => void
 }
 
-const NewsPageContainer: React.FC<NewsPageContainerProps> = ({ onStateChange }) => {
+const NewsPageContainer: React.FC<NewsPageContainerProps> = ({
+  onStateChange,
+}) => {
   const { content, loading, error } = useNewsPage()
 
   useEffect(() => {
     onStateChange?.(loading, error)
   }, [loading, error, onStateChange])
 
-  console.log('NewsPageContainer content:', content)
   return (
     <>
       <PageTitleCard title={content.title} />

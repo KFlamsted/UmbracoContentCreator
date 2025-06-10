@@ -1,3 +1,5 @@
+import type { ImageCropperValue } from '../model/common/ImageCropperValue'
+
 export interface IUmbracoMediaResponse<TProperties = Record<string, unknown>> {
   total: number
   items: IUmbracoMediaItem<TProperties>[]
@@ -75,6 +77,29 @@ export const fetchMediaById = async <TProperties = Record<string, unknown>>(
 
   const result: IUmbracoMediaItem<TProperties> = await response.json()
   return result
+}
+
+export const fetchImageById = async (id: string): Promise<ImageCropperValue | null> => {
+  const mediaItem = await fetchMediaById(id)
+  
+  if (!mediaItem) {
+    return null
+  }
+
+  // Map media item to ImageCropperValue structure
+  return {
+    focalPoint: null, // Default to null as per API structure
+    crops: [], // Default to empty array
+    id: mediaItem.id,
+    name: mediaItem.name,
+    mediaType: mediaItem.mediaType,
+    url: mediaItem.url,
+    extension: mediaItem.extension,
+    width: mediaItem.width || 0,
+    height: mediaItem.height || 0,
+    bytes: mediaItem.bytes,
+    properties: mediaItem.properties
+  }
 }
 
 export const fetchMediaByType = async <TProperties = Record<string, unknown>>(

@@ -7,14 +7,18 @@ interface MainImageCardProps {
 }
 
 const MainImageCard: React.FC<MainImageCardProps> = ({ mainImage, alt = 'Main image' }) => {
-  if (!mainImage?.src) {
+  if (!mainImage?.url) {
     return null
   }
+
+  // Construct full image URL using API base URL + relative path
+  const apiUrl = import.meta.env.VITE_API_URL
+  const fullImageUrl = `${apiUrl}${mainImage.url}`
 
   return (
     <div className={CARD_CLASSES}>
       <img 
-        src={mainImage.src} 
+        src={fullImageUrl} 
         alt={alt}
         className="w-full h-auto object-cover rounded-lg"
         style={{ 

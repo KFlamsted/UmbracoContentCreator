@@ -1,6 +1,6 @@
 /**
  * Represents the value structure of Umbraco's Image Cropper property editor.
- * This is a minimal version; extend as needed for your use case.
+ * This matches the media delivery API response structure.
  */
 interface FocalPoint {
   left: number;
@@ -22,7 +22,15 @@ interface Crop {
 }
 
 export interface ImageCropperValue {
-  src: string;
-  focalPoint?: FocalPoint;
+  focalPoint?: FocalPoint | null;
   crops?: Crop[];
+  id: string;
+  name: string;
+  mediaType: string;
+  url: string;
+  extension: string;
+  width: number;
+  height: number;
+  bytes: number;
+  properties: Record<string, unknown>;
 }
