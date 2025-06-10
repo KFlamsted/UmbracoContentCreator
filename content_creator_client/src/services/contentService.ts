@@ -1,7 +1,8 @@
-import moment from 'moment'
 import type { IUmbracoContentResponse } from '../model/common/UmbracoCommon'
 
-export const executeContentApiQuery = async <TProperties = Record<string, unknown>>(
+export const executeContentApiQuery = async <
+  TProperties = Record<string, unknown>
+>(
   contentType: string
 ): Promise<IUmbracoContentResponse<TProperties>> => {
   const apiUrl = import.meta.env.VITE_API_URL
@@ -23,7 +24,10 @@ export const executeContentApiQuery = async <TProperties = Record<string, unknow
   return result
 }
 
-export const fetchContentByRoute = async <T, TProperties = Record<string, unknown>>(
+export const fetchContentByRoute = async <
+  T,
+  TProperties = Record<string, unknown>
+>(
   contentType: string
 ): Promise<T> => {
   const result = await executeContentApiQuery<TProperties>(contentType)
@@ -43,11 +47,12 @@ export const fetchChildrenById = async <TProperties = Record<string, unknown>>(
   options?: {
     contentType?: string
     take?: number
-    publishedBefore?: moment.Moment
   }
 ): Promise<IUmbracoContentResponse<TProperties>> => {
   const apiUrl = import.meta.env.VITE_API_URL
-  const searchParams = new URLSearchParams()
+  
+  // Build query parameters manually to avoid URL encoding issues
+  const queryParams: string[] = []
 
   // Build filter conditions
   const filterConditions: string[] = []
@@ -56,28 +61,21 @@ export const fetchChildrenById = async <TProperties = Record<string, unknown>>(
     filterConditions.push(`contentType:${options.contentType}`)
   }
 
-  if (options?.publishedBefore) {
-    const dateString = options.publishedBefore.toISOString()
-    filterConditions.push(`publishDate:[* TO ${dateString}]`)
-  } else {
-    // Default to today if no date specified
-    const today = moment().toISOString()
-    filterConditions.push(`publishDate:[* TO ${today}]`)
-  }
-
-  // Combine all filter conditions with AND
+  // Add filter parameter without URL encoding the colon
   if (filterConditions.length > 0) {
-    searchParams.append('filter', filterConditions.join(' AND '))
+    queryParams.push(`filter=${filterConditions.join(' AND ')}`)
   }
 
   if (options?.take) {
-    searchParams.append('take', options.take.toString())
+    queryParams.push(`take=${options.take}`)
   }
 
-  const queryString = searchParams.toString()
-  const url = `${apiUrl}/umbraco/delivery/api/v2/content/item/${parentId}/children${
-    queryString ? `?${queryString}` : ''
+  const queryString = queryParams.join('&')
+  const url = `${apiUrl}/umbraco/delivery/api/v2/content?fetch=children:${parentId}${
+    queryString ? `&${queryString}` : ''
   }`
+
+  console.log('Final URL:', url)
 
   const response = await fetch(url)
 

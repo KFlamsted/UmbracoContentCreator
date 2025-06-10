@@ -6,6 +6,10 @@ import type { IUmbracoBlock } from './common/UmbracoCommon';
  */
 export interface News {
   /**
+   * Umbraco content ID
+   */
+  id?: string;
+  /**
    * Category filter options
    */
   categoryFilterOptions?: string[];

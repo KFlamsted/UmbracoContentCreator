@@ -35,6 +35,7 @@ export const fetchNewsPage = async (): Promise<News> => {
   const mainImage = mainImageArray && mainImageArray.length > 0 ? mainImageArray[0] : undefined
 
   return {
+    id: newsContent.id,
     categoryFilterOptions: newsContent.properties.categoryFilterOptions,
     defaultSortOrder: newsContent.properties.defaultSortOrder,
     description: newsContent.properties.description,
