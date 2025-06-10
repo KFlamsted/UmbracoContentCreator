@@ -1,6 +1,7 @@
 import { Routes, Route } from 'react-router-dom'
 import HomePageContainer from './containers/homePage/HomePageContainer'
 import NewsPageContainer from './containers/newsPage/NewsPageContainer'
+import { ROUTES } from './constants/routes'
 
 interface AppRoutesProps {
   onStateChange: (loading: boolean, error: string | null) => void
@@ -9,8 +10,8 @@ interface AppRoutesProps {
 const AppRoutes: React.FC<AppRoutesProps> = ({ onStateChange }) => {
   return (
     <Routes>
-      <Route path="/" element={<HomePageContainer onStateChange={onStateChange} />} />
-      <Route path="/news" element={<NewsPageContainer onStateChange={onStateChange} />} />
+      <Route path={ROUTES.HOME} element={<HomePageContainer onStateChange={onStateChange} />} />
+      <Route path={ROUTES.NEWS} element={<NewsPageContainer onStateChange={onStateChange} />} />
     </Routes>
   )
 }

@@ -8,7 +8,7 @@ import {
   NAVBAR_CLASSES,
   NAVBAR_CONTAINER_CLASSES,
   NAVBAR_FLEX_CLASSES
-} from '../../styles/constants'
+} from '../../constants/styles'
 
 interface NavBarButtonProps {
   children?: ReactNode

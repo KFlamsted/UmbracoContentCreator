@@ -1,4 +1,4 @@
-import { CARD_CLASSES } from '../../styles/constants'
+import { CARD_CLASSES } from '../../constants/styles'
 import type { ImageCropperValue } from '../../model/common/ImageCropperValue'
 
 interface MainImageCardProps {

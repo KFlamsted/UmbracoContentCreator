@@ -1,4 +1,4 @@
-import { TITLE_CARD_CLASSES, TITLE_CLASSES } from '../../styles/constants'
+import { TITLE_CARD_CLASSES, TITLE_CLASSES } from '../../constants/styles'
 
 interface PageTitleCardProps {
   title?: string

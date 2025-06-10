@@ -1,5 +1,5 @@
 import parse from 'html-react-parser'
-import { CARD_CLASSES, BODY_TEXT_CLASSES } from '../../styles/constants'
+import { CARD_CLASSES, BODY_TEXT_CLASSES } from '../../constants/styles'
 
 interface BodyTextCardProps {
   bodyText?: string
