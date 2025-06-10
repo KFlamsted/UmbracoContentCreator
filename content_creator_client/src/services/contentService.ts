@@ -50,7 +50,7 @@ export const fetchChildrenById = async <TProperties = Record<string, unknown>>(
   }
 ): Promise<IUmbracoContentResponse<TProperties>> => {
   const apiUrl = import.meta.env.VITE_API_URL
-  
+
   // Build query parameters manually to avoid URL encoding issues
   const queryParams: string[] = []
 
@@ -74,8 +74,6 @@ export const fetchChildrenById = async <TProperties = Record<string, unknown>>(
   const url = `${apiUrl}/umbraco/delivery/api/v2/content?fetch=children:${parentId}${
     queryString ? `&${queryString}` : ''
   }`
-
-  console.log('Final URL:', url)
 
   const response = await fetch(url)
 
