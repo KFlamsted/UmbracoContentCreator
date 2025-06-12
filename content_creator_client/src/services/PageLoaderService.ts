@@ -6,6 +6,7 @@ import type {
   INewsProperties,
 } from '../model/common/UmbracoCommon'
 import { executeContentApiQuery } from './ContentService'
+import type { NewsItemPage } from '../model/NewsItemPage'
 
 export const fetchHomePage = async (): Promise<HomePage> => {
   const result = await executeContentApiQuery<IHomePageProperties>('homePage')
@@ -43,5 +44,20 @@ export const fetchNewsPage = async (): Promise<News> => {
     newsPerPage: newsContent.properties.newsPerPage,
     showFeaturedNews: newsContent.properties.showFeaturedNews,
     title: newsContent.properties.title,
+  }
+}
+
+export const fetchNewsItemPage = async (itemId: string): Promise<NewsItemPage> => {
+  // TODO: Implement actual API call to fetch news item by ID/slug
+  // For now, return mock data
+  return {
+    title: `News Item: ${itemId}`,
+    summary: 'This is a placeholder summary for the news item.',
+    publishDate: new Date().toISOString(),
+    featured: false,
+    bodyText: {
+      markup: '<p>This is placeholder content for the news item body text.</p>',
+      blocks: []
+    }
   }
 }

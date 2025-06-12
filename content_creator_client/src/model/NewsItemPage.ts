@@ -27,6 +27,10 @@ export interface AuthorReference {
  */
 export interface NewsItemPage {
   /**
+   * Unique identifier
+   */
+  id?: string;
+  /**
    * Attachments
    */
   attachements?: ImageCropperValue[];
