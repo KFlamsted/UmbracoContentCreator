@@ -1,4 +1,4 @@
-import type { IUmbracoContentResponse } from '../model/common/UmbracoCommon'
+import type { IUmbracoContentResponse, IUmbracoItem } from '../model/common/UmbracoCommon'
 
 export const executeContentApiQuery = async <
   TProperties = Record<string, unknown>
@@ -83,4 +83,35 @@ export const fetchChildrenById = async <TProperties = Record<string, unknown>>(
 
   const result: IUmbracoContentResponse<TProperties> = await response.json()
   return result
+}
+
+export const fetchContentByIdOrPath = async <TProperties = Record<string, unknown>>(
+  idOrPath: string
+): Promise<IUmbracoItem<TProperties>> => {
+  const apiUrl = import.meta.env.VITE_API_URL
+  
+  try {
+    // Try fetching by ID first (if it's a GUID)
+    const isGuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(idOrPath)
+    
+    let url: string
+    if (isGuid) {
+      url = `${apiUrl}/umbraco/delivery/api/v2/content/item/${idOrPath}`
+    } else {
+      // Assume it's a path/slug - use route lookup
+      url = `${apiUrl}/umbraco/delivery/api/v2/content/item/${encodeURIComponent(idOrPath)}`
+    }
+
+    const response = await fetch(url)
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`)
+    }
+
+    const result: IUmbracoItem<TProperties> = await response.json()
+    return result
+  } catch (error) {
+    console.error('Error fetching content by ID or path:', error)
+    throw error
+  }
 }

@@ -68,3 +68,22 @@ export interface INewsProperties {
   // TODO: Add other News specific properties as needed
   [key: string]: unknown
 }
+
+// NewsItem specific properties
+export interface INewsItemProperties {
+  title?: string
+  summary?: string
+  publishDate?: string
+  featured?: boolean
+  bodyText?: {
+    markup: string
+    blocks: IUmbracoBlock[]
+  }
+  mainImage?: unknown // MediaWithCrops from Umbraco
+  categoryTags?: string[]
+  author?: unknown // AuthorReference from Umbraco
+  attachements?: unknown // MediaWithCrops array from Umbraco
+  relatedLinks?: unknown // Link array from Umbraco
+  // TODO: Add other NewsItem specific properties as needed
+  [key: string]: unknown
+}
