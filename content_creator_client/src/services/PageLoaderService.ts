@@ -5,7 +5,7 @@ import type {
   IHomePageProperties,
   INewsProperties,
 } from '../model/common/UmbracoCommon'
-import { executeContentApiQuery } from './ContentService'
+import { executeContentApiQuery } from './ContentServiceApi'
 import type { NewsItemPage } from '../model/NewsItemPage'
 
 export const fetchHomePage = async (): Promise<HomePage> => {
