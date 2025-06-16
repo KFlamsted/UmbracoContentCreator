@@ -4,8 +4,8 @@ import type { News } from '../model/News'
 import type { NewsItemPage, AuthorReference, Link } from '../model/NewsItemPage'
 import type { ImageCropperValue } from '../model/common/ImageCropperValue'
 import type { IUmbracoBlock, IUmbracoItem } from '../model/common/UmbracoCommon'
-import { fetchHomePage, fetchNewsPage } from '../services/PageLoaderService'
-import { fetchChildrenById } from '../services/ContentService'
+import { fetchHomePage, fetchNewsPage, fetchNewsItemPage } from '../services/PageLoaderService'
+import { fetchChildrenById } from '../services/ContentServiceApi'
 import type { IUmbracoContentResponse } from '../model/common/UmbracoCommon'
 
 const useContent = <T>(fetchFunction: () => Promise<T>) => {
@@ -91,6 +91,7 @@ export const useNewsPageItems = (parentId?: string, take?: number) => {
   const mapNewsItem = useMemo(
     () =>
       (item: IUmbracoItem): NewsItemPage => ({
+        id: item.id,
         title: item.properties.title as string,
         summary: item.properties.summary as string,
         publishDate: item.properties.publishDate as string,
@@ -123,6 +124,40 @@ export const useNewsPageItems = (parentId?: string, take?: number) => {
   } = useContentChildren<NewsItemPage>(parentId, options, mapNewsItem)
 
   return { newsItems, loading, error }
+}
+
+export const useNewsItemPage = (itemId?: string) => {
+  const [content, setContent] = useState<NewsItemPage>({} as NewsItemPage)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+
+  useEffect(() => {
+    if (!itemId) {
+      setContent({} as NewsItemPage)
+      setLoading(false)
+      setError(null)
+      return
+    }
+
+    const loadContent = async () => {
+      setLoading(true)
+      setError(null)
+
+      try {
+        const data = await fetchNewsItemPage(itemId)
+        setContent(data)
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'An error occurred')
+        setContent({} as NewsItemPage)
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    loadContent()
+  }, [itemId])
+
+  return { content, loading, error }
 }
 
 export const useHomePage = () => useContent<HomePage>(fetchHomePage)

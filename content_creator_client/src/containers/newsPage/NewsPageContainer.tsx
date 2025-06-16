@@ -3,6 +3,7 @@ import { useNewsPage, useNewsPageItems } from '../../hooks/PageLoadHooks'
 import PageTitleCard from '../../components/content/PageTitleCard'
 import BodyTextCard from '../../components/content/BodyTextCard'
 import MainImageCard from '../../components/content/MainImageCard'
+import MinimizedNewsItemPageListContainer from '../newsItemPage/MinimizedNewsItemPageListContainer'
 
 interface NewsPageContainerProps {
   onStateChange?: (loading: boolean, error: string | null) => void
@@ -28,12 +29,15 @@ const NewsPageContainer: React.FC<NewsPageContainerProps> = ({
       console.log('Fetched NewsPageItems:', newsItems)
     }
   }, [newsItems])
-
   return (
     <>
       <PageTitleCard title={content.title} />
       <MainImageCard mainImage={content.mainImage} alt={content.title} />
       <BodyTextCard bodyText={content.description?.markup} />
+      <MinimizedNewsItemPageListContainer 
+        newsItems={newsItems}
+        maxItems={content.newsPerPage ?? 9}
+      />
     </>
   )
 }

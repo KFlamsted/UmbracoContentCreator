@@ -22,7 +22,6 @@ export const DESIGN_TOKENS = {
   // Typography Scale
   HEADING_SIZE: 'text-3xl',
   BODY_SIZE: 'text-lg',
-
   // State Colors
   TEXT_MUTED: 'text-gray-600',
   TEXT_ERROR: 'text-red-600',
@@ -30,6 +29,10 @@ export const DESIGN_TOKENS = {
   TEXT_HEADING: 'text-gray-900',
   TEXT_BUTTON_DEFAULT: 'text-gray-800',
   TEXT_BUTTON_MUTED: 'text-gray-500',
+  // Grid & Layout
+  GRID_COLS_2: 'grid-cols-2',
+  GRID_COLS_3: 'grid-cols-3',
+  GRID_COLS_4: 'grid-cols-4',
 } as const
 
 // Semantic Component Classes (meaningful combinations)
