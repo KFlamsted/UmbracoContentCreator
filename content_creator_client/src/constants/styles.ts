@@ -28,11 +28,14 @@ export const DESIGN_TOKENS = {
   TEXT_BODY: 'text-gray-700',
   TEXT_HEADING: 'text-gray-900',
   TEXT_BUTTON_DEFAULT: 'text-gray-800',
-  TEXT_BUTTON_MUTED: 'text-gray-500',
-  // Grid & Layout
+  TEXT_BUTTON_MUTED: 'text-gray-500',  // Grid & Layout
   GRID_COLS_2: 'grid-cols-2',
   GRID_COLS_3: 'grid-cols-3',
   GRID_COLS_4: 'grid-cols-4',
+
+  // Background & Overlay
+  BACKGROUND_OVERLAY_DARK: 'bg-black bg-opacity-40',
+  BACKGROUND_OVERLAY_LIGHT: 'bg-black bg-opacity-20',
 } as const
 
 // Semantic Component Classes (meaningful combinations)
@@ -45,6 +48,19 @@ export const TITLE_CLASSES = `${DESIGN_TOKENS.HEADING_SIZE} font-bold text-cente
 export const BODY_TEXT_CLASSES = `${DESIGN_TOKENS.BODY_SIZE} ${DESIGN_TOKENS.TEXT_BODY} prose prose-lg max-w-none [&_ul]:list-disc [&_ul]:pl-6 [&_ol]:list-decimal [&_ol]:pl-6`
 
 export const APP_SHELL_CONTAINER_CLASSES = `min-h-screen ${DESIGN_TOKENS.MUTED_BG} flex flex-col items-center justify-start ${DESIGN_TOKENS.SECTION_PADDING_X} ${DESIGN_TOKENS.SECTION_PADDING_Y}`
+
+// Background System
+export const BACKGROUND_IMAGE_CLASSES = 'fixed inset-0 w-full h-full bg-cover bg-center bg-no-repeat z-0'
+export const BACKGROUND_OVERLAY_CLASSES = 'fixed inset-0 w-full h-full z-10'
+export const CONTENT_LAYER_CLASSES = 'relative z-20 w-full'
+
+// Homepage Full-Screen Layout
+export const HOMEPAGE_CONTAINER_CLASSES = 'w-full'
+export const HOMEPAGE_SECTION_CLASSES = 'min-h-screen flex flex-col justify-center items-center px-4 py-8'
+export const HOMEPAGE_HERO_SECTION_CLASSES = `${HOMEPAGE_SECTION_CLASSES} text-center`
+export const HOMEPAGE_CONTENT_SECTION_CLASSES = `${HOMEPAGE_SECTION_CLASSES} bg-white bg-opacity-95`
+export const HOMEPAGE_TITLE_CLASSES = 'text-5xl md:text-7xl font-bold text-white drop-shadow-2xl mb-8'
+export const HOMEPAGE_SCROLL_INDICATOR_CLASSES = 'absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white animate-bounce'
 
 // Button Components (these have real state logic)
 export const NAVBAR_BUTTON_BASE_CLASSES = `${DESIGN_TOKENS.BUTTON_PADDING} ${DESIGN_TOKENS.BUTTON_WIDTH} ${DESIGN_TOKENS.BORDER_RADIUS} font-medium transition-colors cursor-pointer focus:outline-none focus:ring-0 focus:border-none active:outline-none active:ring-0 active:border-none`
