@@ -83,20 +83,49 @@ Location: `src/constants/styles.ts`
 
 - **DESIGN_TOKENS**: Atomic design values
 - **Component Classes**: Pre-composed class combinations
+- **Background System**: Global background image and overlay classes
+- **Homepage Layout**: Full-screen section classes with scroll-snap
 - **Consistent Styling**: Use tokens, not hardcoded values
 
 ```tsx
 // Good pattern
 className={`${DESIGN_TOKENS.SURFACE_BG} ${DESIGN_TOKENS.BORDER_RADIUS}`}
 
+// Background system pattern
+className={`${BACKGROUND_IMAGE_CLASSES} ${DESIGN_TOKENS.BACKGROUND_OVERLAY_DARK}`}
+
+// Homepage layout pattern
+className={`${HOMEPAGE_HERO_SECTION_CLASSES} homepage-scroll-section`}
+
 // Avoid
 className="bg-white rounded-lg"
+```
+
+### 4. Background Image Architecture
+Location: `src/components/appShell/AppShell.tsx`
+
+- **Global Background**: Single background image for all pages
+- **Conditional Overlay**: Dark filter applied on non-homepage pages
+- **Layered Design**: Fixed positioning with proper z-index stacking
+- **Responsive**: Background covers full viewport with proper sizing
+
+```tsx
+// Background implementation pattern
+{backgroundImage && (
+  <div 
+    className={BACKGROUND_IMAGE_CLASSES}
+    style={{ backgroundImage: `url(${backgroundImage})` }}
+  />
+)}
+{shouldShowOverlay && (
+  <div className={`${BACKGROUND_OVERLAY_CLASSES} ${DESIGN_TOKENS.BACKGROUND_OVERLAY_DARK}`} />
+)}
 ```
 
 ## Content Management
 
 ### Content Types
-- **HomePage**: Landing page content
+- **HomePage**: Landing page content with background image and full-screen layout
 - **News**: News listing page with filters/settings
 - **NewsItemPage**: Individual news articles
 
@@ -104,7 +133,8 @@ className="bg-white rounded-lg"
 1. **Fetch**: Services call Umbraco Delivery API
 2. **Transform**: Map Umbraco response to typed models
 3. **Hook**: Custom hooks provide loading states
-4. **Render**: Containers use hooks, render components
+4. **Background**: HomePage data provides background image for AppShell
+5. **Render**: Containers use hooks, render components
 
 ## API Patterns
 
@@ -235,6 +265,21 @@ VITE_API_URL=your-umbraco-url
 - Added `fetchContentByIdOrPath` for individual items
 - Proper error handling and loading states
 
+### Background Image System (Latest)
+- Global background image support in AppShell
+- Conditional overlay system (dark filter on non-homepage pages)
+- Z-index layering: background (z-0), overlay (z-10), content (z-20)
+- Background image configurable via HomePage model
+- Fallback blue background for reliability
+
+### Full-Screen Homepage Layout (Latest)
+- Hero section with full-viewport height and centered title
+- Separate content section with scroll-snap behavior
+- CSS scroll-snap for smooth section transitions
+- Responsive typography (text-5xl to text-7xl)
+- Animated scroll indicator with arrow
+- Homepage-specific container classes bypass standard padding
+
 ---
 
 ## Quick Reference Cheat Sheet
@@ -243,14 +288,16 @@ VITE_API_URL=your-umbraco-url
 ```typescript
 import type { NewsItemPage } from '../model/NewsItemPage'
 import { GridCardComponent, GridItem } from '../../components/grid'
-import { DESIGN_TOKENS, CARD_CLASSES } from '../../constants/styles'
+import { DESIGN_TOKENS, CARD_CLASSES, BACKGROUND_IMAGE_CLASSES } from '../../constants/styles'
 import { useNavigate } from 'react-router-dom'
+import { useHomePage } from '../hooks/PageLoadHooks'
 ```
 
 ### Most Used Patterns
 ```typescript
 // Data fetching hook
 const { content, loading, error } = useNewsPage()
+const { content: homePage } = useHomePage() // For background image
 
 // Grid rendering
 <GridCardComponent
@@ -259,6 +306,14 @@ const { content, loading, error } = useNewsPage()
   renderItem={(item) => <Component item={item} />}
   getItemKey={(item) => item.id}
 />
+
+// Background image in AppShell
+<AppShell backgroundImage={homePage.backgroundImage} />
+
+// Full-screen homepage sections
+<section className={`${HOMEPAGE_HERO_SECTION_CLASSES} homepage-scroll-section`}>
+  <h1 className={HOMEPAGE_TITLE_CLASSES}>{title}</h1>
+</section>
 
 // Navigation
 const navigate = useNavigate()
@@ -271,8 +326,62 @@ navigate(ROUTES.NEWS_ITEM.replace(':itemPage', slug))
 - [ ] Error handling implemented
 - [ ] Loading states handled
 - [ ] Design tokens used for styling
+- [ ] Background image considerations (if layout component)
+- [ ] Responsive design implemented
+- [ ] Scroll behavior considered (for homepage)
 - [ ] Exports added to index.ts (if applicable)
 - [ ] Tests considered (future improvement)
+
+---
+
+## Architecture Patterns Reference
+
+### Background Image System
+```typescript
+// 1. Add to HomePage model
+interface HomePage {
+  backgroundImage?: string
+}
+
+// 2. Update Umbraco properties
+interface IHomePageProperties {
+  backgroundImage?: string
+}
+
+// 3. Fetch in service
+return {
+  backgroundImage: content.properties.backgroundImage || fallbackUrl
+}
+
+// 4. Pass to AppShell
+<AppShell backgroundImage={homePage.backgroundImage} />
+
+// 5. Implement in AppShell
+{backgroundImage && (
+  <div className={BACKGROUND_IMAGE_CLASSES} style={{ backgroundImage: `url(${backgroundImage})` }} />
+)}
+```
+
+### Full-Screen Layout Pattern
+```css
+/* CSS for smooth scrolling */
+.homepage-scroll-container {
+  scroll-snap-type: y mandatory;
+  height: 100vh;
+}
+.homepage-scroll-section {
+  scroll-snap-align: start;
+  min-height: 100vh;
+}
+```
+
+```tsx
+// Full-screen section component
+<section className={`${HOMEPAGE_HERO_SECTION_CLASSES} homepage-scroll-section`}>
+  <h1 className={HOMEPAGE_TITLE_CLASSES}>{title}</h1>
+  <div className={HOMEPAGE_SCROLL_INDICATOR_CLASSES}>↓</div>
+</section>
+```
 
 ---
 
