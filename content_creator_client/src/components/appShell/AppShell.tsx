@@ -26,10 +26,10 @@ const AppShell: React.FC<AppShellProps> = ({
 }) => {
   const navigate = useNavigate()
   const location = useLocation()
-
   const handleNavigation = (path: string) => {
     navigate(path)
   }
+  
   const isHomePage = location.pathname === ROUTES.HOME
 
   // TODO for navigation buttons:
@@ -58,21 +58,24 @@ const AppShell: React.FC<AppShellProps> = ({
           style={{ backgroundImage: `url(${backgroundImage})` }}
         />
       )}
+      
+      {/* Fixed Navigation Layer */}
+      <NavBar>
+        <NavBarButton
+          isHomePageButton
+          isSelected={location.pathname === ROUTES.HOME}
+          onClick={() => handleNavigation(ROUTES.HOME)}
+        />
+        <NavBarButton
+          isSelected={location.pathname === ROUTES.NEWS}
+          onClick={() => handleNavigation(ROUTES.NEWS)}
+        >
+          Nyheder
+        </NavBarButton>
+      </NavBar>
+
       {/* Content Layer */}
       <div className={CONTENT_LAYER_CLASSES}>
-        <NavBar>
-          <NavBarButton
-            isHomePageButton
-            isSelected={location.pathname === ROUTES.HOME}
-            onClick={() => handleNavigation(ROUTES.HOME)}
-          />
-          <NavBarButton
-            isSelected={location.pathname === ROUTES.NEWS}
-            onClick={() => handleNavigation(ROUTES.NEWS)}
-          >
-            Nyheder
-          </NavBarButton>
-        </NavBar>{' '}
         <div
           className={
             isHomePage

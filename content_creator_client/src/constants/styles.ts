@@ -54,7 +54,7 @@ export const APP_SHELL_CONTAINER_CLASSES = `min-h-screen flex flex-col items-cen
 
 // Dynamic container classes - use these instead of the static ones above
 export const getAppShellContainerClasses = (hasBackgroundImage: boolean) => 
-  `min-h-screen ${hasBackgroundImage ? '' : DESIGN_TOKENS.MUTED_BG} flex flex-col items-center justify-start ${DESIGN_TOKENS.SECTION_PADDING_X} ${DESIGN_TOKENS.SECTION_PADDING_Y}`
+  `min-h-screen ${hasBackgroundImage ? '' : DESIGN_TOKENS.MUTED_BG} flex flex-col items-center justify-start ${DESIGN_TOKENS.SECTION_PADDING_X} ${DESIGN_TOKENS.SECTION_PADDING_Y} pt-30`
 
 // Background System
 export const BACKGROUND_IMAGE_CLASSES = 'fixed inset-0 w-full h-full bg-cover bg-center bg-no-repeat z-0'
@@ -78,10 +78,10 @@ export const NAVBAR_BUTTON_BASE_CLASSES = `${DESIGN_TOKENS.BUTTON_PADDING} ${DES
 export const NAVBAR_BUTTON_SELECTED_CLASSES = `${DESIGN_TOKENS.PRIMARY_BG} ${DESIGN_TOKENS.TEXT_BUTTON_MUTED} hover:${DESIGN_TOKENS.PRIMARY_BG_HOVER}`
 export const NAVBAR_BUTTON_DEFAULT_CLASSES = `${DESIGN_TOKENS.SURFACE_BG} ${DESIGN_TOKENS.TEXT_BUTTON_DEFAULT} hover:${DESIGN_TOKENS.MUTED_BG_HOVER} hover:text-gray-900`
 
-// Navigation
-export const NAVBAR_CLASSES = `w-full ${DESIGN_TOKENS.MUTED_BG} py-4`
-export const NAVBAR_CONTAINER_CLASSES = `w-full ${DESIGN_TOKENS.CONTAINER_MAX_WIDTH} mx-auto`
-export const NAVBAR_FLEX_CLASSES = `flex gap-4`
+// Navigation - Fixed floating navbar with centered rounded design
+export const NAVBAR_CLASSES = `fixed top-4 left-1/2 transform -translate-x-1/2 w-1/2 min-w-fit ${DESIGN_TOKENS.MUTED_BG} ${DESIGN_TOKENS.BORDER_RADIUS} ${DESIGN_TOKENS.CARD_SHADOW} py-3 px-4 z-30`
+export const NAVBAR_CONTAINER_CLASSES = `w-full`
+export const NAVBAR_FLEX_CLASSES = `flex gap-4 justify-center`
 
 // State Messages
 export const LOADING_MESSAGE_CLASSES = `${DESIGN_TOKENS.BODY_SIZE} ${DESIGN_TOKENS.TEXT_MUTED}`
