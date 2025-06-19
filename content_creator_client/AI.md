@@ -21,7 +21,7 @@ This is a React + TypeScript + Vite application that serves as a client for an U
 src/
 ├── components/          # Reusable UI components
 │   ├── appShell/       # Application layout components
-│   ├── common/         # Generic shared components
+│   ├── common/         # Generic shared components (ScrollIndicatorComponent)
 │   ├── content/        # Content-specific components (cards, etc.)
 │   ├── grid/           # Grid layout components (NEW PATTERN)
 │   └── navigation/     # Navigation components
@@ -192,11 +192,12 @@ import { DESIGN_TOKENS } from '../constants/styles'
 6. Add route in `src/constants/routes.ts` and `src/Routes.tsx`
 
 ### Creating Reusable Components
-1. Place in appropriate folder (`common`, `grid`, etc.)
+1. Place in appropriate folder (`common`, `grid`, `content`, etc.)
 2. Use TypeScript interfaces for props
 3. Add JSDoc documentation
-4. Export from index.ts file
-5. Use design tokens for styling
+4. Include accessibility features (ARIA labels, keyboard support)
+5. Export from index.ts file (optional)
+6. Use design tokens for styling
 
 ### Grid Layouts
 - Use `GridCardComponent` for lists
@@ -280,7 +281,7 @@ VITE_API_URL=your-umbraco-url
 - Separate content section with scroll-snap behavior
 - CSS scroll-snap for smooth section transitions
 - Responsive typography (text-5xl to text-7xl)
-- Animated scroll indicator with arrow
+- **ScrollIndicatorComponent**: Reusable animated scroll indicator with accessibility support
 - Homepage-specific container classes bypass standard padding
 - **Clean Backdrop Blur**: Content section uses backdrop blur without dark overlay
 
@@ -318,6 +319,7 @@ VITE_API_URL=your-umbraco-url
 ```typescript
 import type { NewsItemPage } from '../model/NewsItemPage'
 import { GridCardComponent, GridItem } from '../../components/grid'
+import ScrollIndicatorComponent from '../../components/common/ScrollIndicatorComponent'
 import { DESIGN_TOKENS, CARD_CLASSES, HOMEPAGE_CARD_CLASSES, NEWS_PAGE_CARD_CLASSES, BACKGROUND_IMAGE_CLASSES, getAppShellContainerClasses } from '../../constants/styles'
 import { useNavigate } from 'react-router-dom'
 import { useHomePage } from '../hooks/PageLoadHooks'
@@ -350,6 +352,7 @@ className={`min-h-screen ${backgroundImage ? '' : 'bg-blue-200'} flex flex-col r
 // Full-screen homepage sections with backdrop blur
 <section className={`${HOMEPAGE_HERO_SECTION_CLASSES} homepage-scroll-section`}>
   <h1 className={HOMEPAGE_TITLE_CLASSES}>{title}</h1>
+  <ScrollIndicatorComponent />
 </section>
 
 <section className={`${HOMEPAGE_CONTENT_SECTION_CLASSES} homepage-scroll-section`}>
@@ -493,3 +496,35 @@ export const getAppShellContainerClasses = (hasBackgroundImage: boolean) =>
 ```
 
 **Prevention**: Always check z-index layers and background applications when implementing global background systems.
+
+---
+
+### New ScrollIndicatorComponent Usage (June 19, 2025)
+
+**Overview**: Introduced `ScrollIndicatorComponent` for animated scroll indication on the homepage.
+
+**Location**: `src/components/common/ScrollIndicatorComponent.tsx`
+
+**Usage**:
+```tsx
+import ScrollIndicatorComponent from '../../components/common/ScrollIndicatorComponent'
+
+// In component
+<ScrollIndicatorComponent />
+<ScrollIndicatorComponent className="custom-class" ariaLabel="Custom accessibility label" />
+```
+
+**Features**:
+- Reusable and customizable
+- Animated with Tailwind CSS
+- Accessible with ARIA labels and keyboard support
+
+**Integration**: Used in the homepage layout to indicate scrollable content.
+
+**Code Example**:
+```tsx
+<section className={`${HOMEPAGE_HERO_SECTION_CLASSES} homepage-scroll-section`}>
+  <h1 className={HOMEPAGE_TITLE_CLASSES}>{title}</h1>
+  <ScrollIndicatorComponent />
+</section>
+```
