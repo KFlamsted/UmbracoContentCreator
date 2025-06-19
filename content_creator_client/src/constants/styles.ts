@@ -71,9 +71,7 @@ export const NEWS_PAGE_CONTAINER_CLASSES = `min-h-screen flex flex-col items-cen
 
 // Button Components (these have real state logic)
 export const NAVBAR_BUTTON_BASE_CLASSES = `${DESIGN_TOKENS.BUTTON_PADDING} ${DESIGN_TOKENS.BUTTON_WIDTH} ${DESIGN_TOKENS.BORDER_RADIUS} font-medium transition-colors cursor-pointer focus:outline-none focus:ring-0 focus:border-none active:outline-none active:ring-0 active:border-none`
-
 export const NAVBAR_BUTTON_SELECTED_CLASSES = `${DESIGN_TOKENS.PRIMARY_BG} ${DESIGN_TOKENS.TEXT_BUTTON_MUTED} hover:${DESIGN_TOKENS.PRIMARY_BG_HOVER}`
-
 export const NAVBAR_BUTTON_DEFAULT_CLASSES = `${DESIGN_TOKENS.SURFACE_BG} ${DESIGN_TOKENS.TEXT_BUTTON_DEFAULT} hover:${DESIGN_TOKENS.MUTED_BG_HOVER} hover:text-gray-900`
 
 // Navigation
