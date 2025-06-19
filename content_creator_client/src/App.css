@@ -1,0 +1,22 @@
+/* Homepage Scroll Behavior */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Homepage scroll-snap container */
+.homepage-scroll-container {
+  scroll-snap-type: y mandatory;
+  overflow-y: scroll;
+  height: 100vh;
+}
+
+/* Homepage scroll-snap sections */
+.homepage-scroll-section {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
+/* Smooth scrolling for all elements */
+* {
+  scroll-behavior: smooth;
+}

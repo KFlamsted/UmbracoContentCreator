@@ -14,4 +14,8 @@ export interface HomePage {
    * The main title of the page
    */
   pageTitle?: string;
+  /**
+   * Background image URL for the homepage hero
+   */
+  backgroundImage?: string;
 }

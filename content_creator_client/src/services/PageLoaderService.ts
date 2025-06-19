@@ -21,6 +21,7 @@ export const fetchHomePage = async (): Promise<HomePage> => {
     pageTitle: homepageContent.properties.pageTitle,
     bodyText: homepageContent.properties.bodyText?.markup,
     footerText: homepageContent.properties.footerText,
+    backgroundImage: homepageContent.properties.backgroundImage || 'https://images.unsplash.com/photo-1519904981063-b0cf448d479e?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80', // Temporary fallback for demo
   }
 }
 
