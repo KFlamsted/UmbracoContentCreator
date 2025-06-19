@@ -265,29 +265,39 @@ VITE_API_URL=your-umbraco-url
 - Added `fetchContentByIdOrPath` for individual items
 - Proper error handling and loading states
 
-### Background Image System (Latest)
+### Background Image System (Updated - June 19, 2025)
 - Global background image support in AppShell
-- Conditional overlay system (dark filter on non-homepage pages)
-- Z-index layering: background (z-0), overlay (z-10), content (z-20)
+- **No Dark Overlay**: Removed conditional dark overlay system for cleaner design
+- Z-index layering: background (z-0), content (z-20) - simplified layer structure
 - Background image configurable via HomePage model
 - Fallback blue background for reliability
-- **Scroll-based blur effects**: Background image stays visible with blur and dark filter when scrolling
+- **Universal Backdrop Blur**: Background image stays visible with backdrop blur across all pages
 
-### Full-Screen Homepage Layout (Latest)
+### Full-Screen Homepage Layout (Updated - June 19, 2025)
 - Hero section with full-viewport height and centered title
 - Separate content section with scroll-snap behavior
 - CSS scroll-snap for smooth section transitions
 - Responsive typography (text-5xl to text-7xl)
 - Animated scroll indicator with arrow
 - Homepage-specific container classes bypass standard padding
-- **Enhanced content section**: Backdrop blur and dark overlay for better readability over background
+- **Clean Backdrop Blur**: Content section uses backdrop blur without dark overlay
 
-### Background Image Blur Effects (Latest - June 19, 2025)
-- **Persistent Background**: Background image now stays visible during scrolling
-- **Blur & Overlay**: Content sections use `backdrop-filter: blur(8px)` and dark overlay
-- **Enhanced Cards**: New `HOMEPAGE_CARD_CLASSES` with backdrop blur for better readability
-- **Scroll Integration**: CSS classes in `index.css` handle scroll-based visual effects
-- **Component Props**: `BodyTextCard` now accepts `isHomePage` prop for conditional styling
+### Backdrop Blur System (Latest - June 19, 2025)
+- **Universal Application**: Backdrop blur applied to homepage, news pages, and news item pages
+- **Component-Level Support**: All content cards (`BodyTextCard`, `PageTitleCard`, `MainImageCard`) support conditional backdrop blur
+- **CSS Implementation**: Uses `backdrop-filter: blur(8px)` with `-webkit-backdrop-filter` fallback
+- **Conditional Props**: Components accept `isHomePage` and `isNewsPage` props for appropriate styling
+- **Card Classes**: Multiple backdrop blur card classes (`HOMEPAGE_CARD_CLASSES`, `NEWS_PAGE_CARD_CLASSES`)
+- **Container Classes**: `NEWS_PAGE_CONTAINER_CLASSES` applies backdrop blur to entire page sections
+- **Performance**: CSS-only solution with minimal overhead and modern browser support
+
+### Background Image Blur Effects (Updated - June 19, 2025)
+- **Persistent Background**: Background image stays visible across all pages during scrolling
+- **Pure Backdrop Blur**: Content sections use `backdrop-filter: blur(8px)` without dark overlay
+- **Enhanced Card System**: Multiple card classes with backdrop blur (`HOMEPAGE_CARD_CLASSES`, `NEWS_PAGE_CARD_CLASSES`)
+- **Component Integration**: All content components support `isHomePage`/`isNewsPage` props for conditional styling
+- **Cross-browser Support**: Includes `-webkit-backdrop-filter` for Safari compatibility
+- **Visual Continuity**: Same backdrop blur treatment across homepage content section and all news pages
 
 ---
 
@@ -297,7 +307,7 @@ VITE_API_URL=your-umbraco-url
 ```typescript
 import type { NewsItemPage } from '../model/NewsItemPage'
 import { GridCardComponent, GridItem } from '../../components/grid'
-import { DESIGN_TOKENS, CARD_CLASSES, HOMEPAGE_CARD_CLASSES, BACKGROUND_IMAGE_CLASSES } from '../../constants/styles'
+import { DESIGN_TOKENS, CARD_CLASSES, HOMEPAGE_CARD_CLASSES, NEWS_PAGE_CARD_CLASSES, BACKGROUND_IMAGE_CLASSES } from '../../constants/styles'
 import { useNavigate } from 'react-router-dom'
 import { useHomePage } from '../hooks/PageLoadHooks'
 ```
@@ -316,10 +326,10 @@ const { content: homePage } = useHomePage() // For background image
   getItemKey={(item) => item.id}
 />
 
-// Background image in AppShell
+// Background image in AppShell (no overlay)
 <AppShell backgroundImage={homePage.backgroundImage} />
 
-// Full-screen homepage sections with blur effects
+// Full-screen homepage sections with backdrop blur
 <section className={`${HOMEPAGE_HERO_SECTION_CLASSES} homepage-scroll-section`}>
   <h1 className={HOMEPAGE_TITLE_CLASSES}>{title}</h1>
 </section>
@@ -327,6 +337,13 @@ const { content: homePage } = useHomePage() // For background image
 <section className={`${HOMEPAGE_CONTENT_SECTION_CLASSES} homepage-scroll-section`}>
   <BodyTextCard bodyText={content.bodyText} isHomePage={true} />
 </section>
+
+// News pages with backdrop blur container and conditional props
+<div className={NEWS_PAGE_CONTAINER_CLASSES}>
+  <PageTitleCard title={content.title} isNewsPage={true} />
+  <MainImageCard mainImage={content.mainImage} alt={content.title} isNewsPage={true} />
+  <BodyTextCard bodyText={content.bodyText} isNewsPage={true} />
+</div>
 
 // Navigation
 const navigate = useNavigate()
@@ -388,9 +405,14 @@ return {
   min-height: 100vh;
 }
 
-/* Background blur effects for scrolled content */
+/* Backdrop blur effects (no dark overlay) */
 .homepage-content-overlay {
-  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+/* News page backdrop blur */
+.news-page-backdrop {
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
 }
@@ -403,10 +425,16 @@ return {
   <div className={HOMEPAGE_SCROLL_INDICATOR_CLASSES}>↓</div>
 </section>
 
-// Content section with backdrop blur
+// Content section with backdrop blur (no dark overlay)
 <section className={`${HOMEPAGE_CONTENT_SECTION_CLASSES} homepage-scroll-section`}>
   <BodyTextCard bodyText={content.bodyText} isHomePage={true} />
 </section>
+
+// News page with backdrop blur container
+<div className={NEWS_PAGE_CONTAINER_CLASSES}>
+  <PageTitleCard title={content.title} isNewsPage={true} />
+  <BodyTextCard bodyText={content.bodyText} isNewsPage={true} />
+</div>
 ```
 
 ---

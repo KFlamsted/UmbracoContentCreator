@@ -4,6 +4,7 @@ import PageTitleCard from '../../components/content/PageTitleCard'
 import BodyTextCard from '../../components/content/BodyTextCard'
 import MainImageCard from '../../components/content/MainImageCard'
 import MinimizedNewsItemPageListContainer from '../newsItemPage/MinimizedNewsItemPageListContainer'
+import { NEWS_PAGE_CONTAINER_CLASSES } from '../../constants/styles'
 
 interface NewsPageContainerProps {
   onStateChange?: (loading: boolean, error: string | null) => void
@@ -23,22 +24,21 @@ const NewsPageContainer: React.FC<NewsPageContainerProps> = ({
   useEffect(() => {
     onStateChange?.(loading || newsItemsLoading, error || newsItemsError)
   }, [loading, newsItemsLoading, error, newsItemsError, onStateChange])
-
   useEffect(() => {
     if (newsItems.length > 0) {
       console.log('Fetched NewsPageItems:', newsItems)
-    }
-  }, [newsItems])
+    }  }, [newsItems])
+  
   return (
-    <>
-      <PageTitleCard title={content.title} />
-      <MainImageCard mainImage={content.mainImage} alt={content.title} />
-      <BodyTextCard bodyText={content.description?.markup} />
+    <div className={NEWS_PAGE_CONTAINER_CLASSES}>
+      <PageTitleCard title={content.title} isNewsPage={true} />
+      <MainImageCard mainImage={content.mainImage} alt={content.title} isNewsPage={true} />
+      <BodyTextCard bodyText={content.description?.markup} isNewsPage={true} />
       <MinimizedNewsItemPageListContainer 
         newsItems={newsItems}
         maxItems={content.newsPerPage ?? 9}
       />
-    </>
+    </div>
   )
 }
 

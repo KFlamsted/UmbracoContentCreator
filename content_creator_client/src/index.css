@@ -116,7 +116,12 @@ html, body {
 
 /* Enhanced background overlay for scrolled content */
 .homepage-content-overlay {
-  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+/* Backdrop blur for news pages (no dark overlay) */
+.news-page-backdrop {
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
 }
