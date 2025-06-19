@@ -95,3 +95,28 @@ html, body {
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
 }
+
+/* Homepage scroll effects */
+.homepage-scroll-container {
+  scroll-snap-type: y mandatory;
+  height: 100vh;
+  overflow-y: scroll;
+}
+
+.homepage-scroll-section {
+  scroll-snap-align: start;
+  min-height: 100vh;
+}
+
+/* Background blur effect for content sections */
+.homepage-background-blur {
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+/* Enhanced background overlay for scrolled content */
+.homepage-content-overlay {
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}

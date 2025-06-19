@@ -43,12 +43,10 @@ const HomePageContainer: React.FC<HomePageContainerProps> = ({ onStateChange }) 
             />
           </svg>
         </div>
-      </section>
-
-      {/* Content Section - Full Screen */}
+      </section>      {/* Content Section - Full Screen */}
       <section className={`${HOMEPAGE_CONTENT_SECTION_CLASSES} homepage-scroll-section`}>
         <div className="w-full max-w-4xl">
-          <BodyTextCard bodyText={content.bodyText} />
+          <BodyTextCard bodyText={content.bodyText} isHomePage={true} />
         </div>
       </section>
     </div>

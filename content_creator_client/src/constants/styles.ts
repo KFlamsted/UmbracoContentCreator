@@ -41,6 +41,8 @@ export const DESIGN_TOKENS = {
 // Semantic Component Classes (meaningful combinations)
 export const CARD_CLASSES = `w-full ${DESIGN_TOKENS.CONTAINER_MAX_WIDTH} ${DESIGN_TOKENS.SURFACE_BG} ${DESIGN_TOKENS.BORDER_RADIUS} ${DESIGN_TOKENS.CARD_SHADOW} ${DESIGN_TOKENS.CARD_PADDING} mb-2`
 
+export const HOMEPAGE_CARD_CLASSES = `w-full ${DESIGN_TOKENS.CONTAINER_MAX_WIDTH} bg-white bg-opacity-95 ${DESIGN_TOKENS.BORDER_RADIUS} ${DESIGN_TOKENS.CARD_SHADOW} ${DESIGN_TOKENS.CARD_PADDING} mb-2 backdrop-blur-sm`
+
 export const TITLE_CARD_CLASSES = `${CARD_CLASSES} mb-6`
 
 export const TITLE_CLASSES = `${DESIGN_TOKENS.HEADING_SIZE} font-bold text-center ${DESIGN_TOKENS.TEXT_HEADING}`
@@ -58,7 +60,7 @@ export const CONTENT_LAYER_CLASSES = 'relative z-20 w-full'
 export const HOMEPAGE_CONTAINER_CLASSES = 'w-full'
 export const HOMEPAGE_SECTION_CLASSES = 'min-h-screen flex flex-col justify-center items-center px-4 py-8'
 export const HOMEPAGE_HERO_SECTION_CLASSES = `${HOMEPAGE_SECTION_CLASSES} text-center`
-export const HOMEPAGE_CONTENT_SECTION_CLASSES = `${HOMEPAGE_SECTION_CLASSES} bg-white bg-opacity-95`
+export const HOMEPAGE_CONTENT_SECTION_CLASSES = `${HOMEPAGE_SECTION_CLASSES} homepage-content-overlay`
 export const HOMEPAGE_TITLE_CLASSES = 'text-5xl md:text-7xl font-bold text-white drop-shadow-2xl mb-8'
 export const HOMEPAGE_SCROLL_INDICATOR_CLASSES = 'absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white animate-bounce'
 

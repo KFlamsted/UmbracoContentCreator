@@ -271,6 +271,7 @@ VITE_API_URL=your-umbraco-url
 - Z-index layering: background (z-0), overlay (z-10), content (z-20)
 - Background image configurable via HomePage model
 - Fallback blue background for reliability
+- **Scroll-based blur effects**: Background image stays visible with blur and dark filter when scrolling
 
 ### Full-Screen Homepage Layout (Latest)
 - Hero section with full-viewport height and centered title
@@ -279,6 +280,14 @@ VITE_API_URL=your-umbraco-url
 - Responsive typography (text-5xl to text-7xl)
 - Animated scroll indicator with arrow
 - Homepage-specific container classes bypass standard padding
+- **Enhanced content section**: Backdrop blur and dark overlay for better readability over background
+
+### Background Image Blur Effects (Latest - June 19, 2025)
+- **Persistent Background**: Background image now stays visible during scrolling
+- **Blur & Overlay**: Content sections use `backdrop-filter: blur(8px)` and dark overlay
+- **Enhanced Cards**: New `HOMEPAGE_CARD_CLASSES` with backdrop blur for better readability
+- **Scroll Integration**: CSS classes in `index.css` handle scroll-based visual effects
+- **Component Props**: `BodyTextCard` now accepts `isHomePage` prop for conditional styling
 
 ---
 
@@ -310,9 +319,13 @@ const { content: homePage } = useHomePage() // For background image
 // Background image in AppShell
 <AppShell backgroundImage={homePage.backgroundImage} />
 
-// Full-screen homepage sections
+// Full-screen homepage sections with blur effects
 <section className={`${HOMEPAGE_HERO_SECTION_CLASSES} homepage-scroll-section`}>
   <h1 className={HOMEPAGE_TITLE_CLASSES}>{title}</h1>
+</section>
+
+<section className={`${HOMEPAGE_CONTENT_SECTION_CLASSES} homepage-scroll-section`}>
+  <BodyTextCard bodyText={content.bodyText} isHomePage={true} />
 </section>
 
 // Navigation
@@ -368,10 +381,18 @@ return {
 .homepage-scroll-container {
   scroll-snap-type: y mandatory;
   height: 100vh;
+  overflow-y: scroll;
 }
 .homepage-scroll-section {
   scroll-snap-align: start;
   min-height: 100vh;
+}
+
+/* Background blur effects for scrolled content */
+.homepage-content-overlay {
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 ```
 
@@ -380,6 +401,11 @@ return {
 <section className={`${HOMEPAGE_HERO_SECTION_CLASSES} homepage-scroll-section`}>
   <h1 className={HOMEPAGE_TITLE_CLASSES}>{title}</h1>
   <div className={HOMEPAGE_SCROLL_INDICATOR_CLASSES}>↓</div>
+</section>
+
+// Content section with backdrop blur
+<section className={`${HOMEPAGE_CONTENT_SECTION_CLASSES} homepage-scroll-section`}>
+  <BodyTextCard bodyText={content.bodyText} isHomePage={true} />
 </section>
 ```
 
