@@ -297,7 +297,7 @@ VITE_API_URL=your-umbraco-url
 ```typescript
 import type { NewsItemPage } from '../model/NewsItemPage'
 import { GridCardComponent, GridItem } from '../../components/grid'
-import { DESIGN_TOKENS, CARD_CLASSES, BACKGROUND_IMAGE_CLASSES } from '../../constants/styles'
+import { DESIGN_TOKENS, CARD_CLASSES, HOMEPAGE_CARD_CLASSES, BACKGROUND_IMAGE_CLASSES } from '../../constants/styles'
 import { useNavigate } from 'react-router-dom'
 import { useHomePage } from '../hooks/PageLoadHooks'
 ```
@@ -411,5 +411,5 @@ return {
 
 ---
 
-*Last Updated: June 17, 2025*
+*Last Updated: June 19, 2025*
 *This document should be updated as the project evolves*
