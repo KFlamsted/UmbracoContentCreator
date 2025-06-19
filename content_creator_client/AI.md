@@ -270,8 +270,10 @@ VITE_API_URL=your-umbraco-url
 - **No Dark Overlay**: Removed conditional dark overlay system for cleaner design
 - Z-index layering: background (z-0), content (z-20) - simplified layer structure
 - Background image configurable via HomePage model
-- Fallback blue background for reliability
+- **Fallback System**: Blue background (`bg-blue-200`) only shows when no background image is available
 - **Universal Backdrop Blur**: Background image stays visible with backdrop blur across all pages
+- **Fixed Container Issue**: Created `getAppShellContainerClasses()` to prevent blue background from covering background image
+- **Cross-Page Consistency**: Background image now displays correctly on both HomePage and NewsPage
 
 ### Full-Screen Homepage Layout (Updated - June 19, 2025)
 - Hero section with full-viewport height and centered title
@@ -291,6 +293,15 @@ VITE_API_URL=your-umbraco-url
 - **Container Classes**: `NEWS_PAGE_CONTAINER_CLASSES` applies backdrop blur to entire page sections
 - **Performance**: CSS-only solution with minimal overhead and modern browser support
 
+### Background Fallback System (Latest - June 19, 2025)
+- **Conditional Background**: Blue background (`bg-blue-200`) only applied when no background image is available
+- **Smart Implementation**: `getAppShellContainerClasses(!!backgroundImage)` ensures no conflicts between blue background and background image
+- **Dynamic Container Classes**: Replaced static `APP_SHELL_CONTAINER_CLASSES` with conditional function to prevent background image being covered
+- **Graceful Degradation**: Users always see a proper background (image or blue fallback)
+- **No Overlap**: Prevents blue background from covering background image
+- **Reliability**: Ensures visual consistency even when images fail to load
+- **Cross-Page Fix**: Background image now works consistently on HomePage, NewsPage, and NewsItemPage
+
 ### Background Image Blur Effects (Updated - June 19, 2025)
 - **Persistent Background**: Background image stays visible across all pages during scrolling
 - **Pure Backdrop Blur**: Content sections use `backdrop-filter: blur(8px)` without dark overlay
@@ -307,7 +318,7 @@ VITE_API_URL=your-umbraco-url
 ```typescript
 import type { NewsItemPage } from '../model/NewsItemPage'
 import { GridCardComponent, GridItem } from '../../components/grid'
-import { DESIGN_TOKENS, CARD_CLASSES, HOMEPAGE_CARD_CLASSES, NEWS_PAGE_CARD_CLASSES, BACKGROUND_IMAGE_CLASSES } from '../../constants/styles'
+import { DESIGN_TOKENS, CARD_CLASSES, HOMEPAGE_CARD_CLASSES, NEWS_PAGE_CARD_CLASSES, BACKGROUND_IMAGE_CLASSES, getAppShellContainerClasses } from '../../constants/styles'
 import { useNavigate } from 'react-router-dom'
 import { useHomePage } from '../hooks/PageLoadHooks'
 ```
@@ -317,6 +328,13 @@ import { useHomePage } from '../hooks/PageLoadHooks'
 // Data fetching hook
 const { content, loading, error } = useNewsPage()
 const { content: homePage } = useHomePage() // For background image
+
+// Dynamic container classes (background image aware)
+className={getAppShellContainerClasses(!!backgroundImage)}
+
+// Background image conditional styling
+className={`min-h-screen ${backgroundImage ? '' : 'bg-blue-200'} flex flex-col relative`}
+```
 
 // Grid rendering
 <GridCardComponent
@@ -386,10 +404,12 @@ return {
 // 4. Pass to AppShell
 <AppShell backgroundImage={homePage.backgroundImage} />
 
-// 5. Implement in AppShell
-{backgroundImage && (
-  <div className={BACKGROUND_IMAGE_CLASSES} style={{ backgroundImage: `url(${backgroundImage})` }} />
-)}
+// 5. Implement in AppShell with conditional fallback
+<div className={`min-h-screen ${backgroundImage ? '' : 'bg-blue-200'} flex flex-col relative`}>
+  {backgroundImage && (
+    <div className={BACKGROUND_IMAGE_CLASSES} style={{ backgroundImage: `url(${backgroundImage})` }} />
+  )}
+</div>
 ```
 
 ### Full-Screen Layout Pattern
@@ -441,3 +461,35 @@ return {
 
 *Last Updated: June 19, 2025*
 *This document should be updated as the project evolves*
+
+---
+
+## Troubleshooting Guide
+
+### Background Image Not Showing on Non-HomePage (Fixed - June 19, 2025)
+
+**Problem**: Background image displays correctly on HomePage but not on NewsPage or other pages.
+
+**Root Cause**: The `APP_SHELL_CONTAINER_CLASSES` included `bg-blue-200` which was being applied over the background image layer, effectively hiding it behind a blue background.
+
+**Symptoms**:
+- Background image loads correctly (visible in console logs)
+- Background image passed to AppShell correctly
+- Blue background appears instead of background image on non-HomePage routes
+
+**Solution**: 
+1. **Created Dynamic Container Classes**: Replaced static `APP_SHELL_CONTAINER_CLASSES` with `getAppShellContainerClasses(hasBackgroundImage: boolean)`
+2. **Conditional Background Application**: Function only applies blue background when no background image exists
+3. **Updated AppShell Usage**: `getAppShellContainerClasses(!!backgroundImage)` ensures proper conditional styling
+
+**Code Changes**:
+```typescript
+// Before (problematic)
+export const APP_SHELL_CONTAINER_CLASSES = `min-h-screen ${DESIGN_TOKENS.MUTED_BG} flex flex-col items-center justify-start ${DESIGN_TOKENS.SECTION_PADDING_X} ${DESIGN_TOKENS.SECTION_PADDING_Y}`
+
+// After (fixed)
+export const getAppShellContainerClasses = (hasBackgroundImage: boolean) => 
+  `min-h-screen ${hasBackgroundImage ? '' : DESIGN_TOKENS.MUTED_BG} flex flex-col items-center justify-start ${DESIGN_TOKENS.SECTION_PADDING_X} ${DESIGN_TOKENS.SECTION_PADDING_Y}`
+```
+
+**Prevention**: Always check z-index layers and background applications when implementing global background systems.

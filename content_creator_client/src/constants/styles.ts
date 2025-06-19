@@ -51,7 +51,11 @@ export const TITLE_CLASSES = `${DESIGN_TOKENS.HEADING_SIZE} font-bold text-cente
 
 export const BODY_TEXT_CLASSES = `${DESIGN_TOKENS.BODY_SIZE} ${DESIGN_TOKENS.TEXT_BODY} prose prose-lg max-w-none [&_ul]:list-disc [&_ul]:pl-6 [&_ol]:list-decimal [&_ol]:pl-6`
 
-export const APP_SHELL_CONTAINER_CLASSES = `min-h-screen ${DESIGN_TOKENS.MUTED_BG} flex flex-col items-center justify-start ${DESIGN_TOKENS.SECTION_PADDING_X} ${DESIGN_TOKENS.SECTION_PADDING_Y}`
+export const APP_SHELL_CONTAINER_CLASSES = `min-h-screen flex flex-col items-center justify-start ${DESIGN_TOKENS.SECTION_PADDING_X} ${DESIGN_TOKENS.SECTION_PADDING_Y}`
+
+// Dynamic container classes - use these instead of the static ones above
+export const getAppShellContainerClasses = (hasBackgroundImage: boolean) => 
+  `min-h-screen ${hasBackgroundImage ? '' : DESIGN_TOKENS.MUTED_BG} flex flex-col items-center justify-start ${DESIGN_TOKENS.SECTION_PADDING_X} ${DESIGN_TOKENS.SECTION_PADDING_Y}`
 
 // Background System
 export const BACKGROUND_IMAGE_CLASSES = 'fixed inset-0 w-full h-full bg-cover bg-center bg-no-repeat z-0'
@@ -67,7 +71,7 @@ export const HOMEPAGE_TITLE_CLASSES = 'text-5xl md:text-7xl font-bold text-white
 export const HOMEPAGE_SCROLL_INDICATOR_CLASSES = 'absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white animate-bounce'
 
 // News Page Layout
-export const NEWS_PAGE_CONTAINER_CLASSES = `min-h-screen flex flex-col items-center justify-start ${DESIGN_TOKENS.SECTION_PADDING_X} ${DESIGN_TOKENS.SECTION_PADDING_Y} news-page-backdrop`
+export const NEWS_PAGE_CONTAINER_CLASSES = `min-h-screen flex flex-col items-center justify-start ${DESIGN_TOKENS.SECTION_PADDING_X} ${DESIGN_TOKENS.SECTION_PADDING_Y} bg-white bg-opacity-20 news-page-backdrop`
 
 // Button Components (these have real state logic)
 export const NAVBAR_BUTTON_BASE_CLASSES = `${DESIGN_TOKENS.BUTTON_PADDING} ${DESIGN_TOKENS.BUTTON_WIDTH} ${DESIGN_TOKENS.BORDER_RADIUS} font-medium transition-colors cursor-pointer focus:outline-none focus:ring-0 focus:border-none active:outline-none active:ring-0 active:border-none`
