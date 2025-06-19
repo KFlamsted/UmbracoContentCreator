@@ -14,9 +14,13 @@ const NewsPageContainer: React.FC<NewsPageContainerProps> = ({
   onStateChange,
 }) => {
   const { content, loading, error } = useNewsPage()
-  
+
   // Use the actual news page ID to fetch children
-  const { newsItems, loading: newsItemsLoading, error: newsItemsError } = useNewsPageItems(
+  const {
+    newsItems,
+    loading: newsItemsLoading,
+    error: newsItemsError,
+  } = useNewsPageItems(
     content.id, // Use the actual parent ID from news content
     content.newsPerPage || 10
   )
@@ -24,17 +28,17 @@ const NewsPageContainer: React.FC<NewsPageContainerProps> = ({
   useEffect(() => {
     onStateChange?.(loading || newsItemsLoading, error || newsItemsError)
   }, [loading, newsItemsLoading, error, newsItemsError, onStateChange])
-  useEffect(() => {
-    if (newsItems.length > 0) {
-      console.log('Fetched NewsPageItems:', newsItems)
-    }  }, [newsItems])
-  
+
   return (
     <div className={NEWS_PAGE_CONTAINER_CLASSES}>
       <PageTitleCard title={content.title} isNewsPage={true} />
-      <MainImageCard mainImage={content.mainImage} alt={content.title} isNewsPage={true} />
-      <BodyTextCard bodyText={content.description?.markup} isNewsPage={true} />
-      <MinimizedNewsItemPageListContainer 
+      <MainImageCard
+        mainImage={content.mainImage}
+        alt={content.title}
+        isNewsPage={true}
+      />
+      <BodyTextCard bodyText={content.description?.markup} hasBackgroundImage />
+      <MinimizedNewsItemPageListContainer
         newsItems={newsItems}
         maxItems={content.newsPerPage ?? 9}
       />

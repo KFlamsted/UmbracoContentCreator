@@ -41,9 +41,8 @@ export const DESIGN_TOKENS = {
 // Semantic Component Classes (meaningful combinations)
 export const CARD_CLASSES = `w-full ${DESIGN_TOKENS.CONTAINER_MAX_WIDTH} ${DESIGN_TOKENS.SURFACE_BG} ${DESIGN_TOKENS.BORDER_RADIUS} ${DESIGN_TOKENS.CARD_SHADOW} ${DESIGN_TOKENS.CARD_PADDING} mb-2`
 
-export const HOMEPAGE_CARD_CLASSES = `w-full ${DESIGN_TOKENS.CONTAINER_MAX_WIDTH} bg-white bg-opacity-95 ${DESIGN_TOKENS.BORDER_RADIUS} ${DESIGN_TOKENS.CARD_SHADOW} ${DESIGN_TOKENS.CARD_PADDING} mb-2 backdrop-blur-sm`
-
-export const NEWS_PAGE_CARD_CLASSES = `w-full ${DESIGN_TOKENS.CONTAINER_MAX_WIDTH} bg-white bg-opacity-95 ${DESIGN_TOKENS.BORDER_RADIUS} ${DESIGN_TOKENS.CARD_SHADOW} ${DESIGN_TOKENS.CARD_PADDING} mb-2 backdrop-blur-sm`
+// Card classes with backdrop blur (used on pages with background images)
+export const BACKDROP_BLUR_CARD_CLASSES = `w-full ${DESIGN_TOKENS.CONTAINER_MAX_WIDTH} bg-white bg-opacity-95 ${DESIGN_TOKENS.BORDER_RADIUS} ${DESIGN_TOKENS.CARD_SHADOW} ${DESIGN_TOKENS.CARD_PADDING} mb-2 backdrop-blur-sm`
 
 export const TITLE_CARD_CLASSES = `${CARD_CLASSES} mb-6`
 
@@ -59,6 +58,7 @@ export const getAppShellContainerClasses = (hasBackgroundImage: boolean) =>
 
 // Background System
 export const BACKGROUND_IMAGE_CLASSES = 'fixed inset-0 w-full h-full bg-cover bg-center bg-no-repeat z-0'
+export const BACKGROUND_IMAGE_BLURRED_CLASSES = 'fixed inset-0 w-full h-full bg-cover bg-center bg-no-repeat z-0 blur-sm'
 export const BACKGROUND_OVERLAY_CLASSES = 'fixed inset-0 w-full h-full z-10'
 export const CONTENT_LAYER_CLASSES = 'relative z-20 w-full'
 
@@ -71,7 +71,7 @@ export const HOMEPAGE_TITLE_CLASSES = 'text-5xl md:text-7xl font-bold text-white
 export const HOMEPAGE_SCROLL_INDICATOR_CLASSES = 'absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white animate-bounce'
 
 // News Page Layout
-export const NEWS_PAGE_CONTAINER_CLASSES = `min-h-screen flex flex-col items-center justify-start ${DESIGN_TOKENS.SECTION_PADDING_X} ${DESIGN_TOKENS.SECTION_PADDING_Y} bg-white bg-opacity-20 news-page-backdrop`
+export const NEWS_PAGE_CONTAINER_CLASSES = `min-h-screen flex flex-col items-center justify-start ${DESIGN_TOKENS.SECTION_PADDING_X} ${DESIGN_TOKENS.SECTION_PADDING_Y} bg-white bg-opacity-20`
 
 // Button Components (these have real state logic)
 export const NAVBAR_BUTTON_BASE_CLASSES = `${DESIGN_TOKENS.BUTTON_PADDING} ${DESIGN_TOKENS.BUTTON_WIDTH} ${DESIGN_TOKENS.BORDER_RADIUS} font-medium transition-colors cursor-pointer focus:outline-none focus:ring-0 focus:border-none active:outline-none active:ring-0 active:border-none`

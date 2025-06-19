@@ -1,16 +1,21 @@
 import parse from 'html-react-parser'
-import { CARD_CLASSES, HOMEPAGE_CARD_CLASSES, NEWS_PAGE_CARD_CLASSES, BODY_TEXT_CLASSES } from '../../constants/styles'
+import { CARD_CLASSES, BACKDROP_BLUR_CARD_CLASSES, BODY_TEXT_CLASSES } from '../../constants/styles'
 
 interface BodyTextCardProps {
   bodyText?: string
-  isHomePage?: boolean
-  isNewsPage?: boolean
+  /**
+   * Whether this card is displayed on a page with a background image (enables backdrop blur)
+   */
+  hasBackgroundImage?: boolean
 }
 
-const BodyTextCard: React.FC<BodyTextCardProps> = ({ bodyText, isHomePage = false, isNewsPage = false }) => {
-  const cardClasses = isHomePage ? HOMEPAGE_CARD_CLASSES : 
-                      isNewsPage ? NEWS_PAGE_CARD_CLASSES : 
-                      CARD_CLASSES
+const BodyTextCard: React.FC<BodyTextCardProps> = ({ 
+  bodyText, 
+  hasBackgroundImage,
+}) => {
+  // Use new prop if provided, otherwise fall back to legacy props
+  const shouldUseBackdropBlur = hasBackgroundImage
+  const cardClasses = shouldUseBackdropBlur ? BACKDROP_BLUR_CARD_CLASSES : CARD_CLASSES
 
   return (
     <div className={cardClasses}>

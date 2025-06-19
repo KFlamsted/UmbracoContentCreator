@@ -5,6 +5,7 @@ import {
   LOADING_MESSAGE_CLASSES,
   ERROR_MESSAGE_CLASSES,
   BACKGROUND_IMAGE_CLASSES,
+  BACKGROUND_IMAGE_BLURRED_CLASSES,
   CONTENT_LAYER_CLASSES,
 } from '../../constants/styles'
 import NavBar, { NavBarButton } from '../navigation/NavBar'
@@ -22,9 +23,10 @@ const AppShell: React.FC<AppShellProps> = ({
   loading,
   error,
   backgroundImage,
-}) => {  const navigate = useNavigate()
+}) => {
+  const navigate = useNavigate()
   const location = useLocation()
-  
+
   const handleNavigation = (path: string) => {
     navigate(path)
   }
@@ -34,14 +36,28 @@ const AppShell: React.FC<AppShellProps> = ({
   // - Use Umbraco API to get page names
   // - Only show button if page exist
   return (
-    <div className={`min-h-screen ${backgroundImage ? '' : 'bg-blue-200'} flex flex-col relative`}>      {/* Background Image Layer */}
+    <div
+      className={`min-h-screen ${
+        backgroundImage ? '' : 'bg-blue-200'
+      } flex flex-col relative`}
+    >
+      {/* Background Image Layer */}
+      {/* 
+        Background Blur Strategy:
+        - HomePage: Uses sharp background image, blur is applied locally via backdrop-filter 
+          in the content section (homepage-content-overlay class in CSS)
+        - All other pages: Uses globally blurred background image for consistent blur coverage
+      */}
       {backgroundImage && (
         <div
-          className={BACKGROUND_IMAGE_CLASSES}
+          className={
+            isHomePage
+              ? BACKGROUND_IMAGE_CLASSES
+              : BACKGROUND_IMAGE_BLURRED_CLASSES
+          }
           style={{ backgroundImage: `url(${backgroundImage})` }}
         />
       )}
-
       {/* Content Layer */}
       <div className={CONTENT_LAYER_CLASSES}>
         <NavBar>
@@ -56,7 +72,14 @@ const AppShell: React.FC<AppShellProps> = ({
           >
             Nyheder
           </NavBarButton>
-        </NavBar>{' '}        <div className={isHomePage ? 'w-full' : getAppShellContainerClasses(!!backgroundImage)}>
+        </NavBar>{' '}
+        <div
+          className={
+            isHomePage
+              ? 'w-full'
+              : getAppShellContainerClasses(!!backgroundImage)
+          }
+        >
           {loading && <div className={LOADING_MESSAGE_CLASSES}>Loading...</div>}
           {error && <div className={ERROR_MESSAGE_CLASSES}>Error: {error}</div>}
           {/* Always render children so React hooks can execute, but hide visually when loading/error */}
