@@ -48,8 +48,6 @@ const GridItem: React.FC<GridItemProps> = ({
   summary,
   imageUrl,
   imageAlt,
-  featured = false,
-  badgeText = 'Featured',
   className = '',
   onClick,
   height = 'h-64',
@@ -90,13 +88,6 @@ const GridItem: React.FC<GridItemProps> = ({
                 )}
               </div>
             )}
-          </div>
-        )}
-        
-        {/* Featured Badge */}
-        {featured && (
-          <div className={`absolute top-2 right-2 ${DESIGN_TOKENS.PRIMARY_BG} text-white px-2 py-1 rounded text-xs font-semibold`}>
-            {badgeText}
           </div>
         )}
       </div>
