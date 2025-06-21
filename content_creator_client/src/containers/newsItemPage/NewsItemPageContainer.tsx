@@ -23,7 +23,7 @@ const NewsItemPageContainer: React.FC<NewsItemPageContainerProps> = ({
     <div className={NEWS_PAGE_CONTAINER_CLASSES}>
       <PageTitleCard title={content.title} isNewsPage={true} />
       <MainImageCard mainImage={content.mainImage} alt={content.title} isNewsPage={true} />
-      <BodyTextCard bodyText={content.bodyText?.markup} isNewsPage={true} />
+      <BodyTextCard bodyText={content.bodyText?.markup} hasBackgroundImage={true} />
     </div>
   )
 }
