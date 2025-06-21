@@ -31,7 +31,7 @@ export const DESIGN_TOKENS = {
   TEXT_BODY: 'text-gray-700',
   TEXT_HEADING: 'text-gray-900',
   TEXT_BUTTON_DEFAULT: 'text-gray-800',
-  TEXT_BUTTON_MUTED: 'text-gray-500',  // Grid & Layout
+  TEXT_BUTTON_MUTED: 'text-gray-500', // Grid & Layout
   GRID_COLS_2: 'grid-cols-2',
   GRID_COLS_3: 'grid-cols-3',
   GRID_COLS_4: 'grid-cols-4',
@@ -45,7 +45,7 @@ export const DESIGN_TOKENS = {
 export const CARD_CLASSES = `w-full ${DESIGN_TOKENS.CONTAINER_MAX_WIDTH} ${DESIGN_TOKENS.SURFACE_BG} ${DESIGN_TOKENS.BORDER_RADIUS} ${DESIGN_TOKENS.CARD_SHADOW} ${DESIGN_TOKENS.CARD_PADDING} mb-2`
 
 // Card classes with backdrop blur (used on pages with background images)
-export const BACKDROP_BLUR_CARD_CLASSES = `w-full ${DESIGN_TOKENS.CONTAINER_MAX_WIDTH} bg-white bg-opacity-95 ${DESIGN_TOKENS.BORDER_RADIUS} ${DESIGN_TOKENS.CARD_SHADOW} ${DESIGN_TOKENS.CARD_PADDING} mb-2 backdrop-blur-sm`
+export const BACKDROP_BLUR_CARD_CLASSES = `w-full ${DESIGN_TOKENS.CONTAINER_MAX_WIDTH} ${DESIGN_TOKENS.SURFACE_BG} bg-opacity-95 ${DESIGN_TOKENS.BORDER_RADIUS} ${DESIGN_TOKENS.CARD_SHADOW} ${DESIGN_TOKENS.CARD_PADDING} mb-2 backdrop-blur-sm`
 
 export const TITLE_CARD_CLASSES = `${CARD_CLASSES} mb-6`
 
@@ -56,22 +56,31 @@ export const BODY_TEXT_CLASSES = `${DESIGN_TOKENS.BODY_SIZE} ${DESIGN_TOKENS.TEX
 export const APP_SHELL_CONTAINER_CLASSES = `min-h-screen flex flex-col items-center justify-start ${DESIGN_TOKENS.SECTION_PADDING_X} ${DESIGN_TOKENS.SECTION_PADDING_Y}`
 
 // Dynamic container classes - use these instead of the static ones above
-export const getAppShellContainerClasses = (hasBackgroundImage: boolean) => 
-  `min-h-screen ${hasBackgroundImage ? '' : DESIGN_TOKENS.MUTED_BG} flex flex-col items-center justify-start ${DESIGN_TOKENS.SECTION_PADDING_X} ${DESIGN_TOKENS.SECTION_PADDING_Y} pt-30`
+export const getAppShellContainerClasses = (hasBackgroundImage: boolean) =>
+  `min-h-screen ${
+    hasBackgroundImage ? '' : DESIGN_TOKENS.MUTED_BG
+  } flex flex-col items-center justify-start ${
+    DESIGN_TOKENS.SECTION_PADDING_X
+  } ${DESIGN_TOKENS.SECTION_PADDING_Y} pt-30`
 
 // Background System
-export const BACKGROUND_IMAGE_CLASSES = 'fixed inset-0 w-full h-full bg-cover bg-center bg-no-repeat z-0'
-export const BACKGROUND_IMAGE_BLURRED_CLASSES = 'fixed inset-0 w-full h-full bg-cover bg-center bg-no-repeat z-0 blur-sm'
+export const BACKGROUND_IMAGE_CLASSES =
+  'fixed inset-0 w-full h-full bg-cover bg-center bg-no-repeat z-0'
+export const BACKGROUND_IMAGE_BLURRED_CLASSES =
+  'fixed inset-0 w-full h-full bg-cover bg-center bg-no-repeat z-0 blur-sm'
 export const BACKGROUND_OVERLAY_CLASSES = 'fixed inset-0 w-full h-full z-10'
 export const CONTENT_LAYER_CLASSES = 'relative z-20 w-full'
 
 // Homepage Full-Screen Layout
 export const HOMEPAGE_CONTAINER_CLASSES = 'w-full'
-export const HOMEPAGE_SECTION_CLASSES = 'min-h-screen flex flex-col justify-center items-center px-4 py-8'
+export const HOMEPAGE_SECTION_CLASSES =
+  'min-h-screen flex flex-col justify-center items-center px-4 py-8'
 export const HOMEPAGE_HERO_SECTION_CLASSES = `${HOMEPAGE_SECTION_CLASSES} text-center`
 export const HOMEPAGE_CONTENT_SECTION_CLASSES = `${HOMEPAGE_SECTION_CLASSES} homepage-content-overlay`
-export const HOMEPAGE_TITLE_CLASSES = 'text-5xl md:text-7xl font-bold text-white drop-shadow-2xl mb-8'
-export const HOMEPAGE_SCROLL_INDICATOR_CLASSES = 'absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white animate-bounce'
+export const HOMEPAGE_TITLE_CLASSES =
+  'text-5xl md:text-7xl font-bold text-white drop-shadow-2xl mb-8'
+export const HOMEPAGE_SCROLL_INDICATOR_CLASSES =
+  'absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white animate-bounce'
 
 // News Page Layout
 export const NEWS_PAGE_CONTAINER_CLASSES = `min-h-screen flex flex-col items-center justify-start ${DESIGN_TOKENS.SECTION_PADDING_X} ${DESIGN_TOKENS.SECTION_PADDING_Y}`
