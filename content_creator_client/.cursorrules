@@ -1,0 +1,4 @@
+# .cursorrules
+- Always reference AI.md when creating new components or making architectural decisions
+- Update AI.md when introducing new patterns or changing existing ones
+- Follow the patterns documented in AI.md for consistency

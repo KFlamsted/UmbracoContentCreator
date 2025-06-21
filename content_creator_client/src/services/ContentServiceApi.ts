@@ -1,27 +1,22 @@
 import type { IUmbracoContentResponse, IUmbracoItem } from '../model/common/UmbracoCommon'
+import { apiClient, handleContentResponse } from './apiClient'
 
 export const executeContentApiQuery = async <
   TProperties = Record<string, unknown>
 >(
-  contentType: string
+  contentType: string,
+  additionalParams?: Record<string, string>
 ): Promise<IUmbracoContentResponse<TProperties>> => {
-  const apiUrl = import.meta.env.VITE_API_URL
+  const params = new URLSearchParams({
+    filter: `contentType:${contentType}`,
+    ...additionalParams,
+  })
 
-  const response = await fetch(
-    `${apiUrl}/umbraco/delivery/api/v2/content?filter=contentType:${contentType}`
+  const response = await apiClient.get<IUmbracoContentResponse<TProperties>>(
+    `/content?${params.toString()}`
   )
 
-  if (!response.ok) {
-    throw new Error(`HTTP error! status: ${response.status}`)
-  }
-
-  const result: IUmbracoContentResponse<TProperties> = await response.json()
-
-  if (result.total === 0 || !result.items.length) {
-    throw new Error('Content not found')
-  }
-
-  return result
+  return handleContentResponse(response)
 }
 
 export const fetchContentByRoute = async <
@@ -31,15 +26,12 @@ export const fetchContentByRoute = async <
   contentType: string
 ): Promise<T> => {
   const result = await executeContentApiQuery<TProperties>(contentType)
-  const content = result
-
-  if (!content) {
+  
+  if (!result) {
     throw new Error('Content not found')
   }
 
-  // This will need to be handled differently for different content types
-  // For now, we assume the caller knows how to map the properties
-  return content as unknown as T
+  return result as unknown as T
 }
 
 export const fetchChildrenById = async <TProperties = Record<string, unknown>>(
@@ -49,67 +41,34 @@ export const fetchChildrenById = async <TProperties = Record<string, unknown>>(
     take?: number
   }
 ): Promise<IUmbracoContentResponse<TProperties>> => {
-  const apiUrl = import.meta.env.VITE_API_URL
-
-  // Build query parameters manually to avoid URL encoding issues
-  const queryParams: string[] = []
-
-  // Build filter conditions
-  const filterConditions: string[] = []
+  const params = new URLSearchParams({
+    fetch: `children:${parentId}`,
+  })
 
   if (options?.contentType) {
-    filterConditions.push(`contentType:${options.contentType}`)
-  }
-
-  // Add filter parameter without URL encoding the colon
-  if (filterConditions.length > 0) {
-    queryParams.push(`filter=${filterConditions.join(' AND ')}`)
+    params.append('filter', `contentType:${options.contentType}`)
   }
 
   if (options?.take) {
-    queryParams.push(`take=${options.take}`)
+    params.append('take', options.take.toString())
   }
 
-  const queryString = queryParams.join('&')
-  const url = `${apiUrl}/umbraco/delivery/api/v2/content?fetch=children:${parentId}${
-    queryString ? `&${queryString}` : ''
-  }`
+  const response = await apiClient.get<IUmbracoContentResponse<TProperties>>(
+    `/content?${params.toString()}`
+  )
 
-  const response = await fetch(url)
-
-  if (!response.ok) {
-    throw new Error(`HTTP error! status: ${response.status}`)
-  }
-
-  const result: IUmbracoContentResponse<TProperties> = await response.json()
-  return result
+  return handleContentResponse(response)
 }
 
 export const fetchContentByIdOrPath = async <TProperties = Record<string, unknown>>(
   idOrPath: string
 ): Promise<IUmbracoItem<TProperties>> => {
-  const apiUrl = import.meta.env.VITE_API_URL
-  
   try {
-    // Try fetching by ID first (if it's a GUID)
-    const isGuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(idOrPath)
-    
-    let url: string
-    if (isGuid) {
-      url = `${apiUrl}/umbraco/delivery/api/v2/content/item/${idOrPath}`
-    } else {
-      // Assume it's a path/slug - use route lookup
-      url = `${apiUrl}/umbraco/delivery/api/v2/content/item/${encodeURIComponent(idOrPath)}`
-    }
+    const response = await apiClient.get<IUmbracoItem<TProperties>>(
+      `/content/item/${encodeURIComponent(idOrPath)}`
+    )
 
-    const response = await fetch(url)
-
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`)
-    }
-
-    const result: IUmbracoItem<TProperties> = await response.json()
-    return result
+    return response.data
   } catch (error) {
     console.error('Error fetching content by ID or path:', error)
     throw error

@@ -8,7 +8,6 @@ import { useHomePage } from './hooks/PageLoadHooks'
 const App: React.FC = () => {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
-  
   // Get homepage data for background image
   const { content: homePage } = useHomePage()
 

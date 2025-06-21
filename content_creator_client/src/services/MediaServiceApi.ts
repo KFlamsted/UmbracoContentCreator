@@ -1,4 +1,6 @@
 import type { ImageCropperValue } from '../model/common/ImageCropperValue'
+import { apiClient } from './apiClient'
+import type { AxiosError } from 'axios'
 
 export interface IUmbracoMediaResponse<TProperties = Record<string, unknown>> {
   total: number
@@ -29,7 +31,6 @@ export const executeMediaApiQuery = async <TProperties = Record<string, unknown>
     take?: number
   }
 ): Promise<IUmbracoMediaResponse<TProperties>> => {
-  const apiUrl = import.meta.env.VITE_API_URL
   const searchParams = new URLSearchParams()
 
   if (params?.mediaType) {
@@ -49,34 +50,27 @@ export const executeMediaApiQuery = async <TProperties = Record<string, unknown>
   }
 
   const queryString = searchParams.toString()
-  const url = `${apiUrl}/umbraco/delivery/api/v2/media${queryString ? `?${queryString}` : ''}`
+  const url = `/media${queryString ? `?${queryString}` : ''}`
 
-  const response = await fetch(url)
-
-  if (!response.ok) {
-    throw new Error(`HTTP error! status: ${response.status}`)
-  }
-
-  const result: IUmbracoMediaResponse<TProperties> = await response.json()
-  return result
+  const response = await apiClient.get<IUmbracoMediaResponse<TProperties>>(url)
+  return response.data
 }
 
 export const fetchMediaById = async <TProperties = Record<string, unknown>>(
   id: string
 ): Promise<IUmbracoMediaItem<TProperties> | null> => {
-  const apiUrl = import.meta.env.VITE_API_URL
-  
-  const response = await fetch(`${apiUrl}/umbraco/delivery/api/v2/media/item/${id}`)
-
-  if (!response.ok) {
-    if (response.status === 404) {
+  try {
+    const response = await apiClient.get<IUmbracoMediaItem<TProperties>>(
+      `/media/item/${id}`
+    )
+    return response.data
+  } catch (error) {
+    const axiosError = error as AxiosError
+    if (axiosError.response?.status === 404) {
       return null
     }
-    throw new Error(`HTTP error! status: ${response.status}`)
+    throw error
   }
-
-  const result: IUmbracoMediaItem<TProperties> = await response.json()
-  return result
 }
 
 export const fetchImageById = async (id: string): Promise<ImageCropperValue | null> => {
