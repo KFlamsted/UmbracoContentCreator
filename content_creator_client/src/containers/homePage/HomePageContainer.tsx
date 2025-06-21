@@ -7,13 +7,16 @@ import {
   HOMEPAGE_HERO_SECTION_CLASSES,
   HOMEPAGE_CONTENT_SECTION_CLASSES,
   HOMEPAGE_TITLE_CLASSES,
+  DESIGN_TOKENS,
 } from '../../constants/styles'
 
 interface HomePageContainerProps {
   onStateChange?: (loading: boolean, error: string | null) => void
 }
 
-const HomePageContainer: React.FC<HomePageContainerProps> = ({ onStateChange }) => {
+const HomePageContainer: React.FC<HomePageContainerProps> = ({
+  onStateChange,
+}) => {
   const { content, loading, error } = useHomePage()
 
   useEffect(() => {
@@ -22,15 +25,18 @@ const HomePageContainer: React.FC<HomePageContainerProps> = ({ onStateChange }) 
   return (
     <div className={`${HOMEPAGE_CONTAINER_CLASSES} homepage-scroll-container`}>
       {/* Hero Section - Full Screen */}
-      <section className={`${HOMEPAGE_HERO_SECTION_CLASSES} homepage-scroll-section`}>        <h1 className={HOMEPAGE_TITLE_CLASSES}>
-          {content.pageTitle}
-        </h1>
-        
+      <section
+        className={`${HOMEPAGE_HERO_SECTION_CLASSES} homepage-scroll-section`}
+      >
+        <h1 className={HOMEPAGE_TITLE_CLASSES}>{content.pageTitle}</h1>
         {/* Scroll Indicator */}
         <ScrollIndicatorComponent />
-      </section>      {/* Content Section - Full Screen */}
-      <section className={`${HOMEPAGE_CONTENT_SECTION_CLASSES} homepage-scroll-section`}>
-        <div className="w-full max-w-4xl">
+      </section>
+      {/* Content Section - Full Screen */}
+      <section
+        className={`${HOMEPAGE_CONTENT_SECTION_CLASSES} homepage-scroll-section`}
+      >
+        <div className={`${DESIGN_TOKENS.HOMEPAGE_MAX_WIDTH} mx-auto`}>
           <BodyTextCard bodyText={content.bodyText} hasBackgroundImage />
         </div>
       </section>
