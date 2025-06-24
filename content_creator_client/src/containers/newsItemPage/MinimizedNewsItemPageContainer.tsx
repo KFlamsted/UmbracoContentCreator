@@ -7,8 +7,7 @@ interface MinimizedNewsItemPageContainerProps {
 
 const MinimizedNewsItemPageContainer: React.FC<MinimizedNewsItemPageContainerProps> = ({
   newsItem,
-}) => {
-  // Helper function to strip HTML tags and truncate text
+}) => {  // Helper function to strip HTML tags
   const getPreviewText = (bodyText?: { markup: string }) => {
     if (!bodyText?.markup) return undefined
     
@@ -17,10 +16,7 @@ const MinimizedNewsItemPageContainer: React.FC<MinimizedNewsItemPageContainerPro
     tempDiv.innerHTML = bodyText.markup
     const textContent = tempDiv.textContent || tempDiv.innerText || ''
     
-    // Truncate to reasonable length (around 150 characters)
-    return textContent.length > 150 
-      ? textContent.substring(0, 150) + '...' 
-      : textContent
+    return textContent
   }
 
   // Helper function to format date
