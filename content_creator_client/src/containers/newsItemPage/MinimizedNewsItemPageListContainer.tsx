@@ -14,7 +14,7 @@ const MinimizedNewsItemPageListContainer: React.FC<MinimizedNewsItemPageListCont
     <GridCardComponent
       items={newsItems}
       maxItems={maxItems}
-      columns={3}
+      columns="1-md-2"
       renderItem={(newsItem) => (
         <MinimizedNewsItemPageContainer 
           newsItem={newsItem}
