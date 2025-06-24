@@ -5,9 +5,8 @@ export interface GridCardComponentProps<T> {
   /** Array of items to display in the grid */
   items: T[]
   /** Maximum number of items to display (optional) */
-  maxItems?: number
-  /** Number of columns in the grid (2, 3, or 4) */
-  columns?: 2 | 3 | 4
+  maxItems?: number  /** Number of columns in the grid (2, 3, 4, or '1-md-2' for responsive 1→2) */
+  columns?: 2 | 3 | 4 | '1-md-2'
   /** Function that renders each item */
   renderItem: (item: T, index: number) => React.ReactNode
   /** Function that generates a unique key for each item */
@@ -45,10 +44,11 @@ const GridCardComponent = <T,>({
 }: GridCardComponentProps<T>) => {
   // Limit the number of items to display
   const itemsToShow = maxItems ? items.slice(0, maxItems) : items
-
   // Generate grid columns class based on the columns prop
-  const getGridColumnsClass = (cols: number) => {
+  const getGridColumnsClass = (cols: 2 | 3 | 4 | '1-md-2') => {
     switch (cols) {
+      case '1-md-2':
+        return DESIGN_TOKENS.GRID_COLS_1_MD_2
       case 2:
         return DESIGN_TOKENS.GRID_COLS_2
       case 3:

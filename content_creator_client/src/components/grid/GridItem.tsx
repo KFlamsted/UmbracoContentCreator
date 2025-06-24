@@ -12,6 +12,10 @@ export interface GridItemProps {
   imageAlt?: string
   /** Whether this item is featured */
   featured?: boolean
+  /** Author name */
+  author?: string
+  /** Publish date */
+  publishDate?: string
   /** Badge text to display (defaults to "Featured" when featured is true) */
   badgeText?: string
   /** Custom className for additional styling */
@@ -48,6 +52,8 @@ const GridItem: React.FC<GridItemProps> = ({
   summary,
   imageUrl,
   imageAlt,
+  author,
+  publishDate,
   className = '',
   onClick,
   height = 'h-64',
@@ -55,7 +61,7 @@ const GridItem: React.FC<GridItemProps> = ({
 }) => {
   return (
     <div 
-      className={`cursor-pointer transition-transform hover:scale-105 ${className}`}
+      className={`${onClick ? 'cursor-pointer transition-transform hover:scale-105' : ''} ${className}`}
       onClick={onClick}
     >
       <div className={`relative ${DESIGN_TOKENS.SURFACE_BG} ${DESIGN_TOKENS.BORDER_RADIUS} ${DESIGN_TOKENS.CARD_SHADOW} overflow-hidden ${height}`}>
@@ -68,21 +74,27 @@ const GridItem: React.FC<GridItemProps> = ({
             aria-label={imageAlt || title || 'Grid item image'}
           />
         )}
-        
-        {/* Content Overlay */}
-        {(title || summary || children) && (
+          {/* Content Overlay */}
+        {(title || summary || author || publishDate || children) && (
           <div className="absolute inset-0 bg-black bg-opacity-40 flex flex-col justify-end p-4">
             {children ? (
               children
             ) : (
               <div className="text-white">
                 {title && (
-                  <h3 className="text-lg font-bold mb-2 line-clamp-2">
+                  <h3 className="text-lg font-bold mb-2">
                     {title}
                   </h3>
                 )}
+                {(author || publishDate) && (
+                  <div className="text-xs opacity-80 mb-2">
+                    {author && <span>By {author}</span>}
+                    {author && publishDate && <span> • </span>}
+                    {publishDate && <span>{publishDate}</span>}
+                  </div>
+                )}
                 {summary && (
-                  <p className="text-sm opacity-90 line-clamp-3">
+                  <p className="text-sm opacity-90">
                     {summary}
                   </p>
                 )}
