@@ -4,8 +4,8 @@ import { DESIGN_TOKENS } from '../../constants/styles'
 export interface GridItemProps {
   /** Title to display on the card */
   title?: string
-  /** Summary/description text */
-  summary?: string
+  /** Summary/description text or React content */
+  summary?: string | React.ReactNode
   /** Image URL for the background */
   imageUrl?: string
   /** Alt text for the image */
