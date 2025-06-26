@@ -4,9 +4,10 @@ import type { News } from '../model/News'
 import type { NewsItemPage, AuthorReference, Link } from '../model/NewsItemPage'
 import type { ImageCropperValue } from '../model/common/ImageCropperValue'
 import type { IUmbracoBlock, IUmbracoItem } from '../model/common/UmbracoCommon'
-import { fetchHomePage, fetchNewsPage, fetchNewsItemPage } from '../services/PageLoaderService'
+import { fetchNewsPage, fetchNewsItemPage } from '../services/PageLoaderService'
 import { fetchChildrenById } from '../services/ContentServiceApi'
 import type { IUmbracoContentResponse } from '../model/common/UmbracoCommon'
+import { useGlobalData } from './useGlobalData'
 
 const useContent = <T>(fetchFunction: () => Promise<T>) => {
   const [content, setContent] = useState<T>({} as T)
@@ -160,5 +161,21 @@ export const useNewsItemPage = (itemId?: string) => {
   return { content, loading, error }
 }
 
-export const useHomePage = () => useContent<HomePage>(fetchHomePage)
+export const useHomePage = () => {
+  const { globalData, loading, error } = useGlobalData()
+
+  return {
+    content: {
+      pageTitle: globalData.pageTitle,
+      bodyText: globalData.bodyText,
+      footerText: globalData.footerText,
+      backgroundImage: globalData.backgroundImage,
+      color1: globalData.color1,
+      color2: globalData.color2,
+      color3: globalData.color3,
+    } as HomePage,
+    loading,
+    error,
+  }
+}
 export const useNewsPage = () => useContent<News>(fetchNewsPage)

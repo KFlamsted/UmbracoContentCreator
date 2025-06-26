@@ -3,13 +3,14 @@ import { BrowserRouter } from 'react-router-dom'
 import './App.css'
 import AppRoutes from './Routes'
 import AppShell from './components/appShell/AppShell'
-import { useHomePage } from './hooks/PageLoadHooks'
+import { GlobalDataProvider } from './context/GlobalDataContext'
+import { useGlobalData } from './hooks/useGlobalData'
 
-const App: React.FC = () => {
+const AppContent: React.FC = () => {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
-  // Get homepage data for background image
-  const { content: homePage } = useHomePage()
+  // Get global data including background image
+  const { globalData } = useGlobalData()
 
   const handleStateChange = useCallback((newLoading: boolean, newError: string | null) => {
     setLoading(newLoading)
@@ -17,14 +18,22 @@ const App: React.FC = () => {
   }, [])
 
   return (
+    <AppShell 
+      loading={loading} 
+      error={error}
+      backgroundImage={globalData.backgroundImage?.url}
+    >
+      <AppRoutes onStateChange={handleStateChange} />
+    </AppShell>
+  )
+}
+
+const App: React.FC = () => {
+  return (
     <BrowserRouter>
-      <AppShell 
-        loading={loading} 
-        error={error}
-        backgroundImage={homePage.backgroundImage}
-      >
-        <AppRoutes onStateChange={handleStateChange} />
-      </AppShell>
+      <GlobalDataProvider>
+        <AppContent />
+      </GlobalDataProvider>
     </BrowserRouter>
   )
 }
