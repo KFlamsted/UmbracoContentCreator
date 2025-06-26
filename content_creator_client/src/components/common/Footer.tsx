@@ -1,5 +1,6 @@
 import React from 'react'
 import { useGlobalData } from '../../hooks/useGlobalData'
+import { DESIGN_TOKENS } from '../../constants/styles'
 
 const Footer: React.FC = () => {
   const { globalData } = useGlobalData()
@@ -9,7 +10,7 @@ const Footer: React.FC = () => {
   }
 
   return (
-    <footer className="mt-auto py-4 px-6 text-center text-sm text-gray-600 bg-white/80 backdrop-blur-sm border-t border-gray-200">
+    <footer className={`mt-auto py-4 ${DESIGN_TOKENS.SECTION_PADDING_X} text-center text-sm ${DESIGN_TOKENS.TEXT_MUTED} ${DESIGN_TOKENS.SURFACE_BG} backdrop-blur-sm border-t border-gray-200 w-full ${DESIGN_TOKENS.CONTAINER_MAX_WIDTH} ${DESIGN_TOKENS.BORDER_RADIUS} mx-auto`}>
       {globalData.footerText}
     </footer>
   )
