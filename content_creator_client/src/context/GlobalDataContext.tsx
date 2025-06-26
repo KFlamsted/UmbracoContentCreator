@@ -33,19 +33,24 @@ interface GlobalDataProviderProps {
   children: React.ReactNode
 }
 
-export const GlobalDataProvider: React.FC<GlobalDataProviderProps> = ({ children }) => {
+export const GlobalDataProvider: React.FC<GlobalDataProviderProps> = ({
+  children,
+}) => {
   const [globalData, setGlobalData] = useState<GlobalData>({})
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+
+  // Save this and maybe use it later as a fallback:
+  // 'https://images.unsplash.com/photo-1519904981063-b0cf448d479e?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80',
 
   const fetchGlobalData = async () => {
     try {
       setLoading(true)
       setError(null)
-      
+
       // Fetch homepage data which contains global properties
       const homePage = await fetchHomePage()
-      
+
       setGlobalData({
         footerText: homePage.footerText,
         backgroundImage: homePage.backgroundImage,
@@ -56,7 +61,9 @@ export const GlobalDataProvider: React.FC<GlobalDataProviderProps> = ({ children
         color3: homePage.color3,
       })
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to load global data')
+      setError(
+        err instanceof Error ? err.message : 'Failed to load global data'
+      )
     } finally {
       setLoading(false)
     }

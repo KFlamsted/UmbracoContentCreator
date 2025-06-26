@@ -30,16 +30,21 @@ const AppShell: React.FC<AppShellProps> = ({
   const handleNavigation = (path: string) => {
     navigate(path)
   }
-  
+
   const isHomePage = location.pathname === ROUTES.HOME
 
   // TODO for navigation buttons:
   // - Use Umbraco API to get page names
   // - Only show button if page exist
+  console.log('backgroundImage', backgroundImage)
+  const apiUrl = import.meta.env.VITE_API_URL
+  const fullBackgroundImageUrl = backgroundImage
+    ? `${apiUrl}${backgroundImage}`
+    : undefined
   return (
     <div
       className={`min-h-screen ${
-        backgroundImage ? '' : 'bg-blue-200'
+        fullBackgroundImageUrl ? '' : 'bg-blue-200'
       } flex flex-col relative`}
     >
       {/* Background Image Layer */}
@@ -49,17 +54,17 @@ const AppShell: React.FC<AppShellProps> = ({
           in the content section (homepage-content-overlay class in CSS)
         - All other pages: Uses globally blurred background image for consistent blur coverage
       */}
-      {backgroundImage && (
+      {fullBackgroundImageUrl && (
         <div
           className={
             isHomePage
               ? BACKGROUND_IMAGE_CLASSES
               : BACKGROUND_IMAGE_BLURRED_CLASSES
           }
-          style={{ backgroundImage: `url(${backgroundImage})` }}
+          style={{ backgroundImage: `url(${fullBackgroundImageUrl})` }}
         />
       )}
-      
+
       {/* Fixed Navigation Layer */}
       <NavBar>
         <NavBarButton
@@ -81,7 +86,7 @@ const AppShell: React.FC<AppShellProps> = ({
           className={
             isHomePage
               ? 'w-full'
-              : getAppShellContainerClasses(!!backgroundImage)
+              : getAppShellContainerClasses(!!fullBackgroundImageUrl)
           }
         >
           {loading && <div className={LOADING_MESSAGE_CLASSES}>Loading...</div>}

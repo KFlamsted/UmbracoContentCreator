@@ -163,8 +163,8 @@ export const useNewsItemPage = (itemId?: string) => {
 
 export const useHomePage = () => {
   const { globalData, loading, error } = useGlobalData()
-  
-  return { 
+
+  return {
     content: {
       pageTitle: globalData.pageTitle,
       bodyText: globalData.bodyText,
@@ -173,9 +173,9 @@ export const useHomePage = () => {
       color1: globalData.color1,
       color2: globalData.color2,
       color3: globalData.color3,
-    } as HomePage, 
-    loading, 
-    error 
+    } as HomePage,
+    loading,
+    error,
   }
 }
 export const useNewsPage = () => useContent<News>(fetchNewsPage)
