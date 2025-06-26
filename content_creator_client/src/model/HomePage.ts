@@ -1,3 +1,5 @@
+import type { ImageCropperValue } from './common/ImageCropperValue'
+
 /**
  * HomePage
  */
@@ -15,7 +17,19 @@ export interface HomePage {
    */
   pageTitle?: string;
   /**
-   * Background image URL for the homepage hero
+   * Background image URL for the homepage hero - now supports full media with crops
    */
-  backgroundImage?: string;
+  backgroundImage?: ImageCropperValue;
+  /**
+   * Hexadecimal color used for the webpage theme
+   */
+  color1?: string;
+  /**
+   * Hexadecimal color used for the webpage theme
+   */
+  color2?: string;
+  /**
+   * Hexadecimal color used for the webpage theme
+   */
+  color3?: string;
 }

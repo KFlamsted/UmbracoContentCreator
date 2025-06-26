@@ -17,11 +17,18 @@ export const fetchHomePage = async (): Promise<HomePage> => {
     throw new Error('Content not found')
   }
 
+  // Extract backgroundImage if it exists, similar to how we handle mainImage in news
+  const backgroundImageArray = homepageContent.properties.backgroundImage as unknown as ImageCropperValue[]
+  const backgroundImage = backgroundImageArray && backgroundImageArray.length > 0 ? backgroundImageArray[0] : undefined
+
   return {
     pageTitle: homepageContent.properties.pageTitle,
     bodyText: homepageContent.properties.bodyText?.markup,
     footerText: homepageContent.properties.footerText,
-    backgroundImage: homepageContent.properties.backgroundImage || 'https://images.unsplash.com/photo-1519904981063-b0cf448d479e?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80', // Temporary fallback for demo
+    backgroundImage,
+    color1: homepageContent.properties.color1,
+    color2: homepageContent.properties.color2,
+    color3: homepageContent.properties.color3,
   }
 }
 

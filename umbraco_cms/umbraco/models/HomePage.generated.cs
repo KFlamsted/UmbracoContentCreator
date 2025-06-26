@@ -50,12 +50,44 @@ namespace Umbraco.Cms.Web.Common.PublishedModels
 		// properties
 
 		///<summary>
+		/// Background Image: Image shown on all pages
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "15.4.1+0ad020f")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		[ImplementPropertyType("backgroundImage")]
+		public virtual global::Umbraco.Cms.Core.Models.MediaWithCrops BackgroundImage => this.Value<global::Umbraco.Cms.Core.Models.MediaWithCrops>(_publishedValueFallback, "backgroundImage");
+
+		///<summary>
 		/// Body Text: The main content of the page
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "15.4.1+0ad020f")]
 		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
 		[ImplementPropertyType("bodyText")]
 		public virtual global::Umbraco.Cms.Core.Strings.IHtmlEncodedString BodyText => this.Value<global::Umbraco.Cms.Core.Strings.IHtmlEncodedString>(_publishedValueFallback, "bodyText");
+
+		///<summary>
+		/// Color1: Hexadecimal color used for the webpage theme
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "15.4.1+0ad020f")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		[ImplementPropertyType("color1")]
+		public virtual string Color1 => this.Value<string>(_publishedValueFallback, "color1");
+
+		///<summary>
+		/// Color2: Hexadecimal color used for the webpage theme
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "15.4.1+0ad020f")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		[ImplementPropertyType("color2")]
+		public virtual string Color2 => this.Value<string>(_publishedValueFallback, "color2");
+
+		///<summary>
+		/// Color3: Hexadecimal color used for the webpage theme
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "15.4.1+0ad020f")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		[ImplementPropertyType("color3")]
+		public virtual string Color3 => this.Value<string>(_publishedValueFallback, "color3");
 
 		///<summary>
 		/// Footer Text: Copyright notice for the footer

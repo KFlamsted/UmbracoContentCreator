@@ -49,7 +49,10 @@ export interface IHomePageProperties {
     blocks: IUmbracoBlock[]
   }
   footerText?: string
-  backgroundImage?: string
+  backgroundImage?: unknown // MediaWithCrops from Umbraco
+  color1?: string
+  color2?: string
+  color3?: string
   // TODO: Add other HomePage specific properties as needed
   [key: string]: unknown
 }
