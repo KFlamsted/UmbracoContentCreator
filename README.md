@@ -5,7 +5,7 @@ This readme is WIP
 
 ## Features
 
-- WIP: React thin client to show the content from Umbraco CMS and external websites (such as youtube, twitter/bluesky, twitch etc.). .
+- WIP: React thin client to show the content from Umbraco CMS and external websites (such as youtube, twitter/bluesky, twitch etc.).
 
 ## License
 
