@@ -9,7 +9,6 @@ import {
   CONTENT_LAYER_CLASSES,
 } from '../../constants/styles'
 import NavBar, { NavBarButton } from '../navigation/NavBar'
-import Footer from '../common/Footer'
 import { ROUTES } from '../../constants/routes'
 
 interface AppShellProps {
@@ -95,7 +94,6 @@ const AppShell: React.FC<AppShellProps> = ({
             {children}
           </div>
         </div>
-        <Footer />
       </div>
     </div>
   )
