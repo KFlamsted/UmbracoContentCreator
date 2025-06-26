@@ -1,7 +1,6 @@
 # UmbracoContentCreator
 
-This project is primarily an agent code-generated project designed to streamline content creation using Umbraco CMS. The aim is to make a content creator website and easily add content to it.
-This readme is WIP
+This project is primarily an agent code-generated project using Umbraco CMS as content management and then a react client as the website to show the content. The aim is also to show content created on external sites such as youtube, twitch, bsky/twitter etc.
 
 ## Features
 
