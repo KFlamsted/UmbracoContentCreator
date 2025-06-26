@@ -36,7 +36,6 @@ const AppShell: React.FC<AppShellProps> = ({
   // TODO for navigation buttons:
   // - Use Umbraco API to get page names
   // - Only show button if page exist
-  console.log('backgroundImage', backgroundImage)
   const apiUrl = import.meta.env.VITE_API_URL
   const fullBackgroundImageUrl = backgroundImage
     ? `${apiUrl}${backgroundImage}`
