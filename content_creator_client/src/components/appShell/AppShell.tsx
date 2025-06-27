@@ -76,12 +76,6 @@ const AppShell: React.FC<AppShellProps> = ({
         >
           Nyheder
         </NavBarButton>
-        <NavBarButton
-          isSelected={location.pathname === ROUTES.YOUTUBE}
-          onClick={() => handleNavigation(ROUTES.YOUTUBE)}
-        >
-          Youtube
-        </NavBarButton>
       </NavBar>
 
       {/* Content Layer */}
