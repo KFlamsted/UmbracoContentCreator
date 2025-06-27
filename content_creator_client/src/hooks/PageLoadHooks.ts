@@ -8,6 +8,9 @@ import { fetchNewsPage, fetchNewsItemPage } from '../services/PageLoaderService'
 import { fetchChildrenById } from '../services/ContentServiceApi'
 import type { IUmbracoContentResponse } from '../model/common/UmbracoCommon'
 import { useGlobalData } from './useGlobalData'
+import type { YoutubeParentPage } from '../model/YoutubeParentPage'
+import type { YoutubePage } from '../model/YoutubePage'
+import { fetchYoutubeParentPage } from '../services/PageLoaderService'
 
 const useContent = <T>(fetchFunction: () => Promise<T>) => {
   const [content, setContent] = useState<T>({} as T)
@@ -179,3 +182,49 @@ export const useHomePage = () => {
   }
 }
 export const useNewsPage = () => useContent<News>(fetchNewsPage)
+
+export const useYoutubeParentPage = () => {
+  // First get the YouTube parent page content (similar to useNewsPage)
+  const { content: parentPage, loading: parentLoading, error: parentError } = useContent<YoutubeParentPage>(fetchYoutubeParentPage)
+
+  // Memoize the mapping function to prevent recreation on every render
+  const mapYoutubeItem = useMemo(
+    () =>
+      (item: IUmbracoItem): YoutubePage => ({
+        id: item.id,
+        amountOfVideos: item.properties.amountOfVideos as number,
+        featuredVideoUrl: item.properties.featuredVideoUrl as string,
+        menuName: item.properties.menuName as string,
+        pageTitle: item.properties.pageTitle as string,
+        youtubeChannelName: item.properties.youtubeChannelName as string,
+      }),
+    []
+  )
+
+  // Memoize options object
+  const options = useMemo(
+    () => ({
+      contentType: 'youtubePage',
+    }),
+    []
+  )
+
+  // Use the parent page ID to fetch children (similar to NewsPageContainer)
+  const {
+    items: youtubePages,
+    loading: childrenLoading,
+    error: childrenError,
+  } = useContentChildren<YoutubePage>(parentPage.id, options, mapYoutubeItem)
+
+  // Combine parent and children data
+  const youtubeParentPageWithChildren: YoutubeParentPage = {
+    ...parentPage,
+    children: youtubePages,
+  }
+
+  return { 
+    content: youtubeParentPageWithChildren, 
+    loading: parentLoading || childrenLoading, 
+    error: parentError || childrenError 
+  }
+}
