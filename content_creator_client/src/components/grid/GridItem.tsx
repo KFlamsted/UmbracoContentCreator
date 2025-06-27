@@ -35,7 +35,7 @@ export interface GridItemProps {
  * - Optional featured badge
  * - Click handling
  * - Hover effects
- * 
+ *
  * @example
  * ```tsx
  * <GridItem
@@ -60,45 +60,41 @@ const GridItem: React.FC<GridItemProps> = ({
   children,
 }) => {
   return (
-    <div 
-      className={`${onClick ? 'cursor-pointer transition-transform hover:scale-105' : ''} ${className}`}
+    <div
+      className={`${
+        onClick ? 'cursor-pointer transition-transform hover:scale-105' : ''
+      } ${className}`}
       onClick={onClick}
     >
-      <div className={`relative ${DESIGN_TOKENS.SURFACE_BG} ${DESIGN_TOKENS.BORDER_RADIUS} ${DESIGN_TOKENS.CARD_SHADOW} overflow-hidden ${height}`}>
+      <div
+        className={`relative ${DESIGN_TOKENS.SURFACE_BG} ${DESIGN_TOKENS.BORDER_RADIUS} ${DESIGN_TOKENS.CARD_SHADOW} overflow-hidden ${height}`}
+      >
         {/* Background Image */}
         {imageUrl && (
-          <div 
+          <div
             className="absolute inset-0 bg-cover bg-center"
             style={{ backgroundImage: `url(${imageUrl})` }}
             role="img"
             aria-label={imageAlt || title || 'Grid item image'}
           />
         )}
-          {/* Content Overlay */}
+        {/* Content Overlay */}
         {(title || summary || author || publishDate || children) && (
-          <div className="absolute inset-0 bg-black bg-opacity-40 flex flex-col justify-end p-4">
+          <div className="absolute inset-0 bg-black bg-opacity-40 flex flex-col justify-between p-4">
+            <div>
+              {title && <h3 className="text-lg font-bold mb-2 text-left">{title}</h3>}
+              {(author || publishDate) && (
+                <div className="text-xs opacity-80 mb-2">
+                  {author && <span>By {author}</span>}
+                  {author && publishDate && <span> • </span>}
+                  {publishDate && <span>{publishDate}</span>}
+                </div>
+              )}
+            </div>
             {children ? (
               children
             ) : (
-              <div className="text-white">
-                {title && (
-                  <h3 className="text-lg font-bold mb-2">
-                    {title}
-                  </h3>
-                )}
-                {(author || publishDate) && (
-                  <div className="text-xs opacity-80 mb-2">
-                    {author && <span>By {author}</span>}
-                    {author && publishDate && <span> • </span>}
-                    {publishDate && <span>{publishDate}</span>}
-                  </div>
-                )}
-                {summary && (
-                  <p className="text-sm opacity-90">
-                    {summary}
-                  </p>
-                )}
-              </div>
+              summary && <div className="text-sm opacity-90 text-left">{summary}</div>
             )}
           </div>
         )}

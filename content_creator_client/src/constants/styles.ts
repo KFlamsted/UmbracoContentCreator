@@ -47,7 +47,7 @@ export const CARD_CLASSES = `w-full ${DESIGN_TOKENS.CONTAINER_MAX_WIDTH} ${DESIG
 // Card classes with backdrop blur (used on pages with background images)
 export const BACKDROP_BLUR_CARD_CLASSES = `w-full ${DESIGN_TOKENS.CONTAINER_MAX_WIDTH} ${DESIGN_TOKENS.SURFACE_BG} bg-opacity-95 ${DESIGN_TOKENS.BORDER_RADIUS} ${DESIGN_TOKENS.CARD_SHADOW} ${DESIGN_TOKENS.CARD_PADDING} mb-2 backdrop-blur-sm`
 
-export const TITLE_CARD_CLASSES = `${CARD_CLASSES} mb-6`
+export const TITLE_CARD_CLASSES = `${CARD_CLASSES} mb-2`
 
 export const TITLE_CLASSES = `${DESIGN_TOKENS.HEADING_SIZE} font-bold text-center ${DESIGN_TOKENS.TEXT_HEADING}`
 
@@ -61,7 +61,7 @@ export const getAppShellContainerClasses = (hasBackgroundImage: boolean) =>
     hasBackgroundImage ? '' : DESIGN_TOKENS.MUTED_BG
   } flex flex-col items-center justify-start ${
     DESIGN_TOKENS.SECTION_PADDING_X
-  } ${DESIGN_TOKENS.SECTION_PADDING_Y} pt-30`
+  } ${DESIGN_TOKENS.SECTION_PADDING_Y} pt-20`
 
 // Background System
 export const BACKGROUND_IMAGE_CLASSES =
