@@ -3,6 +3,10 @@
  */
 export interface YoutubePage {
   /**
+   * Unique identifier
+   */
+  id?: string;
+  /**
    * Amount of videos shown.
    */
   amountOfVideos?: number;
