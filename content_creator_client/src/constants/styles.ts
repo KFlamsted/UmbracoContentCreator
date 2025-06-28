@@ -56,12 +56,12 @@ export const BODY_TEXT_CLASSES = `${DESIGN_TOKENS.BODY_SIZE} ${DESIGN_TOKENS.TEX
 export const APP_SHELL_CONTAINER_CLASSES = `min-h-screen flex flex-col items-center justify-start ${DESIGN_TOKENS.SECTION_PADDING_X} ${DESIGN_TOKENS.SECTION_PADDING_Y}`
 
 // Dynamic container classes - use these instead of the static ones above
-export const getAppShellContainerClasses = (hasBackgroundImage: boolean) =>
+export const getAppShellContainerClasses = (hasBackgroundImage: boolean, hasInPageNavBar: boolean = false) =>
   `min-h-screen ${
     hasBackgroundImage ? '' : DESIGN_TOKENS.MUTED_BG
   } flex flex-col items-center justify-start ${
     DESIGN_TOKENS.SECTION_PADDING_X
-  } ${DESIGN_TOKENS.SECTION_PADDING_Y} pt-20`
+  } ${DESIGN_TOKENS.SECTION_PADDING_Y} ${hasInPageNavBar ? 'pt-32' : 'pt-20'}`
 
 // Background System
 export const BACKGROUND_IMAGE_CLASSES =
@@ -83,7 +83,7 @@ export const HOMEPAGE_SCROLL_INDICATOR_CLASSES =
   'absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white animate-bounce'
 
 // News Page Layout
-export const NEWS_PAGE_CONTAINER_CLASSES = `min-h-screen flex flex-col items-center justify-start ${DESIGN_TOKENS.SECTION_PADDING_X} ${DESIGN_TOKENS.SECTION_PADDING_Y}`
+export const NEWS_PAGE_CONTAINER_CLASSES = `w-full min-h-screen flex flex-col items-center justify-start ${DESIGN_TOKENS.SECTION_PADDING_X} ${DESIGN_TOKENS.SECTION_PADDING_Y}`
 
 // Button Components (these have real state logic)
 export const NAVBAR_BUTTON_BASE_CLASSES = `${DESIGN_TOKENS.BUTTON_PADDING} ${DESIGN_TOKENS.BUTTON_WIDTH} ${DESIGN_TOKENS.BORDER_RADIUS} font-medium transition-colors cursor-pointer focus:outline-none focus:ring-0 focus:border-none active:outline-none active:ring-0 active:border-none`

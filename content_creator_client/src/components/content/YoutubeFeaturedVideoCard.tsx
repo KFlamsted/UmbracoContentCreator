@@ -54,7 +54,7 @@ const YoutubeFeaturedVideoCard: React.FC<YoutubeFeaturedVideoCardProps> = ({
 
   const youtubeOptions = {
     width: '100%',
-    height: '400',
+    height: '100%',
     playerVars: {
       autoplay: 0,
       modestbranding: 1,

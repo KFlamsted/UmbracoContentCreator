@@ -185,7 +185,11 @@ export const useNewsPage = () => useContent<News>(fetchNewsPage)
 
 export const useYoutubeParentPage = () => {
   // First get the YouTube parent page content (similar to useNewsPage)
-  const { content: parentPage, loading: parentLoading, error: parentError } = useContent<YoutubeParentPage>(fetchYoutubeParentPage)
+  const {
+    content: parentPage,
+    loading: parentLoading,
+    error: parentError,
+  } = useContent<YoutubeParentPage>(fetchYoutubeParentPage)
 
   // Memoize the mapping function to prevent recreation on every render
   const mapYoutubeItem = useMemo(
@@ -222,9 +226,12 @@ export const useYoutubeParentPage = () => {
     children: youtubePages,
   }
 
-  return { 
-    content: youtubeParentPageWithChildren, 
-    loading: parentLoading || childrenLoading, 
-    error: parentError || childrenError 
+  // Only show loading if parent is loading, or if parent is loaded and children are loading and parentPage.id is defined
+  const loading = parentLoading || (!!parentPage.id && childrenLoading)
+
+  return {
+    content: youtubeParentPageWithChildren,
+    loading,
+    error: parentError || childrenError,
   }
 }

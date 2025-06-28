@@ -13,7 +13,7 @@ const AppRoutes: React.FC<AppRoutesProps> = ({ onStateChange }) => {
     <Routes>
       <Route path={ROUTES.HOME} element={<HomePageContainer onStateChange={onStateChange} />} />
       <Route path={ROUTES.NEWS} element={<NewsPageContainer onStateChange={onStateChange} />} />
-      <Route path={ROUTES.YOUTUBE} element={<YoutubePageContainer />} />
+      <Route path={ROUTES.YOUTUBE} element={<YoutubePageContainer onStateChange={onStateChange} />} />
     </Routes>
   )
 }
