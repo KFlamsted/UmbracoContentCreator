@@ -14,6 +14,14 @@ if (builder.Environment.IsDevelopment())
     });
 }
 
+// Register typed HttpClient for YouTube service
+// This automatically registers IHttpClientFactory and YouTubeService as transient
+builder.Services.AddHttpClient<UmbracoCms.Services.YouTubeService>();
+
+// Register the interface mapping for dependency injection
+builder.Services.AddScoped<UmbracoCms.Services.IYouTubeService>(provider => 
+    provider.GetRequiredService<UmbracoCms.Services.YouTubeService>());
+
 builder.CreateUmbracoBuilder()
     .AddBackOffice()
     .AddWebsite()

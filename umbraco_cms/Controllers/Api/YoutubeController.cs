@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using System.Text.Json;
+using UmbracoCms.Models;
+using UmbracoCms.Services;
 
 namespace UmbracoCms.Controllers.Api
 {
@@ -12,19 +12,14 @@ namespace UmbracoCms.Controllers.Api
     [Route("api/youtube")]
     public class YouTubeController : Controller
     {
-        private readonly string _apiKey;
-        private readonly HttpClient _httpClient;
+        private readonly IYouTubeService _youTubeService;
         private readonly ILogger<YouTubeController> _logger;
 
         public YouTubeController(
-            IConfiguration configuration, 
-            HttpClient httpClient,
+            IYouTubeService youTubeService,
             ILogger<YouTubeController> logger)
         {
-            // Store API key securely in appsettings.json
-            _apiKey = configuration["GoogleApiKey"] ?? 
-                     throw new InvalidOperationException("GoogleApiKey not configured");
-            _httpClient = httpClient;
+            _youTubeService = youTubeService;
             _logger = logger;
         }
 
@@ -33,7 +28,7 @@ namespace UmbracoCms.Controllers.Api
         /// </summary>
         /// <param name="channelId">YouTube channel ID</param>
         /// <param name="maxResults">Maximum number of videos to return (default: 10)</param>
-        /// <returns>YouTube search response with videos</returns>
+        /// <returns>Simplified video list with thumbnails, descriptions and YouTube URLs</returns>
         [HttpGet("channel/{channelId}/videos")]
         public async Task<IActionResult> GetChannelVideos(string channelId, int maxResults = 10)
         {
@@ -50,33 +45,8 @@ namespace UmbracoCms.Controllers.Api
                     return BadRequest(new { error = "maxResults must be between 1 and 50" });
                 }
 
-                // Build YouTube API URL
-                var url = $"https://www.googleapis.com/youtube/v3/search" +
-                         $"?part=snippet" +
-                         $"&channelId={Uri.EscapeDataString(channelId)}" +
-                         $"&maxResults={maxResults}" +
-                         $"&order=date" +
-                         $"&type=video" +
-                         $"&key={_apiKey}";
-
-                _logger.LogInformation("Fetching YouTube videos for channel: {ChannelId}", channelId);
-
-                var response = await _httpClient.GetAsync(url);
-                
-                if (!response.IsSuccessStatusCode)
-                {
-                    _logger.LogError("YouTube API error: {StatusCode} - {ReasonPhrase}", 
-                        response.StatusCode, response.ReasonPhrase);
-                    
-                    return StatusCode((int)response.StatusCode, 
-                        new { error = $"YouTube API error: {response.ReasonPhrase}" });
-                }
-
-                var content = await response.Content.ReadAsStringAsync();
-                
-                // Parse and return the JSON response
-                var jsonResponse = JsonSerializer.Deserialize<object>(content);
-                return Ok(jsonResponse);
+                var result = await _youTubeService.GetChannelVideosAsync(channelId, maxResults);
+                return Ok(result);
             }
             catch (HttpRequestException ex)
             {
@@ -106,30 +76,8 @@ namespace UmbracoCms.Controllers.Api
                     return BadRequest(new { error = "Channel ID is required" });
                 }
 
-                // Build YouTube API URL
-                var url = $"https://www.googleapis.com/youtube/v3/channels" +
-                         $"?part=snippet,statistics" +
-                         $"&id={Uri.EscapeDataString(channelId)}" +
-                         $"&key={_apiKey}";
-
-                _logger.LogInformation("Fetching YouTube channel info for: {ChannelId}", channelId);
-
-                var response = await _httpClient.GetAsync(url);
-                
-                if (!response.IsSuccessStatusCode)
-                {
-                    _logger.LogError("YouTube API error: {StatusCode} - {ReasonPhrase}", 
-                        response.StatusCode, response.ReasonPhrase);
-                    
-                    return StatusCode((int)response.StatusCode, 
-                        new { error = $"YouTube API error: {response.ReasonPhrase}" });
-                }
-
-                var content = await response.Content.ReadAsStringAsync();
-                
-                // Parse and return the JSON response
-                var jsonResponse = JsonSerializer.Deserialize<object>(content);
-                return Ok(jsonResponse);
+                var result = await _youTubeService.GetChannelInfoAsync(channelId);
+                return Ok(result);
             }
             catch (HttpRequestException ex)
             {
