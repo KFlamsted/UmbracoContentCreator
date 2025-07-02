@@ -43,24 +43,22 @@ export interface YouTubeSearchResponse {
   items: YouTubeVideo[]
 }
 
-// Create axios instance for Google YouTube API
-const googleApiClient: AxiosInstance = axios.create({
-  baseURL: 'https://www.googleapis.com/youtube/v3',
+// Create axios instance for backend YouTube API proxy
+const youtubeApiClient: AxiosInstance = axios.create({
+  baseURL: '/api/youtube', // Use backend proxy instead of Google API directly
   timeout: 10000,
   headers: {
     'Content-Type': 'application/json',
   },
-  params: {
-    key: import.meta.env.VITE_GOOGLE_API_KEY,
-  },
+  // Remove the API key - it's now handled by the backend
 })
 
 // Request interceptor for logging/debugging
-googleApiClient.interceptors.request.use(
+youtubeApiClient.interceptors.request.use(
   (config) => {
     // Log API requests in development
     if (import.meta.env.DEV) {
-      console.log('Google API Request:', {
+      console.log('YouTube API Request:', {
         url: config.url,
         params: config.params,
       })
@@ -73,29 +71,29 @@ googleApiClient.interceptors.request.use(
 )
 
 // Response interceptor for error handling
-googleApiClient.interceptors.response.use(
+youtubeApiClient.interceptors.response.use(
   (response: AxiosResponse) => {
     return response
   },
   (error: AxiosError) => {
     if (error.response) {
-      console.error('Google API Error:', {
+      console.error('YouTube API Error:', {
         status: error.response.status,
         statusText: error.response.statusText,
         data: error.response.data,
         url: error.config?.url,
       })
     } else if (error.request) {
-      console.error('Google API Network Error:', error.request)
+      console.error('YouTube API Network Error:', error.request)
     } else {
-      console.error('Google API Request Error:', error.message)
+      console.error('YouTube API Request Error:', error.message)
     }
     return Promise.reject(error)
   }
 )
 
-// Helper function to handle Google API responses
-const handleGoogleApiResponse = <T>(response: AxiosResponse<T>): T => {
+// Helper function to handle API responses
+const handleApiResponse = <T>(response: AxiosResponse<T>): T => {
   return response.data
 }
 
@@ -105,17 +103,16 @@ export const getChannelLatestVideos = async (
   maxResults: number = 10
 ): Promise<YouTubeVideo[]> => {
   try {
-    const response = await googleApiClient.get<YouTubeSearchResponse>('/search', {
-      params: {
-        part: 'snippet',
-        channelId: channelId,
-        maxResults: maxResults,
-        order: 'date',
-        type: 'video',
-      },
-    })
+    const response = await youtubeApiClient.get<YouTubeSearchResponse>(
+      `/channel/${channelId}/videos`,
+      {
+        params: {
+          maxResults: maxResults,
+        },
+      }
+    )
 
-    return handleGoogleApiResponse(response).items
+    return handleApiResponse(response).items
   } catch (error) {
     console.error('Failed to fetch channel videos:', error)
     throw error
@@ -125,18 +122,13 @@ export const getChannelLatestVideos = async (
 // Service function to get channel information
 export const getChannelInfo = async (channelId: string) => {
   try {
-    const response = await googleApiClient.get('/channels', {
-      params: {
-        part: 'snippet,statistics',
-        id: channelId,
-      },
-    })
+    const response = await youtubeApiClient.get(`/channel/${channelId}/info`)
 
-    return handleGoogleApiResponse(response)
+    return handleApiResponse(response)
   } catch (error) {
     console.error('Failed to fetch channel info:', error)
     throw error
   }
 }
 
-export { googleApiClient, handleGoogleApiResponse } 
+export { youtubeApiClient, handleApiResponse } 
