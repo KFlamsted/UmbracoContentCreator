@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react'
-import { getChannelLatestVideos, type YouTubeVideo } from '../services/googleApiClient'
+import { getChannelLatestVideos } from '../services/googleApiClient'
+import type { VideoSummary } from '../model/VideoSummary'
 
 interface UseYouTubeDataResult {
-  videos: YouTubeVideo[]
+  videos: VideoSummary[]
   loading: boolean
   error: string | null
   refetch: () => Promise<void>
@@ -18,7 +19,7 @@ export const useYouTubeData = (
   channelId: string | null, 
   maxResults: number = 10
 ): UseYouTubeDataResult => {
-  const [videos, setVideos] = useState<YouTubeVideo[]>([])
+  const [videos, setVideos] = useState<VideoSummary[]>([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 

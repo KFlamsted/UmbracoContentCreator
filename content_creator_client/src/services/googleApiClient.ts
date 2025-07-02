@@ -1,51 +1,9 @@
 import axios, { type AxiosInstance, type AxiosResponse, type AxiosError } from 'axios'
-
-// YouTube API response interfaces
-export interface YouTubeVideoSnippet {
-  publishedAt: string
-  channelId: string
-  title: string
-  description: string
-  thumbnails: {
-    default: { url: string; width: number; height: number }
-    medium: { url: string; width: number; height: number }
-    high: { url: string; width: number; height: number }
-    standard?: { url: string; width: number; height: number }
-    maxres?: { url: string; width: number; height: number }
-  }
-  channelTitle: string
-  tags?: string[]
-  categoryId: string
-  liveBroadcastContent: string
-  localized: {
-    title: string
-    description: string
-  }
-}
-
-export interface YouTubeVideo {
-  kind: string
-  etag: string
-  id: string
-  snippet: YouTubeVideoSnippet
-}
-
-export interface YouTubeSearchResponse {
-  kind: string
-  etag: string
-  nextPageToken?: string
-  prevPageToken?: string
-  regionCode: string
-  pageInfo: {
-    totalResults: number
-    resultsPerPage: number
-  }
-  items: YouTubeVideo[]
-}
+import { type VideoListResponse, type VideoSummary } from '../model/VideoSummary'
 
 // Create axios instance for backend YouTube API proxy
 const youtubeApiClient: AxiosInstance = axios.create({
-  baseURL: '/api/youtube', // Use backend proxy instead of Google API directly
+  baseURL: `${import.meta.env.VITE_API_URL}/api/youtube`, // Use backend proxy instead of Google API directly
   timeout: 10000,
   headers: {
     'Content-Type': 'application/json',
@@ -56,13 +14,6 @@ const youtubeApiClient: AxiosInstance = axios.create({
 // Request interceptor for logging/debugging
 youtubeApiClient.interceptors.request.use(
   (config) => {
-    // Log API requests in development
-    if (import.meta.env.DEV) {
-      console.log('YouTube API Request:', {
-        url: config.url,
-        params: config.params,
-      })
-    }
     return config
   },
   (error) => {
@@ -101,9 +52,9 @@ const handleApiResponse = <T>(response: AxiosResponse<T>): T => {
 export const getChannelLatestVideos = async (
   channelId: string,
   maxResults: number = 10
-): Promise<YouTubeVideo[]> => {
+): Promise<VideoSummary[]> => {
   try {
-    const response = await youtubeApiClient.get<YouTubeSearchResponse>(
+    const response = await youtubeApiClient.get<VideoListResponse>(
       `/channel/${channelId}/videos`,
       {
         params: {
@@ -112,7 +63,7 @@ export const getChannelLatestVideos = async (
       }
     )
 
-    return handleApiResponse(response).items
+    return handleApiResponse(response).videos
   } catch (error) {
     console.error('Failed to fetch channel videos:', error)
     throw error

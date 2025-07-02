@@ -23,22 +23,16 @@ const YoutubeVideoListCard: React.FC<YoutubeVideoListCardProps> = ({
 }) => {
   const maxVideos = channel.amountOfVideos || 6
   const { videos, loading, error, refetch } = useYouTubeData(
-    channel.youtubeChannelId || null,
+    channel.channelId ?? null,
     maxVideos
   )
-  
+
   const [videoStates, setVideoStates] = useState<VideoPlayerState>({})
-  
-  const cardClasses = hasBackgroundImage ? BACKDROP_BLUR_CARD_CLASSES : 
+
+  const cardClasses = hasBackgroundImage ? BACKDROP_BLUR_CARD_CLASSES :
     `w-full max-w-6xl ${DESIGN_TOKENS.SURFACE_BG} bg-opacity-95 ${DESIGN_TOKENS.BORDER_RADIUS} backdrop-blur-sm ${DESIGN_TOKENS.CARD_SHADOW} ${DESIGN_TOKENS.CARD_PADDING} mb-2`
 
-  const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'short',
-      day: 'numeric',
-    })
-  }
+
 
   const truncateTitle = (title: string, maxLength: number = 60) => {
     if (title.length <= maxLength) return title
@@ -95,7 +89,7 @@ const YoutubeVideoListCard: React.FC<YoutubeVideoListCardProps> = ({
     },
   }
 
-  if (!channel.youtubeChannelId) {
+  if (!channel.channelId) {
     return (
       <div className={cardClasses}>
         <div className="text-center py-8">
@@ -141,7 +135,7 @@ const YoutubeVideoListCard: React.FC<YoutubeVideoListCardProps> = ({
         </div>
       )}
 
-      {!loading && !error && videos.length === 0 && (
+      {!loading && !error && (!videos || videos.length === 0 ) && (
         <div className="text-center py-8">
           <p className={LOADING_MESSAGE_CLASSES}>
             No videos found for this channel.
@@ -149,23 +143,23 @@ const YoutubeVideoListCard: React.FC<YoutubeVideoListCardProps> = ({
         </div>
       )}
 
-      {!loading && !error && videos.length > 0 && (
+      {!loading && !error && videos && videos.length > 0 && (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {videos.map((video) => {
-            const videoId = video.id
+            const videoId = video.videoId
             const state = getVideoState(videoId)
-            
+
             return (
               <div key={videoId} className="group">
                 {!state.showPlayer ? (
-                  <div 
+                  <div
                     className="cursor-pointer relative overflow-hidden rounded-lg bg-gray-900"
                     onClick={() => handleThumbnailClick(videoId)}
                   >
                     <div className="aspect-video relative">
                       <img
-                        src={video.snippet.thumbnails.medium.url}
-                        alt={video.snippet.title}
+                        src={video.thumbnailUrl}
+                        alt={video.title}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                         loading="lazy"
                       />
@@ -181,14 +175,20 @@ const YoutubeVideoListCard: React.FC<YoutubeVideoListCardProps> = ({
                         </div>
                       </div>
                     </div>
-                    
+
                     <div className="p-4 bg-gray-800 bg-opacity-80">
                       <h4 className="text-white font-medium text-sm leading-tight mb-2">
-                        {truncateTitle(video.snippet.title)}
+                        {truncateTitle(video.title)}
                       </h4>
-                      <div className="flex justify-between items-center text-xs text-gray-400">
-                        <span>{video.snippet.channelTitle}</span>
-                        <span>{formatDate(video.snippet.publishedAt)}</span>
+                      <div className="text-xs text-gray-400 text-center">
+                        <a
+                          href={video.youtubeUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-blue-400 hover:text-blue-300"
+                        >
+                          Watch on YouTube
+                        </a>
                       </div>
                     </div>
                   </div>
@@ -199,7 +199,7 @@ const YoutubeVideoListCard: React.FC<YoutubeVideoListCardProps> = ({
                         <p className={LOADING_MESSAGE_CLASSES}>Loading player...</p>
                       </div>
                     )}
-                    
+
                     {state.hasError && (
                       <div className="aspect-video flex items-center justify-center bg-gray-800">
                         <div className="text-center">
@@ -216,7 +216,7 @@ const YoutubeVideoListCard: React.FC<YoutubeVideoListCardProps> = ({
                         </div>
                       </div>
                     )}
-                    
+
                     <div className={`aspect-video ${state.isLoading ? 'hidden' : ''}`}>
                       <YouTube
                         videoId={videoId}
@@ -226,15 +226,11 @@ const YoutubeVideoListCard: React.FC<YoutubeVideoListCardProps> = ({
                         className="w-full h-full"
                       />
                     </div>
-                    
+
                     <div className="p-4 bg-gray-800">
                       <h4 className="text-white font-medium text-sm leading-tight mb-2">
-                        {video.snippet.title}
+                        {video.title}
                       </h4>
-                      <div className="flex justify-between items-center text-xs text-gray-400">
-                        <span>{video.snippet.channelTitle}</span>
-                        <span>{formatDate(video.snippet.publishedAt)}</span>
-                      </div>
                       <button
                         onClick={() => setVideoStates(prev => ({
                           ...prev,

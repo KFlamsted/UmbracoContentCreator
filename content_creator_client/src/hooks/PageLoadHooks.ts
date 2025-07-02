@@ -201,6 +201,7 @@ export const useYoutubeParentPage = () => {
         menuName: item.properties.menuName as string,
         pageTitle: item.properties.pageTitle as string,
         youtubeChannelName: item.properties.youtubeChannelName as string,
+        channelId: item.properties.channelId as string,
       }),
     []
   )

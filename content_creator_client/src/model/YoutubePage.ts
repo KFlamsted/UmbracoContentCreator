@@ -27,7 +27,7 @@ export interface YoutubePage {
    */
   youtubeChannelName?: string;
   /**
-   * YouTube Channel ID for API calls (e.g., UCxxxxxxxxxxxxxxxxxxxxxxx)
+   * The channels actual Id (for API calls, e.g., UCxxxxxxxxxxxxxxxxxxxxxxx)
    */
-  youtubeChannelId?: string;
+  channelId?: string;
 } 
