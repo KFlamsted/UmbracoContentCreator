@@ -1,4 +1,5 @@
-import { DESIGN_TOKENS, YOUTUBE_THUMBNAIL_CLASSES, YOUTUBE_PLAY_BUTTON_CLASSES } from '../../constants/styles'
+import { DESIGN_TOKENS, YOUTUBE_THUMBNAIL_CARD_CLASSES, YOUTUBE_PLAY_BUTTON_CLASSES } from '../../constants/styles'
+import { sanitizeAndTruncateText, sanitizeHtml } from '../../utility/textUtility'
 import type { VideoSummary } from '../../model/VideoSummary'
 
 interface YoutubeVideoThumbnailProps {
@@ -7,29 +8,22 @@ interface YoutubeVideoThumbnailProps {
   maxTitleLength?: number
 }
 
-/**
- * Utility function to truncate video titles
- */
-const truncateTitle = (title: string, maxLength: number = 60): string => {
-  if (title.length <= maxLength) return title
-  return title.substring(0, maxLength) + '...'
-}
-
 const YoutubeVideoThumbnail: React.FC<YoutubeVideoThumbnailProps> = ({
   video,
   onThumbnailClick,
   maxTitleLength = 60
 }) => {
   return (
-    <div className="group">
+    <div className="group h-full">
       <div
-        className={YOUTUBE_THUMBNAIL_CLASSES}
+        className={YOUTUBE_THUMBNAIL_CARD_CLASSES}
         onClick={onThumbnailClick}
       >
-        <div className="aspect-video relative">
+        {/* Video thumbnail section - fixed aspect ratio */}
+        <div className="aspect-video relative flex-shrink-0">
           <img
             src={video.thumbnailUrl}
-            alt={video.title}
+            alt={sanitizeHtml(video.title)}
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
             loading="lazy"
           />
@@ -46,11 +40,12 @@ const YoutubeVideoThumbnail: React.FC<YoutubeVideoThumbnailProps> = ({
           </div>
         </div>
 
-        <div className={`p-4 ${DESIGN_TOKENS.YOUTUBE_CARD_OVERLAY}`}>
+        {/* Content section - flexible height */}
+        <div className={`p-4 ${DESIGN_TOKENS.YOUTUBE_CARD_OVERLAY} flex-grow flex flex-col justify-between`}>
           <h4 className={DESIGN_TOKENS.YOUTUBE_VIDEO_TITLE}>
-            {truncateTitle(video.title, maxTitleLength)}
+            {sanitizeAndTruncateText(video.title, maxTitleLength)}
           </h4>
-          <div className="text-xs text-gray-400 text-center">
+          <div className="text-xs text-gray-400 text-center mt-auto">
             <a
               href={video.youtubeUrl}
               target="_blank"

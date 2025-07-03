@@ -15,6 +15,8 @@ export interface GridCardComponentProps<T> {
   emptyMessage?: string
   /** Additional CSS classes to apply to the container */
   className?: string
+  /** Whether to make all grid items equal height */
+  equalHeight?: boolean
 }
 
 /**
@@ -41,9 +43,11 @@ const GridCardComponent = <T,>({
   getItemKey,
   emptyMessage = 'No items available',
   className,
+  equalHeight = false,
 }: GridCardComponentProps<T>) => {
   // Limit the number of items to display
   const itemsToShow = maxItems ? items.slice(0, maxItems) : items
+  
   // Generate grid columns class based on the columns prop
   const getGridColumnsClass = (cols: 2 | 3 | 4 | '1-md-2' | '1-md-2-lg-3') => {
     switch (cols) {
@@ -62,6 +66,11 @@ const GridCardComponent = <T,>({
     }
   }
 
+  // Build grid classes with optional equal height
+  const gridClasses = `grid ${getGridColumnsClass(columns)} gap-4 ${
+    equalHeight ? 'items-stretch' : ''
+  }`
+
   if (itemsToShow.length === 0) {
     return (
       <div className={`${CARD_CLASSES} text-center ${className || ''}`}>
@@ -72,7 +81,7 @@ const GridCardComponent = <T,>({
 
   return (
     <div className={`${CARD_CLASSES} ${className || ''}`}>
-      <div className={`grid ${getGridColumnsClass(columns)} gap-4`}>
+      <div className={gridClasses}>
         {itemsToShow.map((item, index) => (
           <React.Fragment key={getItemKey(item, index)}>
             {renderItem(item, index)}

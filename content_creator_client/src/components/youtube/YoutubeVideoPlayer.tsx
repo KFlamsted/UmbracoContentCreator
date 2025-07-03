@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import YouTube from 'react-youtube'
 import { LOADING_MESSAGE_CLASSES, ERROR_MESSAGE_CLASSES, DESIGN_TOKENS } from '../../constants/styles'
+import { sanitizeHtml } from '../../utility/textUtility'
 
 interface YoutubeVideoPlayerProps {
   videoId: string
@@ -80,7 +81,7 @@ const YoutubeVideoPlayer: React.FC<YoutubeVideoPlayerProps> = ({
       {videoTitle && (
         <div className={`p-4 ${DESIGN_TOKENS.YOUTUBE_CARD_OVERLAY}`}>
           <h4 className={DESIGN_TOKENS.YOUTUBE_VIDEO_TITLE}>
-            {videoTitle}
+            {sanitizeHtml(videoTitle)}
           </h4>
           {showBackButton && onBackToThumbnail && (
             <button

@@ -1,4 +1,5 @@
 import { DESIGN_TOKENS } from '../../constants/styles'
+import { sanitizeHtml } from '../../utility/textUtility'
 import type { VideoSummary } from '../../model/VideoSummary'
 
 interface YoutubeVideoCardProps {
@@ -26,7 +27,7 @@ const YoutubeVideoCard: React.FC<YoutubeVideoCardProps> = ({
       <div className="relative mb-4 group">
         <img
           src={video.thumbnailUrl}
-          alt={video.title}
+          alt={sanitizeHtml(video.title)}
           className="w-full h-48 object-cover rounded-lg"
         />
         <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors duration-300 rounded-lg flex items-center justify-center">
@@ -45,7 +46,7 @@ const YoutubeVideoCard: React.FC<YoutubeVideoCardProps> = ({
       {/* Video Content */}
       <div className="space-y-3">
         <h3 className="text-lg font-semibold text-white line-clamp-2">
-          {video.title}
+          {sanitizeHtml(video.title)}
         </h3>
         
         <p className="text-gray-300 text-sm leading-relaxed">

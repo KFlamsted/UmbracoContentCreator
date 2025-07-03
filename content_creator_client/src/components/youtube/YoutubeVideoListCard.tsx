@@ -1,5 +1,9 @@
 import { useState } from 'react'
-import { BACKDROP_BLUR_CARD_CLASSES, DESIGN_TOKENS, ERROR_MESSAGE_CLASSES } from '../../constants/styles'
+import {
+  BACKDROP_BLUR_CARD_CLASSES,
+  DESIGN_TOKENS,
+  ERROR_MESSAGE_CLASSES,
+} from '../../constants/styles'
 import { useYouTubeData } from '../../hooks/useYouTubeData'
 import YoutubeVideoList from './YoutubeVideoList'
 import type { YoutubePage } from '../../model/YoutubePage'
@@ -29,59 +33,60 @@ const YoutubeVideoListCard: React.FC<YoutubeVideoListCardProps> = ({
 
   const [videoStates, setVideoStates] = useState<VideoPlayerState>({})
 
-  const cardClasses = hasBackgroundImage ? BACKDROP_BLUR_CARD_CLASSES :
-    `w-full max-w-6xl ${DESIGN_TOKENS.SURFACE_BG} bg-opacity-95 ${DESIGN_TOKENS.BORDER_RADIUS} backdrop-blur-sm ${DESIGN_TOKENS.CARD_SHADOW} ${DESIGN_TOKENS.CARD_PADDING} mb-2`
+  const cardClasses = hasBackgroundImage
+    ? BACKDROP_BLUR_CARD_CLASSES
+    : `w-full max-w-6xl ${DESIGN_TOKENS.SURFACE_BG} bg-opacity-95 ${DESIGN_TOKENS.BORDER_RADIUS} backdrop-blur-sm ${DESIGN_TOKENS.CARD_SHADOW} ${DESIGN_TOKENS.CARD_PADDING} mb-2`
 
   const handleThumbnailClick = (videoId: string) => {
-    setVideoStates(prev => ({
+    setVideoStates((prev) => ({
       ...prev,
       [videoId]: {
         showPlayer: true,
         isLoading: true,
-        hasError: false
-      }
+        hasError: false,
+      },
     }))
   }
 
   const handlePlayerReady = (videoId: string) => {
-    setVideoStates(prev => ({
-      ...prev,
-      [videoId]: {
-        ...prev[videoId],
-        isLoading: false
-      }
-    }))
-  }
-
-  const handlePlayerError = (videoId: string) => {
-    setVideoStates(prev => ({
+    setVideoStates((prev) => ({
       ...prev,
       [videoId]: {
         ...prev[videoId],
         isLoading: false,
-        hasError: true
-      }
+      },
+    }))
+  }
+
+  const handlePlayerError = (videoId: string) => {
+    setVideoStates((prev) => ({
+      ...prev,
+      [videoId]: {
+        ...prev[videoId],
+        isLoading: false,
+        hasError: true,
+      },
     }))
   }
 
   const handleBackToThumbnail = (videoId: string) => {
-    setVideoStates(prev => ({
+    setVideoStates((prev) => ({
       ...prev,
-      [videoId]: { 
-        showPlayer: false, 
-        isLoading: false, 
-        hasError: false 
-      }
+      [videoId]: {
+        showPlayer: false,
+        isLoading: false,
+        hasError: false,
+      },
     }))
   }
-
-  console.log('channel', channel)
 
   if (!channel.channelId) {
     return (
       <div className={cardClasses}>
         <div className="text-center py-8">
-          <h3 className="text-xl font-semibold text-white mb-2">Latest Videos</h3>
+          <h3 className="text-xl font-semibold text-white mb-2">
+            Latest Videos
+          </h3>
           <p className={ERROR_MESSAGE_CLASSES}>
             YouTube Channel ID not configured for this page.
           </p>
@@ -107,4 +112,4 @@ const YoutubeVideoListCard: React.FC<YoutubeVideoListCardProps> = ({
   )
 }
 
-export default YoutubeVideoListCard 
+export default YoutubeVideoListCard

@@ -86,6 +86,7 @@ const YoutubeVideoList: React.FC<YoutubeVideoListProps> = ({
       <GridCardComponent
         items={videos}
         columns="1-md-2-lg-3"
+        equalHeight
         renderItem={(video) => {
           const state = getVideoState(video.videoId)
 

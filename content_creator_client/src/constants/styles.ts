@@ -47,7 +47,7 @@ export const DESIGN_TOKENS = {
   YOUTUBE_PLAY_BUTTON_BG: 'bg-red-600 bg-opacity-90',
   YOUTUBE_PLAY_BUTTON_SIZE: 'w-16 h-16',
   YOUTUBE_THUMBNAIL_OVERLAY: 'bg-opacity-30 group-hover:bg-opacity-20',
-  YOUTUBE_VIDEO_TITLE: 'text-white font-medium text-sm leading-tight mb-2',
+  YOUTUBE_VIDEO_TITLE: 'text-white font-medium text-sm leading-tight mb-2 h-10 flex items-start',
   YOUTUBE_VIDEO_LINK: 'text-blue-400 hover:text-blue-300',
 } as const
 
@@ -115,5 +115,6 @@ export const ICON_SIZE = 'w-6 h-6'
 
 // YouTube Component Classes
 export const YOUTUBE_THUMBNAIL_CLASSES = `cursor-pointer relative overflow-hidden ${DESIGN_TOKENS.BORDER_RADIUS} ${DESIGN_TOKENS.YOUTUBE_CARD_BG}`
+export const YOUTUBE_THUMBNAIL_CARD_CLASSES = `cursor-pointer relative overflow-hidden ${DESIGN_TOKENS.BORDER_RADIUS} ${DESIGN_TOKENS.YOUTUBE_CARD_BG} flex flex-col h-full`
 export const YOUTUBE_PLAY_BUTTON_CLASSES = `${DESIGN_TOKENS.YOUTUBE_PLAY_BUTTON_SIZE} ${DESIGN_TOKENS.YOUTUBE_PLAY_BUTTON_BG} rounded-full flex items-center justify-center ${DESIGN_TOKENS.CARD_SHADOW} group-hover:scale-110 transition-transform duration-300`
 export const YOUTUBE_VIDEO_PLAYER_CLASSES = `${DESIGN_TOKENS.BORDER_RADIUS} overflow-hidden ${DESIGN_TOKENS.YOUTUBE_CARD_BG}`
