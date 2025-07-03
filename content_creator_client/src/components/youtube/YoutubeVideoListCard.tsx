@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import {
   BACKDROP_BLUR_CARD_CLASSES,
   DESIGN_TOKENS,
@@ -13,14 +12,6 @@ interface YoutubeVideoListCardProps {
   hasBackgroundImage?: boolean
 }
 
-interface VideoPlayerState {
-  [videoId: string]: {
-    showPlayer: boolean
-    isLoading: boolean
-    hasError: boolean
-  }
-}
-
 const YoutubeVideoListCard: React.FC<YoutubeVideoListCardProps> = ({
   channel,
   hasBackgroundImage = false,
@@ -31,54 +22,10 @@ const YoutubeVideoListCard: React.FC<YoutubeVideoListCardProps> = ({
     maxVideos
   )
 
-  const [videoStates, setVideoStates] = useState<VideoPlayerState>({})
-
   const cardClasses = hasBackgroundImage
     ? BACKDROP_BLUR_CARD_CLASSES
     : `w-full max-w-6xl ${DESIGN_TOKENS.SURFACE_BG} bg-opacity-95 ${DESIGN_TOKENS.BORDER_RADIUS} backdrop-blur-sm ${DESIGN_TOKENS.CARD_SHADOW} ${DESIGN_TOKENS.CARD_PADDING} mb-2`
 
-  const handleThumbnailClick = (videoId: string) => {
-    setVideoStates((prev) => ({
-      ...prev,
-      [videoId]: {
-        showPlayer: true,
-        isLoading: true,
-        hasError: false,
-      },
-    }))
-  }
-
-  const handlePlayerReady = (videoId: string) => {
-    setVideoStates((prev) => ({
-      ...prev,
-      [videoId]: {
-        ...prev[videoId],
-        isLoading: false,
-      },
-    }))
-  }
-
-  const handlePlayerError = (videoId: string) => {
-    setVideoStates((prev) => ({
-      ...prev,
-      [videoId]: {
-        ...prev[videoId],
-        isLoading: false,
-        hasError: true,
-      },
-    }))
-  }
-
-  const handleBackToThumbnail = (videoId: string) => {
-    setVideoStates((prev) => ({
-      ...prev,
-      [videoId]: {
-        showPlayer: false,
-        isLoading: false,
-        hasError: false,
-      },
-    }))
-  }
 
   if (!channel.channelId) {
     return (
@@ -101,11 +48,6 @@ const YoutubeVideoListCard: React.FC<YoutubeVideoListCardProps> = ({
         videos={videos || []}
         loading={loading}
         error={error}
-        videoStates={videoStates}
-        onThumbnailClick={handleThumbnailClick}
-        onPlayerReady={handlePlayerReady}
-        onPlayerError={handlePlayerError}
-        onBackToThumbnail={handleBackToThumbnail}
         onRetry={refetch}
       />
     </div>

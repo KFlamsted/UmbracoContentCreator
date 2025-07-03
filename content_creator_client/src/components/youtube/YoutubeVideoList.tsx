@@ -1,5 +1,4 @@
 import { GridCardComponent } from '../grid'
-import YoutubeVideoThumbnail from './YoutubeVideoThumbnail'
 import YoutubeVideoPlayer from './YoutubeVideoPlayer'
 import {
   LOADING_MESSAGE_CLASSES,
@@ -7,23 +6,10 @@ import {
 } from '../../constants/styles'
 import type { VideoSummary } from '../../model/VideoSummary'
 
-interface VideoPlayerState {
-  [videoId: string]: {
-    showPlayer: boolean
-    isLoading: boolean
-    hasError: boolean
-  }
-}
-
 interface YoutubeVideoListProps {
   videos: VideoSummary[]
   loading: boolean
   error: string | null
-  videoStates: VideoPlayerState
-  onThumbnailClick: (videoId: string) => void
-  onPlayerReady: (videoId: string) => void
-  onPlayerError: (videoId: string) => void
-  onBackToThumbnail: (videoId: string) => void
   onRetry: () => void
 }
 
@@ -31,22 +17,8 @@ const YoutubeVideoList: React.FC<YoutubeVideoListProps> = ({
   videos,
   loading,
   error,
-  videoStates,
-  onThumbnailClick,
-  onPlayerReady,
-  onPlayerError,
-  onBackToThumbnail,
   onRetry,
 }) => {
-  const getVideoState = (videoId: string) => {
-    return (
-      videoStates[videoId] || {
-        showPlayer: false,
-        isLoading: false,
-        hasError: false,
-      }
-    )
-  }
 
   if (loading) {
     return (
@@ -87,24 +59,11 @@ const YoutubeVideoList: React.FC<YoutubeVideoListProps> = ({
         items={videos}
         columns="1-md-2-lg-3"
         equalHeight
-        renderItem={(video) => {
-          const state = getVideoState(video.videoId)
-
-          return state.showPlayer ? (
-            <YoutubeVideoPlayer
-              videoId={video.videoId}
-              onPlayerReady={() => onPlayerReady(video.videoId)}
-              onPlayerError={() => onPlayerError(video.videoId)}
-              onBackToThumbnail={() => onBackToThumbnail(video.videoId)}
-              videoTitle={video.title}
-            />
-          ) : (
-            <YoutubeVideoThumbnail
-              video={video}
-              onThumbnailClick={() => onThumbnailClick(video.videoId)}
-            />
-          )
-        }}
+        renderItem={(video) => (
+          <YoutubeVideoPlayer
+            videoId={video.videoId}
+          />
+        )}
         getItemKey={(video) => video.videoId}
         emptyMessage="No videos available"
         className="!bg-transparent !shadow-none !p-0 !mb-0" // Override grid card styling for custom layout
