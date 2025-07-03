@@ -30,11 +30,12 @@ export const DESIGN_TOKENS = {
   TEXT_ERROR: 'text-red-600',
   TEXT_BODY: 'text-gray-700',
   TEXT_HEADING: 'text-gray-900',
-  TEXT_BUTTON_DEFAULT: 'text-gray-800',  TEXT_BUTTON_MUTED: 'text-gray-500', // Grid & Layout
+  TEXT_BUTTON_DEFAULT: 'text-gray-800',  TEXT_BUTTON_MUTED: 'text-gray-500',   // Grid & Layout
   GRID_COLS_1_MD_2: 'grid-cols-1 md:grid-cols-2',
   GRID_COLS_2: 'grid-cols-2',
   GRID_COLS_3: 'grid-cols-3',
   GRID_COLS_4: 'grid-cols-4',
+  GRID_COLS_1_MD_2_LG_3: 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3',
 
   // Background & Overlay
   BACKGROUND_OVERLAY_DARK: 'bg-black bg-opacity-40',
