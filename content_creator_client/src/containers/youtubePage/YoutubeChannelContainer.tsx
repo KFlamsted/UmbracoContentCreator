@@ -1,6 +1,6 @@
 import PageTitleCard from '../../components/content/PageTitleCard'
-import YoutubeFeaturedVideoCard from '../../components/content/YoutubeFeaturedVideoCard'
-import YoutubeVideoListCard from '../../components/content/YoutubeVideoListCard'
+import YoutubeFeaturedVideoCard from '../../components/youtube/YoutubeFeaturedVideoCard'
+import YoutubeVideoListCard from '../../components/youtube/YoutubeVideoListCard'
 import { NEWS_PAGE_CONTAINER_CLASSES } from '../../constants/styles'
 import type { YoutubePage } from '../../model/YoutubePage'
 
