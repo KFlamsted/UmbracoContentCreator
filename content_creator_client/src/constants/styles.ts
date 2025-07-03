@@ -39,6 +39,15 @@ export const DESIGN_TOKENS = {
   // Background & Overlay
   BACKGROUND_OVERLAY_DARK: 'bg-black bg-opacity-40',
   BACKGROUND_OVERLAY_LIGHT: 'bg-black bg-opacity-20',
+
+  // YouTube-specific design tokens
+  YOUTUBE_CARD_BG: 'bg-gray-900',
+  YOUTUBE_CARD_OVERLAY: 'bg-gray-800 bg-opacity-80',
+  YOUTUBE_PLAY_BUTTON_BG: 'bg-red-600 bg-opacity-90',
+  YOUTUBE_PLAY_BUTTON_SIZE: 'w-16 h-16',
+  YOUTUBE_THUMBNAIL_OVERLAY: 'bg-opacity-30 group-hover:bg-opacity-20',
+  YOUTUBE_VIDEO_TITLE: 'text-white font-medium text-sm leading-tight mb-2',
+  YOUTUBE_VIDEO_LINK: 'text-blue-400 hover:text-blue-300',
 } as const
 
 // Semantic Component Classes (meaningful combinations)
@@ -102,3 +111,8 @@ export const ERROR_MESSAGE_CLASSES = `${DESIGN_TOKENS.BODY_SIZE} ${DESIGN_TOKENS
 // Icon System
 export const ICON_CONTAINER = 'flex items-center justify-center w-full h-full'
 export const ICON_SIZE = 'w-6 h-6'
+
+// YouTube Component Classes
+export const YOUTUBE_THUMBNAIL_CLASSES = `cursor-pointer relative overflow-hidden ${DESIGN_TOKENS.BORDER_RADIUS} ${DESIGN_TOKENS.YOUTUBE_CARD_BG}`
+export const YOUTUBE_PLAY_BUTTON_CLASSES = `${DESIGN_TOKENS.YOUTUBE_PLAY_BUTTON_SIZE} ${DESIGN_TOKENS.YOUTUBE_PLAY_BUTTON_BG} rounded-full flex items-center justify-center ${DESIGN_TOKENS.CARD_SHADOW} group-hover:scale-110 transition-transform duration-300`
+export const YOUTUBE_VIDEO_PLAYER_CLASSES = `${DESIGN_TOKENS.BORDER_RADIUS} overflow-hidden ${DESIGN_TOKENS.YOUTUBE_CARD_BG}`
