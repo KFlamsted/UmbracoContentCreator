@@ -6,7 +6,6 @@ interface UseYouTubeDataResult {
   videos: VideoSummary[]
   loading: boolean
   error: string | null
-  refetch: () => Promise<void>
 }
 
 /**
@@ -16,7 +15,7 @@ interface UseYouTubeDataResult {
  * @returns Object containing videos, loading state, error, and refetch function
  */
 export const useYouTubeData = (
-  channelId: string | null, 
+  channelId: string | null,
   maxResults: number = 10
 ): UseYouTubeDataResult => {
   const [videos, setVideos] = useState<VideoSummary[]>([])
@@ -37,7 +36,8 @@ export const useYouTubeData = (
       const result = await getChannelLatestVideos(channelId, maxResults)
       setVideos(result)
     } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : 'Failed to fetch YouTube videos'
+      const errorMessage =
+        err instanceof Error ? err.message : 'Failed to fetch YouTube videos'
       setError(errorMessage)
       console.error('YouTube API Error:', err)
     } finally {
@@ -45,13 +45,9 @@ export const useYouTubeData = (
     }
   }
 
-  const refetch = async () => {
-    await fetchVideos()
-  }
-
   useEffect(() => {
     fetchVideos()
   }, [channelId, maxResults])
 
-  return { videos, loading, error, refetch }
-} 
+  return { videos, loading, error }
+}

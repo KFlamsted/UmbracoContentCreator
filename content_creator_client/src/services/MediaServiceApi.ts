@@ -21,16 +21,16 @@ export interface IUmbracoMediaItem<TProperties = Record<string, unknown>> {
   updateDate: string
 }
 
-export const executeMediaApiQuery = async <TProperties = Record<string, unknown>>(
-  params?: {
-    mediaType?: string
-    id?: string
-    filter?: string
-    sort?: string
-    skip?: number
-    take?: number
-  }
-): Promise<IUmbracoMediaResponse<TProperties>> => {
+export const executeMediaApiQuery = async <
+  TProperties = Record<string, unknown>
+>(params?: {
+  mediaType?: string
+  id?: string
+  filter?: string
+  sort?: string
+  skip?: number
+  take?: number
+}): Promise<IUmbracoMediaResponse<TProperties>> => {
   const searchParams = new URLSearchParams()
 
   if (params?.mediaType) {
@@ -66,19 +66,16 @@ export const fetchMediaById = async <TProperties = Record<string, unknown>>(
     return response.data
   } catch (error) {
     const axiosError = error as AxiosError
-    if (axiosError.response?.status === 404) {
-      return null
-    }
+    if (axiosError.response?.status === 404) return null
     throw error
   }
 }
 
-export const fetchImageById = async (id: string): Promise<ImageCropperValue | null> => {
+export const fetchImageById = async (
+  id: string
+): Promise<ImageCropperValue | null> => {
   const mediaItem = await fetchMediaById(id)
-  
-  if (!mediaItem) {
-    return null
-  }
+  if (!mediaItem) return null
 
   // Map media item to ImageCropperValue structure
   return {
@@ -92,7 +89,7 @@ export const fetchImageById = async (id: string): Promise<ImageCropperValue | nu
     width: mediaItem.width || 0,
     height: mediaItem.height || 0,
     bytes: mediaItem.bytes,
-    properties: mediaItem.properties
+    properties: mediaItem.properties,
   }
 }
 
@@ -106,19 +103,19 @@ export const fetchMediaByType = async <TProperties = Record<string, unknown>>(
 ): Promise<IUmbracoMediaResponse<TProperties>> => {
   return executeMediaApiQuery<TProperties>({
     mediaType,
-    ...options
+    ...options,
   })
 }
 
-export const fetchImageMedia = async <TProperties = Record<string, unknown>>(
-  options?: {
-    sort?: string
-    skip?: number
-    take?: number
-  }
-): Promise<IUmbracoMediaResponse<TProperties>> => {
+export const fetchImageMedia = async <
+  TProperties = Record<string, unknown>
+>(options?: {
+  sort?: string
+  skip?: number
+  take?: number
+}): Promise<IUmbracoMediaResponse<TProperties>> => {
   return executeMediaApiQuery<TProperties>({
     filter: 'mediaType:Image',
-    ...options
+    ...options,
   })
 }
