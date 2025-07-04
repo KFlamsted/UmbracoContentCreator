@@ -14,6 +14,9 @@ if (builder.Environment.IsDevelopment())
     });
 }
 
+// Add memory cache for YouTube API responses
+builder.Services.AddMemoryCache();
+
 // Register typed HttpClient for YouTube service
 // This automatically registers IHttpClientFactory and YouTubeService as transient
 builder.Services.AddHttpClient<UmbracoCms.Services.YouTubeService>();

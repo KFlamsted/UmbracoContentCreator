@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 using Umbraco.Cms.Core.Models.PublishedContent;
 using Umbraco.Cms.Web.Common;
 using Umbraco.Cms.Web.Common.PublishedModels;
@@ -17,17 +18,22 @@ namespace UmbracoCms.Controllers.Api
     {
         private readonly IYouTubeService _youTubeService;
         private readonly ILogger<YouTubeController> _logger;
-
         private readonly UmbracoHelper _umbracoHelper;
+        private readonly IMemoryCache _cache;
+        private readonly IConfiguration _configuration;
 
         public YouTubeController(
             IYouTubeService youTubeService,
             ILogger<YouTubeController> logger,
-            UmbracoHelper umbracoHelper)
+            UmbracoHelper umbracoHelper,
+            IMemoryCache cache,
+            IConfiguration configuration)
         {
             _youTubeService = youTubeService;
             _logger = logger;
             _umbracoHelper = umbracoHelper;
+            _cache = cache;
+            _configuration = configuration;
         }
 
         /// <summary>
@@ -63,9 +69,29 @@ namespace UmbracoCms.Controllers.Api
                     return BadRequest(new { error = "Channel ID wasn't found in Umbraco" });
                 }
 
-                _logger.LogInformation("YoutubeChannel: {YoutubeChannel}", youtubeChannels);
+                // Create cache key that includes both channelId and maxResults
+                var cacheKey = $"youtube_videos_{channelId}_{maxResults}";
+                
+                // Try to get from cache first
+                if (_cache.TryGetValue(cacheKey, out VideoListResponse? cachedResult))
+                {
+                    return Ok(cachedResult);
+                }
 
+                // Not in cache, fetch from YouTube API
                 var result = await _youTubeService.GetChannelVideosAsync(channelId, maxResults);
+
+                // Cache the result
+                var cacheDuration = TimeSpan.FromMinutes(
+                    _configuration.GetValue<int>("YouTube:CacheDurationMinutes", 30));
+                
+                var cacheOptions = new MemoryCacheEntryOptions
+                {
+                    AbsoluteExpirationRelativeToNow = cacheDuration,
+                    Priority = CacheItemPriority.Normal
+                };
+
+                _cache.Set(cacheKey, result, cacheOptions);
                 return Ok(result);
             }
             catch (HttpRequestException ex)
