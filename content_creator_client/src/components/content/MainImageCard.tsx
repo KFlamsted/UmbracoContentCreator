@@ -10,7 +10,11 @@ interface MainImageCardProps {
   isNewsPage?: boolean
 }
 
-const MainImageCard: React.FC<MainImageCardProps> = ({ mainImage, alt = 'Main image', isNewsPage = false }) => {
+const MainImageCard: React.FC<MainImageCardProps> = ({
+  mainImage,
+  alt = 'Main image',
+  isNewsPage = false,
+}) => {
   if (!mainImage?.url) {
     return null
   }
@@ -22,14 +26,14 @@ const MainImageCard: React.FC<MainImageCardProps> = ({ mainImage, alt = 'Main im
   const fullImageUrl = `${apiUrl}${mainImage.url}`
   return (
     <div className={cardClasses}>
-      <img 
-        src={fullImageUrl} 
+      <img
+        src={fullImageUrl}
         alt={alt}
         className="w-full h-auto object-cover rounded-lg"
-        style={{ 
+        style={{
           aspectRatio: 'auto',
           maxHeight: '400px',
-          objectFit: 'cover'
+          objectFit: 'cover',
         }}
       />
     </div>

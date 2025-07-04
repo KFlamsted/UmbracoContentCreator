@@ -1,4 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
+using Umbraco.Cms.Core.Models.PublishedContent;
+using Umbraco.Cms.Web.Common;
+using Umbraco.Cms.Web.Common.PublishedModels;
 using UmbracoCms.Models;
 using UmbracoCms.Services;
 
@@ -15,12 +18,16 @@ namespace UmbracoCms.Controllers.Api
         private readonly IYouTubeService _youTubeService;
         private readonly ILogger<YouTubeController> _logger;
 
+        private readonly UmbracoHelper _umbracoHelper;
+
         public YouTubeController(
             IYouTubeService youTubeService,
-            ILogger<YouTubeController> logger)
+            ILogger<YouTubeController> logger,
+            UmbracoHelper umbracoHelper)
         {
             _youTubeService = youTubeService;
             _logger = logger;
+            _umbracoHelper = umbracoHelper;
         }
 
         /// <summary>
@@ -45,6 +52,19 @@ namespace UmbracoCms.Controllers.Api
                     return BadRequest(new { error = "maxResults must be between 1 and 50" });
                 }
 
+                var rootNode = _umbracoHelper.ContentAtRoot().FirstOrDefault();
+                var youtubeChannels = rootNode
+                    ?.FirstChildOfType(YoutubeParentPage.ModelTypeAlias)
+                    ?.Children()
+                    ?.Select(youtubePage => new YoutubePage(youtubePage, null)) ?? [];
+
+                if (!youtubeChannels?.Any(channel => channel.ChannelId == channelId) ?? false) 
+                {
+                    return BadRequest(new { error = "Channel ID wasn't found in Umbraco" });
+                }
+
+                _logger.LogInformation("YoutubeChannel: {YoutubeChannel}", youtubeChannels);
+
                 var result = await _youTubeService.GetChannelVideosAsync(channelId, maxResults);
                 return Ok(result);
             }
@@ -56,37 +76,6 @@ namespace UmbracoCms.Controllers.Api
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Unexpected error while fetching YouTube videos");
-                return StatusCode(500, new { error = "An unexpected error occurred" });
-            }
-        }
-
-        /// <summary>
-        /// Get YouTube channel information
-        /// </summary>
-        /// <param name="channelId">YouTube channel ID</param>
-        /// <returns>YouTube channel information</returns>
-        [HttpGet("channel/{channelId}/info")]
-        public async Task<IActionResult> GetChannelInfo(string channelId)
-        {
-            try
-            {
-                // Validate input
-                if (string.IsNullOrWhiteSpace(channelId))
-                {
-                    return BadRequest(new { error = "Channel ID is required" });
-                }
-
-                var result = await _youTubeService.GetChannelInfoAsync(channelId);
-                return Ok(result);
-            }
-            catch (HttpRequestException ex)
-            {
-                _logger.LogError(ex, "Network error while fetching YouTube channel info");
-                return StatusCode(500, new { error = "Network error occurred" });
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Unexpected error while fetching YouTube channel info");
                 return StatusCode(500, new { error = "An unexpected error occurred" });
             }
         }
