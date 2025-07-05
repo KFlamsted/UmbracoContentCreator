@@ -30,15 +30,25 @@ export const DESIGN_TOKENS = {
   TEXT_ERROR: 'text-red-600',
   TEXT_BODY: 'text-gray-700',
   TEXT_HEADING: 'text-gray-900',
-  TEXT_BUTTON_DEFAULT: 'text-gray-800',  TEXT_BUTTON_MUTED: 'text-gray-500', // Grid & Layout
+  TEXT_BUTTON_DEFAULT: 'text-gray-800',  TEXT_BUTTON_MUTED: 'text-gray-500',   // Grid & Layout
   GRID_COLS_1_MD_2: 'grid-cols-1 md:grid-cols-2',
   GRID_COLS_2: 'grid-cols-2',
   GRID_COLS_3: 'grid-cols-3',
   GRID_COLS_4: 'grid-cols-4',
+  GRID_COLS_1_MD_2_LG_3: 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3',
 
   // Background & Overlay
   BACKGROUND_OVERLAY_DARK: 'bg-black bg-opacity-40',
   BACKGROUND_OVERLAY_LIGHT: 'bg-black bg-opacity-20',
+
+  // YouTube-specific design tokens
+  YOUTUBE_CARD_BG: 'bg-gray-900',
+  YOUTUBE_CARD_OVERLAY: 'bg-gray-800 bg-opacity-80',
+  YOUTUBE_PLAY_BUTTON_BG: 'bg-red-600 bg-opacity-90',
+  YOUTUBE_PLAY_BUTTON_SIZE: 'w-16 h-16',
+  YOUTUBE_THUMBNAIL_OVERLAY: 'bg-opacity-30 group-hover:bg-opacity-20',
+  YOUTUBE_VIDEO_TITLE: 'text-white font-medium text-sm leading-tight mb-2 h-10 flex items-start',
+  YOUTUBE_VIDEO_LINK: 'text-blue-400 hover:text-blue-300',
 } as const
 
 // Semantic Component Classes (meaningful combinations)
@@ -56,12 +66,12 @@ export const BODY_TEXT_CLASSES = `${DESIGN_TOKENS.BODY_SIZE} ${DESIGN_TOKENS.TEX
 export const APP_SHELL_CONTAINER_CLASSES = `min-h-screen flex flex-col items-center justify-start ${DESIGN_TOKENS.SECTION_PADDING_X} ${DESIGN_TOKENS.SECTION_PADDING_Y}`
 
 // Dynamic container classes - use these instead of the static ones above
-export const getAppShellContainerClasses = (hasBackgroundImage: boolean) =>
+export const getAppShellContainerClasses = (hasBackgroundImage: boolean, hasInPageNavBar: boolean = false) =>
   `min-h-screen ${
     hasBackgroundImage ? '' : DESIGN_TOKENS.MUTED_BG
   } flex flex-col items-center justify-start ${
     DESIGN_TOKENS.SECTION_PADDING_X
-  } ${DESIGN_TOKENS.SECTION_PADDING_Y} pt-20`
+  } ${DESIGN_TOKENS.SECTION_PADDING_Y} ${hasInPageNavBar ? 'pt-32' : 'pt-20'}`
 
 // Background System
 export const BACKGROUND_IMAGE_CLASSES =
@@ -83,7 +93,7 @@ export const HOMEPAGE_SCROLL_INDICATOR_CLASSES =
   'absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white animate-bounce'
 
 // News Page Layout
-export const NEWS_PAGE_CONTAINER_CLASSES = `min-h-screen flex flex-col items-center justify-start ${DESIGN_TOKENS.SECTION_PADDING_X} ${DESIGN_TOKENS.SECTION_PADDING_Y}`
+export const NEWS_PAGE_CONTAINER_CLASSES = `w-full min-h-screen flex flex-col items-center justify-start ${DESIGN_TOKENS.SECTION_PADDING_X} ${DESIGN_TOKENS.SECTION_PADDING_Y}`
 
 // Button Components (these have real state logic)
 export const NAVBAR_BUTTON_BASE_CLASSES = `${DESIGN_TOKENS.BUTTON_PADDING} ${DESIGN_TOKENS.BUTTON_WIDTH} ${DESIGN_TOKENS.BORDER_RADIUS} font-medium transition-colors cursor-pointer focus:outline-none focus:ring-0 focus:border-none active:outline-none active:ring-0 active:border-none`
@@ -102,3 +112,9 @@ export const ERROR_MESSAGE_CLASSES = `${DESIGN_TOKENS.BODY_SIZE} ${DESIGN_TOKENS
 // Icon System
 export const ICON_CONTAINER = 'flex items-center justify-center w-full h-full'
 export const ICON_SIZE = 'w-6 h-6'
+
+// YouTube Component Classes
+export const YOUTUBE_THUMBNAIL_CLASSES = `cursor-pointer relative overflow-hidden ${DESIGN_TOKENS.BORDER_RADIUS} ${DESIGN_TOKENS.YOUTUBE_CARD_BG}`
+export const YOUTUBE_THUMBNAIL_CARD_CLASSES = `cursor-pointer relative overflow-hidden ${DESIGN_TOKENS.BORDER_RADIUS} ${DESIGN_TOKENS.YOUTUBE_CARD_BG} flex flex-col h-full`
+export const YOUTUBE_PLAY_BUTTON_CLASSES = `${DESIGN_TOKENS.YOUTUBE_PLAY_BUTTON_SIZE} ${DESIGN_TOKENS.YOUTUBE_PLAY_BUTTON_BG} rounded-full flex items-center justify-center ${DESIGN_TOKENS.CARD_SHADOW} group-hover:scale-110 transition-transform duration-300`
+export const YOUTUBE_VIDEO_PLAYER_CLASSES = `${DESIGN_TOKENS.BORDER_RADIUS} overflow-hidden ${DESIGN_TOKENS.YOUTUBE_CARD_BG}`

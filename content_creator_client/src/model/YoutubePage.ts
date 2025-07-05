@@ -3,6 +3,10 @@
  */
 export interface YoutubePage {
   /**
+   * Unique identifier
+   */
+  id?: string;
+  /**
    * Amount of videos shown.
    */
   amountOfVideos?: number;
@@ -22,4 +26,8 @@ export interface YoutubePage {
    * Actual name for the channel on youtube. Without @.
    */
   youtubeChannelName?: string;
+  /**
+   * The channels actual Id (for API calls, e.g., UCxxxxxxxxxxxxxxxxxxxxxxx)
+   */
+  channelId?: string;
 } 

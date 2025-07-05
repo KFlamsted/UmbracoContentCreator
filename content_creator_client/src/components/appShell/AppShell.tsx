@@ -39,12 +39,9 @@ const AppShell: React.FC<AppShellProps> = ({
   const fullBackgroundImageUrl = backgroundImage
     ? `${apiUrl}${backgroundImage}`
     : undefined
+
   return (
-    <div
-      className={`min-h-screen ${
-        fullBackgroundImageUrl ? '' : 'bg-blue-200'
-      } flex flex-col relative`}
-    >
+    <>
       {/* Background Image Layer */}
       {/* 
         Background Blur Strategy:
@@ -76,6 +73,12 @@ const AppShell: React.FC<AppShellProps> = ({
         >
           Nyheder
         </NavBarButton>
+        <NavBarButton
+          isSelected={location.pathname === ROUTES.YOUTUBE}
+          onClick={() => handleNavigation(ROUTES.YOUTUBE)}
+        >
+          Youtube
+        </NavBarButton>
       </NavBar>
 
       {/* Content Layer */}
@@ -84,7 +87,7 @@ const AppShell: React.FC<AppShellProps> = ({
           className={
             isHomePage
               ? 'w-full'
-              : getAppShellContainerClasses(!!fullBackgroundImageUrl)
+              : getAppShellContainerClasses(!!fullBackgroundImageUrl, location.pathname === ROUTES.YOUTUBE)
           }
         >
           {loading && <div className={LOADING_MESSAGE_CLASSES}>Loading...</div>}
@@ -95,7 +98,7 @@ const AppShell: React.FC<AppShellProps> = ({
           </div>
         </div>
       </div>
-    </div>
+    </>
   )
 }
 

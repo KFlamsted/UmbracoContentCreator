@@ -57,6 +57,14 @@ namespace Umbraco.Cms.Web.Common.PublishedModels
 		public virtual int AmountOfVideos => this.Value<int>(_publishedValueFallback, "amountOfVideos");
 
 		///<summary>
+		/// ChannelId: The channels actual Id
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "15.4.1+0ad020f")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		[ImplementPropertyType("channelId")]
+		public virtual string ChannelId => this.Value<string>(_publishedValueFallback, "channelId");
+
+		///<summary>
 		/// FeaturedVideoUrl: Url for a featured video. Shown as a larger than the other
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "15.4.1+0ad020f")]

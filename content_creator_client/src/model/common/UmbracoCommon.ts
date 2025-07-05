@@ -91,3 +91,7 @@ export interface INewsItemProperties {
   // TODO: Add other NewsItem specific properties as needed
   [key: string]: unknown
 }
+
+// YoutubeParentPage specific properties
+export interface IYoutubeParentPageProperties {
+}

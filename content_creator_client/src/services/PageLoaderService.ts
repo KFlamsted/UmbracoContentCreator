@@ -1,11 +1,13 @@
 import type { HomePage } from '../model/HomePage'
 import type { News } from '../model/News'
 import type { NewsItemPage, AuthorReference, Link } from '../model/NewsItemPage'
+import type { YoutubeParentPage } from '../model/YoutubeParentPage'
 import type { ImageCropperValue } from '../model/common/ImageCropperValue'
 import type {
   IHomePageProperties,
   INewsProperties,
   INewsItemProperties,
+  IYoutubeParentPageProperties,
 } from '../model/common/UmbracoCommon'
 import { executeContentApiQuery, fetchContentByIdOrPath } from './ContentServiceApi'
 
@@ -81,5 +83,18 @@ export const fetchNewsItemPage = async (itemId: string): Promise<NewsItemPage> =
   } catch (error) {
     console.error('Error fetching news item:', error)
     throw new Error(`Failed to fetch news item: ${itemId}`)
+  }
+}
+
+export const fetchYoutubeParentPage = async (): Promise<YoutubeParentPage> => {
+  const result = await executeContentApiQuery<IYoutubeParentPageProperties>('youtubeParentPage')
+  const youtubeParentContent = result.items?.[0]
+
+  if (!youtubeParentContent) {
+    throw new Error('YouTube parent page not found')
+  }
+
+  return {
+    id: youtubeParentContent.id,
   }
 }

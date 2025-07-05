@@ -1,0 +1,37 @@
+import {
+  BACKDROP_BLUR_CARD_CLASSES,
+  DESIGN_TOKENS,
+} from '../../constants/styles'
+import { useYouTubeData } from '../../hooks/useYouTubeData'
+import YoutubeVideoList from './YoutubeVideoList'
+import type { YoutubePage } from '../../model/YoutubePage'
+
+interface YoutubeVideoListCardProps {
+  channel: YoutubePage
+  hasBackgroundImage?: boolean
+}
+
+const YoutubeVideoListCard: React.FC<YoutubeVideoListCardProps> = ({
+  channel,
+  hasBackgroundImage = false,
+}) => {
+  const maxVideos = channel?.amountOfVideos ?? 6
+  const { videos, loading, error } = useYouTubeData(
+    channel.channelId ?? null,
+    maxVideos
+  )
+
+  const cardClasses = hasBackgroundImage
+    ? BACKDROP_BLUR_CARD_CLASSES
+    : `w-full max-w-6xl ${DESIGN_TOKENS.SURFACE_BG} bg-opacity-95 ${DESIGN_TOKENS.BORDER_RADIUS} backdrop-blur-sm ${DESIGN_TOKENS.CARD_SHADOW} ${DESIGN_TOKENS.CARD_PADDING} mb-2`
+
+  if (!channel.channelId) return null
+
+  return (
+    <div className={cardClasses}>
+      <YoutubeVideoList videos={videos ?? []} loading={loading} error={error} />
+    </div>
+  )
+}
+
+export default YoutubeVideoListCard

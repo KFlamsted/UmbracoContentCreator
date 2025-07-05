@@ -1,5 +1,6 @@
 {
   "$schema": "appsettings-schema.json",
+  "GoogleApiKey": "YOUR_YOUTUBE_API_KEY_HERE",
   "Serilog": {
     "MinimumLevel": {
       "Default": "Information"
