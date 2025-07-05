@@ -1,13 +1,12 @@
 import { useState } from 'react'
 import YouTube from 'react-youtube'
-import { LOADING_MESSAGE_CLASSES, DESIGN_TOKENS } from '../../constants/styles'
+import { DESIGN_TOKENS } from '../../constants/styles'
 
 interface YoutubeVideoPlayerProps {
   videoId: string
 }
 
 const YoutubeVideoPlayer: React.FC<YoutubeVideoPlayerProps> = ({ videoId }) => {
-  const [isLoading, setIsLoading] = useState(true)
   const [hasError, setHasError] = useState(false)
 
   const youtubeOptions = {
@@ -20,12 +19,7 @@ const YoutubeVideoPlayer: React.FC<YoutubeVideoPlayerProps> = ({ videoId }) => {
     },
   }
 
-  const handlePlayerReady = () => {
-    setIsLoading(false)
-  }
-
   const handlePlayerError = () => {
-    setIsLoading(false)
     setHasError(true)
   }
 
@@ -35,19 +29,10 @@ const YoutubeVideoPlayer: React.FC<YoutubeVideoPlayerProps> = ({ videoId }) => {
     <div
       className={`${DESIGN_TOKENS.BORDER_RADIUS} overflow-hidden ${DESIGN_TOKENS.YOUTUBE_CARD_BG}`}
     >
-      {isLoading && (
-        <div
-          className={`aspect-video flex items-center justify-center ${DESIGN_TOKENS.YOUTUBE_CARD_OVERLAY}`}
-        >
-          <p className={LOADING_MESSAGE_CLASSES}>Loading player...</p>
-        </div>
-      )}
-
-      <div className={`aspect-video ${isLoading ? 'hidden' : ''}`}>
+      <div className={`aspect-video`}>
         <YouTube
           videoId={videoId}
           opts={youtubeOptions}
-          onReady={handlePlayerReady}
           onError={handlePlayerError}
           className="w-full h-full"
         />

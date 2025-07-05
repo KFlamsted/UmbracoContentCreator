@@ -14,12 +14,5 @@ namespace UmbracoCms.Services
         /// <param name="maxResults">Maximum number of videos to return (1-50)</param>
         /// <returns>List of video summaries</returns>
         Task<VideoListResponse> GetChannelVideosAsync(string channelId, int maxResults = 10);
-
-        /// <summary>
-        /// Get information about a YouTube channel
-        /// </summary>
-        /// <param name="channelId">YouTube channel ID</param>
-        /// <returns>Channel information</returns>
-        Task<object> GetChannelInfoAsync(string channelId);
     }
 } 

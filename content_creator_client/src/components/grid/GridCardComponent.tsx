@@ -11,8 +11,6 @@ export interface GridCardComponentProps<T> {
   renderItem: (item: T, index: number) => React.ReactNode
   /** Function that generates a unique key for each item */
   getItemKey: (item: T, index: number) => string | number
-  /** Message to display when no items are available */
-  emptyMessage?: string
   /** Additional CSS classes to apply to the container */
   className?: string
   /** Whether to make all grid items equal height */
@@ -31,7 +29,6 @@ export interface GridCardComponentProps<T> {
  *   columns={3}
  *   renderItem={(item) => <NewsCard item={item} />}
  *   getItemKey={(item) => item.id}
- *   emptyMessage="No news available"
  * />
  * ```
  */
@@ -41,7 +38,6 @@ const GridCardComponent = <T,>({
   columns = 3,
   renderItem,
   getItemKey,
-  emptyMessage = 'No items available',
   className,
   equalHeight = false,
 }: GridCardComponentProps<T>) => {
@@ -71,16 +67,8 @@ const GridCardComponent = <T,>({
     equalHeight ? 'items-stretch' : ''
   }`
 
-  if (itemsToShow.length === 0) {
-    return (
-      <div className={`${CARD_CLASSES} text-center ${className || ''}`}>
-        <p className="text-gray-500">{emptyMessage}</p>
-      </div>
-    )
-  }
-
   return (
-    <div className={`${CARD_CLASSES} ${className || ''}`}>
+    <div className={`${CARD_CLASSES} ${className ?? ''}`}>
       <div className={gridClasses}>
         {itemsToShow.map((item, index) => (
           <React.Fragment key={getItemKey(item, index)}>

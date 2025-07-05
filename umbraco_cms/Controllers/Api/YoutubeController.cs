@@ -64,14 +64,14 @@ namespace UmbracoCms.Controllers.Api
                     ?.Children()
                     ?.Select(youtubePage => new YoutubePage(youtubePage, null)) ?? [];
 
-                if (!youtubeChannels?.Any(channel => channel.ChannelId == channelId) ?? false) 
+                if (!youtubeChannels?.Any(channel => channel.ChannelId == channelId) ?? false)
                 {
                     return BadRequest(new { error = "Channel ID wasn't found in Umbraco" });
                 }
 
                 // Create cache key that includes both channelId and maxResults
                 var cacheKey = $"youtube_videos_{channelId}_{maxResults}";
-                
+
                 // Try to get from cache first
                 if (_cache.TryGetValue(cacheKey, out VideoListResponse? cachedResult))
                 {
@@ -84,7 +84,7 @@ namespace UmbracoCms.Controllers.Api
                 // Cache the result
                 var cacheDuration = TimeSpan.FromMinutes(
                     _configuration.GetValue<int>("YouTube:CacheDurationMinutes", 30));
-                
+
                 var cacheOptions = new MemoryCacheEntryOptions
                 {
                     AbsoluteExpirationRelativeToNow = cacheDuration,
@@ -113,11 +113,12 @@ namespace UmbracoCms.Controllers.Api
         [HttpGet("health")]
         public IActionResult HealthCheck()
         {
-            return Ok(new { 
-                status = "healthy", 
+            return Ok(new
+            {
+                status = "healthy",
                 timestamp = DateTime.UtcNow,
                 message = "YouTube API proxy is running"
             });
         }
     }
-} 
+}

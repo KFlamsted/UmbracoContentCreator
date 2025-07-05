@@ -24,29 +24,17 @@ const YoutubeVideoList: React.FC<YoutubeVideoListProps> = ({
 
   if (error) return null
 
-  if (!videos || videos.length === 0) {
-    return (
-      <div className="text-center py-8">
-        <p className={LOADING_MESSAGE_CLASSES}>
-          No videos found for this channel.
-        </p>
-      </div>
-    )
-  }
-
   return (
-    <>
-      {/* Video Grid */}
-      <GridCardComponent
-        items={videos}
-        columns="1-md-2-lg-3"
-        equalHeight
-        renderItem={(video) => <YoutubeVideoPlayer videoId={video.videoId} />}
-        getItemKey={(video) => video.videoId}
-        emptyMessage="No videos available"
-        className="!bg-transparent !shadow-none !p-0 !mb-0" // Override grid card styling for custom layout
-      />
-    </>
+    <GridCardComponent
+      items={videos}
+      columns="1-md-2"
+      equalHeight
+      renderItem={(video) => <YoutubeVideoPlayer videoId={video.videoId} />}
+      getItemKey={(video) => video.videoId}
+      // Override grid card styling for custom layout
+      // TODO: Use this everywhere on grids later
+      className="!bg-transparent !shadow-none !p-0 !mb-0" 
+    />
   )
 }
 

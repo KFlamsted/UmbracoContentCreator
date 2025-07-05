@@ -21,7 +21,6 @@ const MinimizedNewsItemPageListContainer: React.FC<MinimizedNewsItemPageListCont
         />
       )}
       getItemKey={(newsItem, index) => newsItem.id || newsItem.title || index}
-      emptyMessage="No news items available"
     />
   )
 }

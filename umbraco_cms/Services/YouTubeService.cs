@@ -49,30 +49,6 @@ namespace UmbracoCms.Services
             return ParseVideoListResponse(content);
         }
 
-        public async Task<object> GetChannelInfoAsync(string channelId)
-        {
-            var url = $"https://www.googleapis.com/youtube/v3/channels" +
-                     $"?part=snippet,statistics" +
-                     $"&id={Uri.EscapeDataString(channelId)}" +
-                     $"&key={_apiKey}";
-
-            _logger.LogInformation("Fetching YouTube channel info for: {ChannelId}", channelId);
-
-            var response = await _httpClient.GetAsync(url);
-            
-            if (!response.IsSuccessStatusCode)
-            {
-                _logger.LogError("YouTube API error: {StatusCode} - {ReasonPhrase}", 
-                    response.StatusCode, response.ReasonPhrase);
-                
-                throw new HttpRequestException($"YouTube API error: {response.ReasonPhrase}");
-            }
-
-            var content = await response.Content.ReadAsStringAsync();
-            var jsonResponse = JsonSerializer.Deserialize<object>(content);
-            return jsonResponse ?? new object();
-        }
-
         private VideoListResponse ParseVideoListResponse(string jsonContent)
         {
             using var document = JsonDocument.Parse(jsonContent);
