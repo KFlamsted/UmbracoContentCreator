@@ -3,7 +3,6 @@ import YouTube from 'react-youtube'
 import {
   CARD_CLASSES,
   BACKDROP_BLUR_CARD_CLASSES,
-  DESIGN_TOKENS,
 } from '../../constants/styles'
 
 interface YoutubeFeaturedVideoCardProps {
@@ -31,7 +30,6 @@ const YoutubeFeaturedVideoCard: React.FC<YoutubeFeaturedVideoCardProps> = ({
   hasBackgroundImage = false,
 }) => {
   const [videoError, setVideoError] = useState(false)
-  const [isLoading, setIsLoading] = useState(true)
 
   const videoId = extractVideoId(videoUrl)
   const cardClasses = hasBackgroundImage
@@ -52,18 +50,11 @@ const YoutubeFeaturedVideoCard: React.FC<YoutubeFeaturedVideoCardProps> = ({
 
   return (
     <div className={cardClasses}>
-      {isLoading && (
-        <div className={`${DESIGN_TOKENS.TEXT_MUTED} text-center py-4`}>
-          Loading video...
-        </div>
-      )}
       <div className="aspect-video">
         <YouTube
           videoId={videoId}
           opts={youtubeOptions}
-          onReady={() => setIsLoading(false)}
           onError={() => {
-            setIsLoading(false)
             setVideoError(true)
           }}
           className="w-full h-full"

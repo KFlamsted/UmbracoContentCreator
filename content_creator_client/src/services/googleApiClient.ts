@@ -8,7 +8,6 @@ const youtubeApiClient: AxiosInstance = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
-  // Remove the API key - it's now handled by the backend
 })
 
 // Request interceptor for logging/debugging

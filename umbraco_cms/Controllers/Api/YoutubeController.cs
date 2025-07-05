@@ -59,12 +59,12 @@ namespace UmbracoCms.Controllers.Api
                 }
 
                 var rootNode = _umbracoHelper.ContentAtRoot().FirstOrDefault();
-                var youtubeChannels = rootNode
+                var youtubePages = rootNode
                     ?.FirstChildOfType(YoutubeParentPage.ModelTypeAlias)
                     ?.Children()
                     ?.Select(youtubePage => new YoutubePage(youtubePage, null)) ?? [];
 
-                if (!youtubeChannels?.Any(channel => channel.ChannelId == channelId) ?? false)
+                if (!youtubePages?.Any(channel => channel.ChannelId == channelId) ?? false)
                 {
                     return BadRequest(new { error = "Channel ID wasn't found in Umbraco" });
                 }
