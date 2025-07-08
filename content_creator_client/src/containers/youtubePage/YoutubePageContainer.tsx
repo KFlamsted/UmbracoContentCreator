@@ -26,22 +26,28 @@ const YoutubePageContainer: React.FC<YoutubePageContainerProps> = ({
   }, [loading, error, onStateChange])
 
   return (
-    <>
+    <div id="youtube-page-container">
       {/* Floating In-page navigation - only show if more than one channel */}
       {(children?.length ?? 0) > 1 && (
-        <InPageNavBarComponent
-          items={children ?? []}
-          activeItem={activeChannel}
-          onItemChange={setActiveChannel}
-          getDisplayText={(item) => item.menuName ?? 'Unnamed Channel'}
-          getId={(item) => item.id ?? ''}
-          floating
-        />
+        <div id="youtube-page-navigation-wrapper">
+          <InPageNavBarComponent
+            items={children ?? []}
+            activeItem={activeChannel}
+            onItemChange={setActiveChannel}
+            getDisplayText={(item) => item.menuName ?? 'Unnamed Channel'}
+            getId={(item) => item.id ?? ''}
+            floating
+          />
+        </div>
       )}
 
       {/* Active channel content */}
-      {activeChannel && <YoutubeChannelContainer channel={activeChannel} />}
-    </>
+      {activeChannel && (
+        <div id="youtube-page-active-channel-wrapper">
+          <YoutubeChannelContainer channel={activeChannel} />
+        </div>
+      )}
+    </div>
   )
 }
 

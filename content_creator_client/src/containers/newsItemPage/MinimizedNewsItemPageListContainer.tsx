@@ -11,17 +11,19 @@ const MinimizedNewsItemPageListContainer: React.FC<MinimizedNewsItemPageListCont
   newsItems,
   maxItems,
 }) => {  return (
-    <GridCardComponent
-      items={newsItems}
-      maxItems={maxItems}
-      columns="1-md-2"
-      renderItem={(newsItem) => (
-        <MinimizedNewsItemPageContainer 
-          newsItem={newsItem}
-        />
-      )}
-      getItemKey={(newsItem, index) => newsItem.id || newsItem.title || index}
-    />
+    <div id="minimized-news-item-page-list-container">
+      <GridCardComponent
+        items={newsItems}
+        maxItems={maxItems}
+        columns="1-md-2"
+        renderItem={(newsItem) => (
+          <MinimizedNewsItemPageContainer 
+            newsItem={newsItem}
+          />
+        )}
+        getItemKey={(newsItem, index) => newsItem.id || newsItem.title || index}
+      />
+    </div>
   )
 }
 

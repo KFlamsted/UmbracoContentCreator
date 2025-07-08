@@ -18,8 +18,8 @@ const BodyTextCard: React.FC<BodyTextCardProps> = ({
   const cardClasses = shouldUseBackdropBlur ? BACKDROP_BLUR_CARD_CLASSES : CARD_CLASSES
 
   return (
-    <div className={cardClasses}>
-      <div className={BODY_TEXT_CLASSES}>
+    <div id="body-text-card" className={cardClasses}>
+      <div id="body-text-content" className={BODY_TEXT_CLASSES}>
         {bodyText ? parse(bodyText) : ''}
       </div>
     </div>

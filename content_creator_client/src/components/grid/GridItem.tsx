@@ -61,17 +61,20 @@ const GridItem: React.FC<GridItemProps> = ({
 }) => {
   return (
     <div
+      id={`grid-item-${title?.toLowerCase().replace(/\s+/g, '-') || 'item'}`}
       className={`${
         onClick ? 'cursor-pointer transition-transform hover:scale-105' : ''
       } ${className}`}
       onClick={onClick}
     >
       <div
+        id={`grid-item-card-${title?.toLowerCase().replace(/\s+/g, '-') || 'card'}`}
         className={`relative ${DESIGN_TOKENS.SURFACE_BG} ${DESIGN_TOKENS.BORDER_RADIUS} ${DESIGN_TOKENS.CARD_SHADOW} overflow-hidden ${height}`}
       >
         {/* Background Image */}
         {imageUrl && (
           <div
+            id={`grid-item-background-${title?.toLowerCase().replace(/\s+/g, '-') || 'bg'}`}
             className="absolute inset-0 bg-cover bg-center"
             style={{ backgroundImage: `url(${imageUrl})` }}
             role="img"
@@ -80,21 +83,21 @@ const GridItem: React.FC<GridItemProps> = ({
         )}
         {/* Content Overlay */}
         {(title || summary || author || publishDate || children) && (
-          <div className="absolute inset-0 bg-black bg-opacity-40 flex flex-col justify-between p-4">
-            <div>
-              {title && <h3 className="text-lg font-bold mb-2 text-left">{title}</h3>}
+          <div id={`grid-item-overlay-${title?.toLowerCase().replace(/\s+/g, '-') || 'overlay'}`} className="absolute inset-0 bg-black bg-opacity-40 flex flex-col justify-between p-4">
+            <div id={`grid-item-header-${title?.toLowerCase().replace(/\s+/g, '-') || 'header'}`}>
+              {title && <h3 id={`grid-item-title-${title.toLowerCase().replace(/\s+/g, '-')}`} className="text-lg font-bold mb-2 text-left">{title}</h3>}
               {(author || publishDate) && (
-                <div className="text-xs opacity-80 mb-2">
-                  {author && <span>By {author}</span>}
-                  {author && publishDate && <span> • </span>}
-                  {publishDate && <span>{publishDate}</span>}
+                <div id={`grid-item-meta-${title?.toLowerCase().replace(/\s+/g, '-') || 'meta'}`} className="text-xs opacity-80 mb-2">
+                  {author && <span id={`grid-item-author-${title?.toLowerCase().replace(/\s+/g, '-') || 'author'}`}>By {author}</span>}
+                  {author && publishDate && <span id={`grid-item-separator-${title?.toLowerCase().replace(/\s+/g, '-') || 'sep'}`}> • </span>}
+                  {publishDate && <span id={`grid-item-date-${title?.toLowerCase().replace(/\s+/g, '-') || 'date'}`}>{publishDate}</span>}
                 </div>
               )}
             </div>
             {children ? (
-              children
+              <div id={`grid-item-children-${title?.toLowerCase().replace(/\s+/g, '-') || 'children'}`}>{children}</div>
             ) : (
-              summary && <div className="text-sm opacity-90 text-left">{summary}</div>
+              summary && <div id={`grid-item-summary-${title?.toLowerCase().replace(/\s+/g, '-') || 'summary'}`} className="text-sm opacity-90 text-left">{summary}</div>
             )}
           </div>
         )}

@@ -23,12 +23,14 @@ const ScrollIndicatorComponent: React.FC<ScrollIndicatorComponentProps> = ({
 }) => {
   return (
     <div 
+      id="scroll-indicator"
       className={`${HOMEPAGE_SCROLL_INDICATOR_CLASSES} ${className}`}
       aria-label={ariaLabel}
       role="button"
       tabIndex={0}
     >
       <svg 
+        id="scroll-indicator-arrow"
         className="w-6 h-6" 
         fill="none" 
         stroke="currentColor" 
@@ -36,6 +38,7 @@ const ScrollIndicatorComponent: React.FC<ScrollIndicatorComponentProps> = ({
         aria-hidden="true"
       >
         <path 
+          id="scroll-indicator-path"
           strokeLinecap="round" 
           strokeLinejoin="round" 
           strokeWidth={2} 

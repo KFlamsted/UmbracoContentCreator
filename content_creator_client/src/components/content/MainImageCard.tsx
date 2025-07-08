@@ -25,8 +25,9 @@ const MainImageCard: React.FC<MainImageCardProps> = ({
   const apiUrl = import.meta.env.VITE_API_URL
   const fullImageUrl = `${apiUrl}${mainImage.url}`
   return (
-    <div className={cardClasses}>
+    <div id="main-image-card" className={cardClasses}>
       <img
+        id="main-image"
         src={fullImageUrl}
         alt={alt}
         className="w-full h-auto object-cover rounded-lg"

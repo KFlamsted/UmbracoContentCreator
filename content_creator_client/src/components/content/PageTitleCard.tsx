@@ -12,8 +12,8 @@ const PageTitleCard: React.FC<PageTitleCardProps> = ({ title, isNewsPage = false
   const cardClasses = isNewsPage ? NEWS_PAGE_TITLE_CARD_CLASSES : TITLE_CARD_CLASSES
   
   return (
-    <div className={cardClasses}>
-      <h1 className={TITLE_CLASSES}>
+    <div id="page-title-card" className={cardClasses}>
+      <h1 id="page-title" className={TITLE_CLASSES}>
         {title}
       </h1>
     </div>

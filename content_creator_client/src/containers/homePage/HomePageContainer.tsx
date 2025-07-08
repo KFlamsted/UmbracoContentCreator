@@ -23,20 +23,22 @@ const HomePageContainer: React.FC<HomePageContainerProps> = ({
     onStateChange?.(loading, error)
   }, [loading, error, onStateChange])
   return (
-    <div className={`${HOMEPAGE_CONTAINER_CLASSES} homepage-scroll-container`}>
+    <div id="homepage-container" className={`${HOMEPAGE_CONTAINER_CLASSES} homepage-scroll-container`}>
       {/* Hero Section - Full Screen */}
       <section
+        id="homepage-hero-section"
         className={`${HOMEPAGE_HERO_SECTION_CLASSES} homepage-scroll-section`}
       >
-        <h1 className={HOMEPAGE_TITLE_CLASSES}>{content.pageTitle}</h1>
+        <h1 id="homepage-title" className={HOMEPAGE_TITLE_CLASSES}>{content.pageTitle}</h1>
         {/* Scroll Indicator */}
         <ScrollIndicatorComponent />
       </section>
       {/* Content Section - Full Screen */}
       <section
+        id="homepage-content-section"
         className={`${HOMEPAGE_CONTENT_SECTION_CLASSES} homepage-scroll-section`}
       >
-        <div className={`${DESIGN_TOKENS.HOMEPAGE_MAX_WIDTH} mx-auto`}>
+        <div id="homepage-content-wrapper" className={`${DESIGN_TOKENS.HOMEPAGE_MAX_WIDTH} mx-auto`}>
           <BodyTextCard bodyText={content.bodyText} hasBackgroundImage />
         </div>
       </section>

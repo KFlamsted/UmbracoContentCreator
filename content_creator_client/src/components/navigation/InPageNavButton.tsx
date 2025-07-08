@@ -22,8 +22,14 @@ const InPageNavButton: React.FC<InPageNavButtonProps> = ({
   }`
 
   return (
-    <button className={buttonClasses} onClick={onClick}>
-      {children}
+    <button 
+      id={`in-page-nav-button-${children?.toString().toLowerCase().replace(/\s+/g, '-') || 'button'}`}
+      className={buttonClasses} 
+      onClick={onClick}
+    >
+      <span id={`in-page-nav-text-${children?.toString().toLowerCase().replace(/\s+/g, '-') || 'text'}`}>
+        {children}
+      </span>
     </button>
   )
 }

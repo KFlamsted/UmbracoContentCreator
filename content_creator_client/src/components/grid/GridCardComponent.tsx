@@ -68,8 +68,8 @@ const GridCardComponent = <T,>({
   }`
 
   return (
-    <div className={`${CARD_CLASSES} ${className ?? ''}`}>
-      <div className={gridClasses}>
+    <div id="grid-card-component" className={`${CARD_CLASSES} ${className ?? ''}`}>
+      <div id="grid-container" className={gridClasses}>
         {itemsToShow.map((item, index) => (
           <React.Fragment key={getItemKey(item, index)}>
             {renderItem(item, index)}

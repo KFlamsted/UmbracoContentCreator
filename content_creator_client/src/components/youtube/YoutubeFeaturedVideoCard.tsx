@@ -49,8 +49,8 @@ const YoutubeFeaturedVideoCard: React.FC<YoutubeFeaturedVideoCardProps> = ({
   }
 
   return (
-    <div className={cardClasses}>
-      <div className="aspect-video">
+    <div id={`youtube-featured-video-${videoId}`} className={cardClasses}>
+      <div id={`youtube-featured-video-aspect-${videoId}`} className="aspect-video">
         <YouTube
           videoId={videoId}
           opts={youtubeOptions}

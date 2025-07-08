@@ -26,8 +26,8 @@ const InPageNavBarComponent = <T,>({
   floating = false,
 }: InPageNavBarComponentProps<T>) => {
   const navbar = (
-    <nav className={IN_PAGE_NAVBAR_CLASSES}>
-      <div className={IN_PAGE_NAVBAR_FLEX_CLASSES}>
+    <nav id="in-page-navbar" className={IN_PAGE_NAVBAR_CLASSES}>
+      <div id="in-page-navbar-flex" className={IN_PAGE_NAVBAR_FLEX_CLASSES}>
         {items.map((item) => (
           <InPageNavButton
             key={getId(item)}
@@ -42,7 +42,7 @@ const InPageNavBarComponent = <T,>({
   )
 
   if (floating) {
-    return <div className={FLOATING_WRAPPER_CLASSES}>{navbar}</div>
+    return <div id="floating-navbar-wrapper" className={FLOATING_WRAPPER_CLASSES}>{navbar}</div>
   }
 
   return navbar

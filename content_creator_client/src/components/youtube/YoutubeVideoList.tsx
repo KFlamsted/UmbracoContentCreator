@@ -16,25 +16,33 @@ const YoutubeVideoList: React.FC<YoutubeVideoListProps> = ({
 }) => {
   if (loading) {
     return (
-      <div className="text-center py-8">
-        <p className={LOADING_MESSAGE_CLASSES}>Loading latest videos...</p>
+      <div id="youtube-video-list-loading" className="text-center py-8">
+        <p id="youtube-video-list-loading-text" className={LOADING_MESSAGE_CLASSES}>Loading latest videos...</p>
       </div>
     )
   }
 
-  if (error) return null
+  if (error) {
+    return (
+      <div id="youtube-video-list-error" className="text-center py-8">
+        <p id="youtube-video-list-error-text" className="text-red-600">Error loading videos: {error}</p>
+      </div>
+    )
+  }
 
   return (
-    <GridCardComponent
-      items={videos}
-      columns="1-md-2"
-      equalHeight
-      renderItem={(video) => <YoutubeVideoPlayer videoId={video.videoId} />}
-      getItemKey={(video) => video.videoId}
-      // Override grid card styling for custom layout
-      // TODO: Use this everywhere on grids later
-      className="!bg-transparent !shadow-none !p-0 !mb-0" 
-    />
+    <div id="youtube-video-list-container">
+      <GridCardComponent
+        items={videos}
+        columns="1-md-2"
+        equalHeight
+        renderItem={(video) => <YoutubeVideoPlayer videoId={video.videoId} />}
+        getItemKey={(video) => video.videoId}
+        // Override grid card styling for custom layout
+        // TODO: Use this everywhere on grids later
+        className="!bg-transparent !shadow-none !p-0 !mb-0" 
+      />
+    </div>
   )
 }
 

@@ -30,7 +30,7 @@ const NewsPageContainer: React.FC<NewsPageContainerProps> = ({
   }, [loading, newsItemsLoading, error, newsItemsError, onStateChange])
 
   return (
-    <div className={NEWS_PAGE_CONTAINER_CLASSES}>
+    <div id="news-page-container" className={NEWS_PAGE_CONTAINER_CLASSES}>
       <PageTitleCard title={content.title} isNewsPage={true} />
       <MainImageCard
         mainImage={content.mainImage}

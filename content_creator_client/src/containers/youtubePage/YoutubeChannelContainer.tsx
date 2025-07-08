@@ -10,7 +10,7 @@ interface YoutubeChannelContainerProps {
 
 const YoutubeChannelContainer: React.FC<YoutubeChannelContainerProps> = ({ channel }) => {
   return (
-    <div className={NEWS_PAGE_CONTAINER_CLASSES}>
+    <div id={`youtube-channel-container-${channel.channelId || 'unknown'}`} className={NEWS_PAGE_CONTAINER_CLASSES}>
       <PageTitleCard title={channel.pageTitle} />
       
       {channel.featuredVideoUrl && (

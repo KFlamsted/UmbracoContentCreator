@@ -28,7 +28,7 @@ const YoutubeVideoListCard: React.FC<YoutubeVideoListCardProps> = ({
   if (!channel.channelId) return null
 
   return (
-    <div className={cardClasses}>
+    <div id={`youtube-video-list-card-${channel.channelId}`} className={cardClasses}>
       <YoutubeVideoList videos={videos ?? []} loading={loading} error={error} />
     </div>
   )
