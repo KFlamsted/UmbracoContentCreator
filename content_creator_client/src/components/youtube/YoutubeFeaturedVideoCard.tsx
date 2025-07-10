@@ -7,7 +7,7 @@ import {
 
 interface YoutubeFeaturedVideoCardProps {
   /** Unique identifier for the youtube featured video card */
-  id?: string
+  id: string
   videoUrl: string
   hasBackgroundImage?: boolean
 }
@@ -39,7 +39,7 @@ const YoutubeFeaturedVideoCard: React.FC<YoutubeFeaturedVideoCardProps> = ({
     ? BACKDROP_BLUR_CARD_CLASSES
     : CARD_CLASSES
   
-  const cardId = id || `youtube-featured-video-${videoId}`
+  const cardId = id
 
   if (!videoId || videoError) return null
 

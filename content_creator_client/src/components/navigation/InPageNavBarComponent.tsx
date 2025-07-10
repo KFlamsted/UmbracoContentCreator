@@ -3,7 +3,7 @@ import InPageNavButton from './InPageNavButton'
 
 interface InPageNavBarComponentProps<T> {
   /** Unique identifier for the in-page navbar */
-  id?: string
+  id: string
   items: T[]
   activeItem: T | null
   onItemChange: (item: T) => void
@@ -20,7 +20,7 @@ const IN_PAGE_NAVBAR_FLEX_CLASSES = `flex gap-2 justify-center flex-wrap`
 const FLOATING_WRAPPER_CLASSES = `fixed top-24 left-1/2 transform -translate-x-1/2 w-full max-w-6xl z-25`
 
 const InPageNavBarComponent = <T,>({
-  id = 'in-page-navbar',
+  id,
   items,
   activeItem,
   onItemChange,

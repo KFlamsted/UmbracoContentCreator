@@ -5,7 +5,7 @@ interface BodyTextCardProps {
   /**
    * Unique identifier for the body text card
    */
-  id?: string
+  id: string
   bodyText?: string
   /**
    * Whether this card is displayed on a page with a background image (enables backdrop blur)
@@ -14,7 +14,7 @@ interface BodyTextCardProps {
 }
 
 const BodyTextCard: React.FC<BodyTextCardProps> = ({ 
-  id = 'body-text-card',
+  id,
   bodyText, 
   hasBackgroundImage,
 }) => {

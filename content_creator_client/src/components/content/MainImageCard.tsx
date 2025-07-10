@@ -8,14 +8,14 @@ interface MainImageCardProps {
   /**
    * Unique identifier for the main image card
    */
-  id?: string
+  id: string
   mainImage?: ImageCropperValue
   alt?: string
   isNewsPage?: boolean
 }
 
 const MainImageCard: React.FC<MainImageCardProps> = ({
-  id = 'main-image-card',
+  id,
   mainImage,
   alt = 'Main image',
   isNewsPage = false,

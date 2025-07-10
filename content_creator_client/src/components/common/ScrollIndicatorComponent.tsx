@@ -4,7 +4,7 @@ interface ScrollIndicatorComponentProps {
   /**
    * Unique identifier for the scroll indicator
    */
-  id?: string
+  id: string
   /**
    * Additional CSS classes to apply to the scroll indicator
    */
@@ -22,7 +22,7 @@ interface ScrollIndicatorComponentProps {
  * Uses Tailwind's animate-bounce class for the animation effect.
  */
 const ScrollIndicatorComponent: React.FC<ScrollIndicatorComponentProps> = ({
-  id = 'scroll-indicator',
+  id,
   className = '',
   ariaLabel = 'Scroll down for more content'
 }) => {

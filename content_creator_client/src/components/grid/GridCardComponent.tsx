@@ -3,11 +3,12 @@ import { CARD_CLASSES, DESIGN_TOKENS } from '../../constants/styles'
 
 export interface GridCardComponentProps<T> {
   /** Unique identifier for the grid card component */
-  id?: string
+  id: string
   /** Array of items to display in the grid */
   items: T[]
   /** Maximum number of items to display (optional) */
-  maxItems?: number  /** Number of columns in the grid (2, 3, 4, '1-md-2' for responsive 1→2, or '1-md-2-lg-3' for responsive 1→2→3) */
+  maxItems?: number
+  /** Number of columns in the grid (2, 3, 4, '1-md-2' for responsive 1→2, or '1-md-2-lg-3' for responsive 1→2→3) */
   columns?: 2 | 3 | 4 | '1-md-2' | '1-md-2-lg-3'
   /** Function that renders each item */
   renderItem: (item: T, index: number) => React.ReactNode
@@ -35,7 +36,7 @@ export interface GridCardComponentProps<T> {
  * ```
  */
 const GridCardComponent = <T,>({
-  id = 'grid-card-component',
+  id,
   items,
   maxItems,
   columns = 3,

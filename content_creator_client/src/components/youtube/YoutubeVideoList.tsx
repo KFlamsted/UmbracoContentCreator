@@ -5,14 +5,14 @@ import type { VideoSummary } from '../../model/VideoSummary'
 
 interface YoutubeVideoListProps {
   /** Unique identifier for the youtube video list */
-  id?: string
+  id: string
   videos: VideoSummary[]
   loading: boolean
   error: string | null
 }
 
 const YoutubeVideoList: React.FC<YoutubeVideoListProps> = ({
-  id = 'youtube-video-list',
+  id,
   videos,
   loading,
   error,

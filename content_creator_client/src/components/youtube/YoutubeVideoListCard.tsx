@@ -8,7 +8,7 @@ import type { YoutubePage } from '../../model/YoutubePage'
 
 interface YoutubeVideoListCardProps {
   /** Unique identifier for the youtube video list card */
-  id?: string
+  id: string
   channel: YoutubePage
   hasBackgroundImage?: boolean
 }
@@ -30,8 +30,8 @@ const YoutubeVideoListCard: React.FC<YoutubeVideoListCardProps> = ({
 
   if (!channel.channelId) return null
 
-  const cardId = id || `youtube-video-list-card-${channel.channelId}`
-  const listId = id ? `${id}-list` : `youtube-video-list-${channel.channelId}`
+  const cardId = id
+  const listId = `${id}-list`
 
   return (
     <div id={cardId} className={cardClasses}>

@@ -7,13 +7,13 @@ interface PageTitleCardProps {
   /**
    * Unique identifier for the page title card
    */
-  id?: string
+  id: string
   title?: string
   isNewsPage?: boolean
 }
 
 const PageTitleCard: React.FC<PageTitleCardProps> = ({ 
-  id = 'page-title-card',
+  id,
   title, 
   isNewsPage = false 
 }) => {
