@@ -85,7 +85,7 @@ const GridItem: React.FC<GridItemProps> = ({
         {(title || summary || author || publishDate || children) && (
           <div id={`grid-item-overlay-${title?.toLowerCase().replace(/\s+/g, '-') || 'overlay'}`} className="absolute inset-0 bg-black bg-opacity-40 flex flex-col justify-between p-4">
             <div id={`grid-item-header-${title?.toLowerCase().replace(/\s+/g, '-') || 'header'}`}>
-              {title && <h3 id={`grid-item-title-${title.toLowerCase().replace(/\s+/g, '-')}`} className="text-lg font-bold mb-2 text-left">{title}</h3>}
+              {title && <h3 id={`grid-item-title-${title?.toLowerCase().replace(/\s+/g, '-')}`} className="text-lg font-bold mb-2 text-left">{title}</h3>}
               {(author || publishDate) && (
                 <div id={`grid-item-meta-${title?.toLowerCase().replace(/\s+/g, '-') || 'meta'}`} className="text-xs opacity-80 mb-2">
                   {author && <span id={`grid-item-author-${title?.toLowerCase().replace(/\s+/g, '-') || 'author'}`}>By {author}</span>}
