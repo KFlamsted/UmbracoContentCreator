@@ -11,6 +11,8 @@ import {
 } from '../../constants/styles'
 
 interface NavBarButtonProps {
+  /** Unique identifier for the navigation button */
+  id: string
   children?: ReactNode
   isHomePageButton?: boolean
   isSelected?: boolean
@@ -18,6 +20,7 @@ interface NavBarButtonProps {
 }
 
 const NavBarButton: React.FC<NavBarButtonProps> = ({ 
+  id,
   children, 
   isHomePageButton = false, 
   isSelected = false, 
@@ -26,27 +29,27 @@ const NavBarButton: React.FC<NavBarButtonProps> = ({
   const selectedClasses = isSelected 
     ? NAVBAR_BUTTON_SELECTED_CLASSES
     : NAVBAR_BUTTON_DEFAULT_CLASSES
-  const prefixId = children?.toString().toLowerCase().replace(/\s+/g, '-')
+    
   return (
     <button 
-      id={isHomePageButton ? "nav-home-button" : `nav-button-${prefixId ?? 'button'}`}
+      id={id}
       className={`${NAVBAR_BUTTON_BASE_CLASSES} ${selectedClasses}`}
       onClick={onClick}
       style={{ outline: 'none', border: 'none' }}
     >
       {isHomePageButton ? (
-        <div id="nav-home-icon" className={ICON_CONTAINER}>
+        <div id={`${id}-icon`} className={ICON_CONTAINER}>
           <svg 
-            id="nav-home-svg"
+            id={`${id}-svg`}
             className={ICON_SIZE}
             fill="currentColor" 
             viewBox="0 0 20 20"
           >
-            <path id="nav-home-path" d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
+            <path id={`${id}-path`} d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
           </svg>
         </div>
       ) : (
-        <span id={`nav-text-${prefixId ?? 'text'}`}>
+        <span id={`${id}-text`}>
           {children}
         </span>
       )}

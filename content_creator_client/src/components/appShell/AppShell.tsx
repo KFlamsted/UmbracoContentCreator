@@ -64,17 +64,20 @@ const AppShell: React.FC<AppShellProps> = ({
       {/* Fixed Navigation Layer */}
       <NavBar>
         <NavBarButton
+          id="nav-home-button"
           isHomePageButton
           isSelected={location.pathname === ROUTES.HOME}
           onClick={() => handleNavigation(ROUTES.HOME)}
         />
         <NavBarButton
+          id="nav-news-button"
           isSelected={location.pathname === ROUTES.NEWS}
           onClick={() => handleNavigation(ROUTES.NEWS)}
         >
           Nyheder
         </NavBarButton>
         <NavBarButton
+          id="nav-youtube-button"
           isSelected={location.pathname === ROUTES.YOUTUBE}
           onClick={() => handleNavigation(ROUTES.YOUTUBE)}
         >
