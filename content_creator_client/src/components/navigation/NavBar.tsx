@@ -26,10 +26,10 @@ const NavBarButton: React.FC<NavBarButtonProps> = ({
   const selectedClasses = isSelected 
     ? NAVBAR_BUTTON_SELECTED_CLASSES
     : NAVBAR_BUTTON_DEFAULT_CLASSES
-    
+  const prefixId = children?.toString().toLowerCase().replace(/\s+/g, '-')
   return (
     <button 
-      id={isHomePageButton ? "nav-home-button" : `nav-button-${children?.toString().toLowerCase().replace(/\s+/g, '-') || 'button'}`}
+      id={isHomePageButton ? "nav-home-button" : `nav-button-${prefixId ?? 'button'}`}
       className={`${NAVBAR_BUTTON_BASE_CLASSES} ${selectedClasses}`}
       onClick={onClick}
       style={{ outline: 'none', border: 'none' }}
@@ -46,7 +46,7 @@ const NavBarButton: React.FC<NavBarButtonProps> = ({
           </svg>
         </div>
       ) : (
-        <span id={`nav-text-${children?.toString().toLowerCase().replace(/\s+/g, '-') || 'text'}`}>
+        <span id={`nav-text-${prefixId ?? 'text'}`}>
           {children}
         </span>
       )}

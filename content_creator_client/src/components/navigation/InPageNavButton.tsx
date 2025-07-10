@@ -20,14 +20,14 @@ const InPageNavButton: React.FC<InPageNavButtonProps> = ({
   const buttonClasses = `${IN_PAGE_BUTTON_BASE_CLASSES} ${
     isSelected ? IN_PAGE_BUTTON_SELECTED_CLASSES : IN_PAGE_BUTTON_DEFAULT_CLASSES
   }`
-
+  const prefixId = children?.toString().toLowerCase().replace(/\s+/g, '-')
   return (
     <button 
-      id={`in-page-nav-button-${children?.toString().toLowerCase().replace(/\s+/g, '-') || 'button'}`}
+      id={`in-page-nav-button-${prefixId ?? 'button'}`}
       className={buttonClasses} 
       onClick={onClick}
     >
-      <span id={`in-page-nav-text-${children?.toString().toLowerCase().replace(/\s+/g, '-') || 'text'}`}>
+      <span id={`in-page-nav-text-${prefixId ?? 'text'}`}>
         {children}
       </span>
     </button>
