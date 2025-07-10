@@ -26,7 +26,7 @@ const YoutubePageContainer: React.FC<YoutubePageContainerProps> = ({
   }, [loading, error, onStateChange])
 
   return (
-    <div id="youtube-page-container">
+    <div id="youtube-page-container" className='w-full'>
       {/* Floating In-page navigation - only show if more than one channel */}
       {(children?.length ?? 0) > 1 && (
         <div id="youtube-page-navigation-wrapper">
