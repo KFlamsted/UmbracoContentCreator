@@ -2,6 +2,10 @@ import { HOMEPAGE_SCROLL_INDICATOR_CLASSES } from '../../constants/styles'
 
 interface ScrollIndicatorComponentProps {
   /**
+   * Unique identifier for the scroll indicator
+   */
+  id?: string
+  /**
    * Additional CSS classes to apply to the scroll indicator
    */
   className?: string
@@ -18,19 +22,20 @@ interface ScrollIndicatorComponentProps {
  * Uses Tailwind's animate-bounce class for the animation effect.
  */
 const ScrollIndicatorComponent: React.FC<ScrollIndicatorComponentProps> = ({
+  id = 'scroll-indicator',
   className = '',
   ariaLabel = 'Scroll down for more content'
 }) => {
   return (
     <div 
-      id="scroll-indicator"
+      id={id}
       className={`${HOMEPAGE_SCROLL_INDICATOR_CLASSES} ${className}`}
       aria-label={ariaLabel}
       role="button"
       tabIndex={0}
     >
       <svg 
-        id="scroll-indicator-arrow"
+        id={`${id}-arrow`}
         className="w-6 h-6" 
         fill="none" 
         stroke="currentColor" 
@@ -38,7 +43,7 @@ const ScrollIndicatorComponent: React.FC<ScrollIndicatorComponentProps> = ({
         aria-hidden="true"
       >
         <path 
-          id="scroll-indicator-path"
+          id={`${id}-path`}
           strokeLinecap="round" 
           strokeLinejoin="round" 
           strokeWidth={2} 

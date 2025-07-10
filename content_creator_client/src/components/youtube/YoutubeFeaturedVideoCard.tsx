@@ -6,6 +6,8 @@ import {
 } from '../../constants/styles'
 
 interface YoutubeFeaturedVideoCardProps {
+  /** Unique identifier for the youtube featured video card */
+  id?: string
   videoUrl: string
   hasBackgroundImage?: boolean
 }
@@ -26,6 +28,7 @@ const extractVideoId = (url: string): string | null => {
 }
 
 const YoutubeFeaturedVideoCard: React.FC<YoutubeFeaturedVideoCardProps> = ({
+  id,
   videoUrl,
   hasBackgroundImage = false,
 }) => {
@@ -35,6 +38,8 @@ const YoutubeFeaturedVideoCard: React.FC<YoutubeFeaturedVideoCardProps> = ({
   const cardClasses = hasBackgroundImage
     ? BACKDROP_BLUR_CARD_CLASSES
     : CARD_CLASSES
+  
+  const cardId = id || `youtube-featured-video-${videoId}`
 
   if (!videoId || videoError) return null
 
@@ -49,8 +54,8 @@ const YoutubeFeaturedVideoCard: React.FC<YoutubeFeaturedVideoCardProps> = ({
   }
 
   return (
-    <div id={`youtube-featured-video-${videoId}`} className={cardClasses}>
-      <div id={`youtube-featured-video-aspect-${videoId}`} className="aspect-video">
+    <div id={cardId} className={cardClasses}>
+      <div id={`${cardId}-aspect`} className="aspect-video">
         <YouTube
           videoId={videoId}
           opts={youtubeOptions}

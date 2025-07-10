@@ -2,6 +2,8 @@ import React from 'react'
 import { CARD_CLASSES, DESIGN_TOKENS } from '../../constants/styles'
 
 export interface GridCardComponentProps<T> {
+  /** Unique identifier for the grid card component */
+  id?: string
   /** Array of items to display in the grid */
   items: T[]
   /** Maximum number of items to display (optional) */
@@ -33,6 +35,7 @@ export interface GridCardComponentProps<T> {
  * ```
  */
 const GridCardComponent = <T,>({
+  id = 'grid-card-component',
   items,
   maxItems,
   columns = 3,
@@ -68,8 +71,8 @@ const GridCardComponent = <T,>({
   }`
 
   return (
-    <div id="grid-card-component" className={`${CARD_CLASSES} ${className ?? ''}`}>
-      <div id="grid-container" className={gridClasses}>
+    <div id={id} className={`${CARD_CLASSES} ${className ?? ''}`}>
+      <div id={`${id}-container`} className={gridClasses}>
         {itemsToShow.map((item, index) => (
           <React.Fragment key={getItemKey(item, index)}>
             {renderItem(item, index)}

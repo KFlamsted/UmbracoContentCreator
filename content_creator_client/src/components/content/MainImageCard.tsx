@@ -5,12 +5,17 @@ import type { ImageCropperValue } from '../../model/common/ImageCropperValue'
 const NEWS_PAGE_IMAGE_CARD_CLASSES = `${CARD_CLASSES} backdrop-blur-sm`
 
 interface MainImageCardProps {
+  /**
+   * Unique identifier for the main image card
+   */
+  id?: string
   mainImage?: ImageCropperValue
   alt?: string
   isNewsPage?: boolean
 }
 
 const MainImageCard: React.FC<MainImageCardProps> = ({
+  id = 'main-image-card',
   mainImage,
   alt = 'Main image',
   isNewsPage = false,
@@ -25,9 +30,9 @@ const MainImageCard: React.FC<MainImageCardProps> = ({
   const apiUrl = import.meta.env.VITE_API_URL
   const fullImageUrl = `${apiUrl}${mainImage.url}`
   return (
-    <div id="main-image-card" className={cardClasses}>
+    <div id={id} className={cardClasses}>
       <img
-        id="main-image"
+        id={`${id}-image`}
         src={fullImageUrl}
         alt={alt}
         className="w-full h-auto object-cover rounded-lg"

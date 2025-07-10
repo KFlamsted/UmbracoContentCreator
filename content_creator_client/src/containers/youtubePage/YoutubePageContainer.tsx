@@ -31,6 +31,7 @@ const YoutubePageContainer: React.FC<YoutubePageContainerProps> = ({
       {(children?.length ?? 0) > 1 && (
         <div id="youtube-page-navigation-wrapper">
           <InPageNavBarComponent
+            id="youtube-channel-navigation"
             items={children ?? []}
             activeItem={activeChannel}
             onItemChange={setActiveChannel}

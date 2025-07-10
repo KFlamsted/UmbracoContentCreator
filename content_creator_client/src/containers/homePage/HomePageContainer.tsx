@@ -31,7 +31,7 @@ const HomePageContainer: React.FC<HomePageContainerProps> = ({
       >
         <h1 id="homepage-title" className={HOMEPAGE_TITLE_CLASSES}>{content.pageTitle}</h1>
         {/* Scroll Indicator */}
-        <ScrollIndicatorComponent />
+        <ScrollIndicatorComponent id="homepage-scroll-indicator" />
       </section>
       {/* Content Section - Full Screen */}
       <section
@@ -39,7 +39,11 @@ const HomePageContainer: React.FC<HomePageContainerProps> = ({
         className={`${HOMEPAGE_CONTENT_SECTION_CLASSES} homepage-scroll-section`}
       >
         <div id="homepage-content-wrapper" className={`${DESIGN_TOKENS.HOMEPAGE_MAX_WIDTH} mx-auto`}>
-          <BodyTextCard bodyText={content.bodyText} hasBackgroundImage />
+          <BodyTextCard 
+            id="homepage-body-text-card"
+            bodyText={content.bodyText} 
+            hasBackgroundImage 
+          />
         </div>
       </section>
     </div>

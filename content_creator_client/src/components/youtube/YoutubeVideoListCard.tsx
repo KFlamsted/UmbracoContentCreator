@@ -7,11 +7,14 @@ import YoutubeVideoList from './YoutubeVideoList'
 import type { YoutubePage } from '../../model/YoutubePage'
 
 interface YoutubeVideoListCardProps {
+  /** Unique identifier for the youtube video list card */
+  id?: string
   channel: YoutubePage
   hasBackgroundImage?: boolean
 }
 
 const YoutubeVideoListCard: React.FC<YoutubeVideoListCardProps> = ({
+  id,
   channel,
   hasBackgroundImage = false,
 }) => {
@@ -27,9 +30,17 @@ const YoutubeVideoListCard: React.FC<YoutubeVideoListCardProps> = ({
 
   if (!channel.channelId) return null
 
+  const cardId = id || `youtube-video-list-card-${channel.channelId}`
+  const listId = id ? `${id}-list` : `youtube-video-list-${channel.channelId}`
+
   return (
-    <div id={`youtube-video-list-card-${channel.channelId}`} className={cardClasses}>
-      <YoutubeVideoList videos={videos ?? []} loading={loading} error={error} />
+    <div id={cardId} className={cardClasses}>
+      <YoutubeVideoList 
+        id={listId}
+        videos={videos ?? []} 
+        loading={loading} 
+        error={error} 
+      />
     </div>
   )
 }

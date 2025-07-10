@@ -11,14 +11,24 @@ interface YoutubeChannelContainerProps {
 const YoutubeChannelContainer: React.FC<YoutubeChannelContainerProps> = ({ channel }) => {
   return (
     <div id={`youtube-channel-container-${channel.channelId || 'unknown'}`} className={NEWS_PAGE_CONTAINER_CLASSES}>
-      <PageTitleCard title={channel.pageTitle} />
+      <PageTitleCard 
+        id={`youtube-channel-${channel.channelId || 'unknown'}-title-card`}
+        title={channel.pageTitle} 
+      />
       
       {channel.featuredVideoUrl && (
-        <YoutubeFeaturedVideoCard videoUrl={channel.featuredVideoUrl} />
+        <YoutubeFeaturedVideoCard 
+          id={`youtube-channel-${channel.channelId || 'unknown'}-featured-video`}
+          videoUrl={channel.featuredVideoUrl} 
+        />
       )}
 
       {/* Latest Videos List */}
-      <YoutubeVideoListCard channel={channel} hasBackgroundImage={true} />
+      <YoutubeVideoListCard 
+        id={`youtube-channel-${channel.channelId || 'unknown'}-video-list-card`}
+        channel={channel} 
+        hasBackgroundImage={true} 
+      />
     </div>
   )
 }
