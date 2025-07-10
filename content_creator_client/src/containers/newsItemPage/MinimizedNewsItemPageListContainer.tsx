@@ -7,20 +7,19 @@ interface MinimizedNewsItemPageListContainerProps {
   maxItems?: number
 }
 
-const MinimizedNewsItemPageListContainer: React.FC<MinimizedNewsItemPageListContainerProps> = ({
-  newsItems,
-  maxItems,
-}) => {  return (
-    <div id="minimized-news-item-page-list-container">
+const MinimizedNewsItemPageListContainer: React.FC<
+  MinimizedNewsItemPageListContainerProps
+> = ({ newsItems, maxItems }) => {
+  const minimizedListContainerId = 'minimized-news-item-page-list-container'
+  return (
+    <div id={minimizedListContainerId} className="w-full">
       <GridCardComponent
-        id="minimized-news-item-grid"
+        id={`${minimizedListContainerId}-grid`}
         items={newsItems}
         maxItems={maxItems}
         columns="1-md-2"
         renderItem={(newsItem) => (
-          <MinimizedNewsItemPageContainer 
-            newsItem={newsItem}
-          />
+          <MinimizedNewsItemPageContainer newsItem={newsItem} />
         )}
         getItemKey={(newsItem, index) => newsItem.id || newsItem.title || index}
       />
