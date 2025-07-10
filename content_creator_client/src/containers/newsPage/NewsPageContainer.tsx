@@ -30,14 +30,23 @@ const NewsPageContainer: React.FC<NewsPageContainerProps> = ({
   }, [loading, newsItemsLoading, error, newsItemsError, onStateChange])
 
   return (
-    <div className={NEWS_PAGE_CONTAINER_CLASSES}>
-      <PageTitleCard title={content.title} isNewsPage={true} />
+    <div id="news-page-container" className={NEWS_PAGE_CONTAINER_CLASSES}>
+      <PageTitleCard 
+        id="news-page-title-card"
+        title={content.title} 
+        isNewsPage={true} 
+      />
       <MainImageCard
+        id="news-page-main-image-card"
         mainImage={content.mainImage}
         alt={content.title}
         isNewsPage={true}
       />
-      <BodyTextCard bodyText={content.description?.markup} hasBackgroundImage />
+      <BodyTextCard 
+        id="news-page-body-text-card"
+        bodyText={content.description?.markup} 
+        hasBackgroundImage 
+      />
       <MinimizedNewsItemPageListContainer
         newsItems={newsItems}
         maxItems={content.newsPerPage ?? 9}

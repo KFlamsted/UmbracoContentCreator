@@ -2,6 +2,8 @@ import { DESIGN_TOKENS } from '../../constants/styles'
 import InPageNavButton from './InPageNavButton'
 
 interface InPageNavBarComponentProps<T> {
+  /** Unique identifier for the in-page navbar */
+  id: string
   items: T[]
   activeItem: T | null
   onItemChange: (item: T) => void
@@ -18,6 +20,7 @@ const IN_PAGE_NAVBAR_FLEX_CLASSES = `flex gap-2 justify-center flex-wrap`
 const FLOATING_WRAPPER_CLASSES = `fixed top-24 left-1/2 transform -translate-x-1/2 w-full max-w-6xl z-25`
 
 const InPageNavBarComponent = <T,>({
+  id,
   items,
   activeItem,
   onItemChange,
@@ -26,8 +29,8 @@ const InPageNavBarComponent = <T,>({
   floating = false,
 }: InPageNavBarComponentProps<T>) => {
   const navbar = (
-    <nav className={IN_PAGE_NAVBAR_CLASSES}>
-      <div className={IN_PAGE_NAVBAR_FLEX_CLASSES}>
+    <nav id={id} className={IN_PAGE_NAVBAR_CLASSES}>
+      <div id={`${id}-flex`} className={IN_PAGE_NAVBAR_FLEX_CLASSES}>
         {items.map((item) => (
           <InPageNavButton
             key={getId(item)}
@@ -42,7 +45,7 @@ const InPageNavBarComponent = <T,>({
   )
 
   if (floating) {
-    return <div className={FLOATING_WRAPPER_CLASSES}>{navbar}</div>
+    return <div id={`${id}-floating-wrapper`} className={FLOATING_WRAPPER_CLASSES}>{navbar}</div>
   }
 
   return navbar

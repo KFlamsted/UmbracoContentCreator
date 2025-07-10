@@ -51,6 +51,7 @@ const AppShell: React.FC<AppShellProps> = ({
       */}
       {fullBackgroundImageUrl && (
         <div
+          id={isHomePage ? "background-image-sharp" : "background-image-blurred"}
           className={
             isHomePage
               ? BACKGROUND_IMAGE_CLASSES
@@ -63,17 +64,20 @@ const AppShell: React.FC<AppShellProps> = ({
       {/* Fixed Navigation Layer */}
       <NavBar>
         <NavBarButton
+          id="nav-home-button"
           isHomePageButton
           isSelected={location.pathname === ROUTES.HOME}
           onClick={() => handleNavigation(ROUTES.HOME)}
         />
         <NavBarButton
+          id="nav-news-button"
           isSelected={location.pathname === ROUTES.NEWS}
           onClick={() => handleNavigation(ROUTES.NEWS)}
         >
           Nyheder
         </NavBarButton>
         <NavBarButton
+          id="nav-youtube-button"
           isSelected={location.pathname === ROUTES.YOUTUBE}
           onClick={() => handleNavigation(ROUTES.YOUTUBE)}
         >
@@ -82,18 +86,19 @@ const AppShell: React.FC<AppShellProps> = ({
       </NavBar>
 
       {/* Content Layer */}
-      <div className={CONTENT_LAYER_CLASSES}>
+      <div id="content-layer" className={CONTENT_LAYER_CLASSES}>
         <div
+          id="app-shell-container"
           className={
             isHomePage
               ? 'w-full'
               : getAppShellContainerClasses(!!fullBackgroundImageUrl, location.pathname === ROUTES.YOUTUBE)
           }
         >
-          {loading && <div className={LOADING_MESSAGE_CLASSES}>Loading...</div>}
-          {error && <div className={ERROR_MESSAGE_CLASSES}>Error: {error}</div>}
+          {loading && <div id="loading-message" className={LOADING_MESSAGE_CLASSES}>Loading...</div>}
+          {error && <div id="error-message" className={ERROR_MESSAGE_CLASSES}>Error: {error}</div>}
           {/* Always render children so React hooks can execute, but hide visually when loading/error */}
-          <div style={{ display: loading || error ? 'none' : 'contents' }}>
+          <div id="app-content" style={{ display: loading || error ? 'none' : 'contents' }}>
             {children}
           </div>
         </div>

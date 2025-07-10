@@ -11,6 +11,8 @@ import {
 } from '../../constants/styles'
 
 interface NavBarButtonProps {
+  /** Unique identifier for the navigation button */
+  id: string
   children?: ReactNode
   isHomePageButton?: boolean
   isSelected?: boolean
@@ -18,6 +20,7 @@ interface NavBarButtonProps {
 }
 
 const NavBarButton: React.FC<NavBarButtonProps> = ({ 
+  id,
   children, 
   isHomePageButton = false, 
   isSelected = false, 
@@ -29,22 +32,26 @@ const NavBarButton: React.FC<NavBarButtonProps> = ({
     
   return (
     <button 
+      id={id}
       className={`${NAVBAR_BUTTON_BASE_CLASSES} ${selectedClasses}`}
       onClick={onClick}
       style={{ outline: 'none', border: 'none' }}
     >
       {isHomePageButton ? (
-        <div className={ICON_CONTAINER}>
+        <div id={`${id}-icon`} className={ICON_CONTAINER}>
           <svg 
+            id={`${id}-svg`}
             className={ICON_SIZE}
             fill="currentColor" 
             viewBox="0 0 20 20"
           >
-            <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
+            <path id={`${id}-path`} d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
           </svg>
         </div>
       ) : (
-        children
+        <span id={`${id}-text`}>
+          {children}
+        </span>
       )}
     </button>
   )
@@ -56,9 +63,9 @@ interface NavBarProps {
 
 const NavBar: React.FC<NavBarProps> = ({ children }) => {
   return (
-    <nav className={NAVBAR_CLASSES}>
-      <div className={NAVBAR_CONTAINER_CLASSES}>
-        <div className={NAVBAR_FLEX_CLASSES}>
+    <nav id="main-navbar" className={NAVBAR_CLASSES}>
+      <div id="navbar-container" className={NAVBAR_CONTAINER_CLASSES}>
+        <div id="navbar-flex" className={NAVBAR_FLEX_CLASSES}>
           {children}
         </div>
       </div>

@@ -27,9 +27,10 @@ const YoutubeVideoPlayer: React.FC<YoutubeVideoPlayerProps> = ({ videoId }) => {
 
   return (
     <div
+      id={`youtube-video-player-${videoId}`}
       className={`${DESIGN_TOKENS.BORDER_RADIUS} overflow-hidden ${DESIGN_TOKENS.YOUTUBE_CARD_BG}`}
     >
-      <div className={`aspect-video`}>
+      <div id={`youtube-video-aspect-${videoId}`} className={`aspect-video`}>
         <YouTube
           videoId={videoId}
           opts={youtubeOptions}

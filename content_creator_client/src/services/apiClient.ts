@@ -1,4 +1,8 @@
-import axios, { type AxiosInstance, type AxiosResponse, type AxiosError } from 'axios'
+import axios, {
+  type AxiosInstance,
+  type AxiosResponse,
+  type AxiosError,
+} from 'axios'
 import type { IUmbracoContentResponse } from '../model/common/UmbracoCommon'
 
 // Create axios instance with base configuration
@@ -52,12 +56,12 @@ const handleContentResponse = <TProperties>(
   response: AxiosResponse<IUmbracoContentResponse<TProperties>>
 ): IUmbracoContentResponse<TProperties> => {
   const data = response.data
-  
-  if (data.total === 0 || !data.items.length) {
+
+  if (data.total === 0 || !data?.items?.length) {
     throw new Error('Content not found')
   }
-  
+
   return data
 }
 
-export { apiClient, handleApiResponse, handleContentResponse } 
+export { apiClient, handleApiResponse, handleContentResponse }
