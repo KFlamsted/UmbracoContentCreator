@@ -20,7 +20,9 @@ const YoutubeVideoList: React.FC<YoutubeVideoListProps> = ({
   if (loading) {
     return (
       <div id={`${id}-loading`} className="text-center py-8">
-        <p id={`${id}-loading-text`} className={LOADING_MESSAGE_CLASSES}>Loading latest videos...</p>
+        <p id={`${id}-loading-text`} className={LOADING_MESSAGE_CLASSES}>
+          Loading latest videos...
+        </p>
       </div>
     )
   }
@@ -28,7 +30,9 @@ const YoutubeVideoList: React.FC<YoutubeVideoListProps> = ({
   if (error) {
     return (
       <div id={`${id}-error`} className="text-center py-8">
-        <p id={`${id}-error-text`} className="text-red-600">Error loading videos: {error}</p>
+        <p id={`${id}-error-text`} className="text-red-600">
+          Error loading videos: {error}
+        </p>
       </div>
     )
   }
