@@ -1,7 +1,7 @@
 import type { NewsItemPage } from '../../model/NewsItemPage'
 import MinimizedNewsItemPageContainer from './MinimizedNewsItemPageContainer'
-import { GridCardComponent } from '../../components/grid'
-import { DESIGN_TOKENS } from '../../constants/styles'
+import { GridComponent } from '../../components/grid'
+import { DESIGN_TOKENS, SECTION_SPACING } from '../../constants/styles'
 
 interface MinimizedNewsItemPageListContainerProps {
   newsItems: NewsItemPage[]
@@ -15,9 +15,9 @@ const MinimizedNewsItemPageListContainer: React.FC<
   return (
     <div
       id={minimizedListContainerId}
-      className={`w-full ${DESIGN_TOKENS.CONTAINER_MAX_WIDTH}`}
+      className={`w-full ${DESIGN_TOKENS.CONTAINER_MAX_WIDTH} ${SECTION_SPACING}`}
     >
-      <GridCardComponent
+      <GridComponent
         id={`${minimizedListContainerId}-grid`}
         items={newsItems}
         maxItems={maxItems}

@@ -1,15 +1,11 @@
 import { useState } from 'react'
 import YouTube from 'react-youtube'
-import {
-  CARD_CLASSES,
-  BACKDROP_BLUR_CARD_CLASSES,
-} from '../../constants/styles'
+import { SECTION_SPACING } from '../../constants/styles'
 
-interface YoutubeFeaturedVideoCardProps {
+interface YoutubeFeaturedVideoComponentProps {
   /** Unique identifier for the youtube featured video card */
   id: string
   videoUrl: string
-  hasBackgroundImage?: boolean
 }
 
 // Extract YouTube video ID from various URL formats
@@ -27,19 +23,12 @@ const extractVideoId = (url: string): string | null => {
   return null
 }
 
-const YoutubeFeaturedVideoCard: React.FC<YoutubeFeaturedVideoCardProps> = ({
-  id,
-  videoUrl,
-  hasBackgroundImage = false,
-}) => {
+const YoutubeFeaturedVideoComponent: React.FC<
+  YoutubeFeaturedVideoComponentProps
+> = ({ id, videoUrl }) => {
   const [videoError, setVideoError] = useState(false)
-
   const videoId = extractVideoId(videoUrl)
-  const cardClasses = hasBackgroundImage
-    ? BACKDROP_BLUR_CARD_CLASSES
-    : CARD_CLASSES
-  
-  const cardId = id
+  const componentId = id
 
   if (!videoId || videoError) return null
 
@@ -54,8 +43,8 @@ const YoutubeFeaturedVideoCard: React.FC<YoutubeFeaturedVideoCardProps> = ({
   }
 
   return (
-    <div id={cardId} className={cardClasses}>
-      <div id={`${cardId}-aspect`} className="aspect-video">
+    <div id={componentId} className={SECTION_SPACING}>
+      <div id={`${componentId}-aspect`} className="aspect-video">
         <YouTube
           videoId={videoId}
           opts={youtubeOptions}
@@ -69,4 +58,4 @@ const YoutubeFeaturedVideoCard: React.FC<YoutubeFeaturedVideoCardProps> = ({
   )
 }
 
-export default YoutubeFeaturedVideoCard
+export default YoutubeFeaturedVideoComponent
