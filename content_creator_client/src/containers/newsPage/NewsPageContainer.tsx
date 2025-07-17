@@ -32,28 +32,22 @@ const NewsPageContainer: React.FC<NewsPageContainerProps> = ({
 
   return (
     <div id="news-page-container" className={NEWS_PAGE_CONTAINER_CLASSES}>
-      <ContentCard
-        id="news-page-content-card"
-        hasBackgroundImage={true}
-      >
-        <PageTitleSection 
-          id="news-page-title-section"
-          title={content.title} 
-        />
+      <ContentCard id="news-page-content-card" hasBackgroundImage={true}>
+        <PageTitleSection id="news-page-title-section" title={content.title} />
         <MainImageSection
           id="news-page-main-image-section"
           mainImage={content.mainImage}
           alt={content.title}
         />
-        <BodyTextSection 
+        <BodyTextSection
           id="news-page-body-text-section"
-          bodyText={content.description?.markup} 
+          bodyText={content.description?.markup}
+        />
+        <MinimizedNewsItemPageListContainer
+          newsItems={newsItems}
+          maxItems={content.newsPerPage ?? 9}
         />
       </ContentCard>
-      <MinimizedNewsItemPageListContainer
-        newsItems={newsItems}
-        maxItems={content.newsPerPage ?? 9}
-      />
     </div>
   )
 }

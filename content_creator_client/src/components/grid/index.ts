@@ -1,4 +1,4 @@
-export { default as GridCardComponent } from './GridCardComponent'
-export type { GridCardComponentProps } from './GridCardComponent'
+export { default as GridComponent } from './GridComponent'
+export type { GridComponentProps } from './GridComponent'
 export { default as GridItem } from './GridItem'
 export type { GridItemProps } from './GridItem'

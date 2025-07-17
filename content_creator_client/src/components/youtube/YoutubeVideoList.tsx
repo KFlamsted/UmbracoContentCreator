@@ -1,4 +1,4 @@
-import { GridCardComponent } from '../grid'
+import { GridComponent } from '../grid'
 import YoutubeVideoPlayer from './YoutubeVideoPlayer'
 import { LOADING_MESSAGE_CLASSES } from '../../constants/styles'
 import type { VideoSummary } from '../../model/VideoSummary'
@@ -35,16 +35,13 @@ const YoutubeVideoList: React.FC<YoutubeVideoListProps> = ({
 
   return (
     <div id={`${id}-container`}>
-      <GridCardComponent
+      <GridComponent
         id={`${id}-grid`}
         items={videos}
         columns="1-md-2"
         equalHeight
         renderItem={(video) => <YoutubeVideoPlayer videoId={video.videoId} />}
         getItemKey={(video) => video.videoId}
-        // Override grid card styling for custom layout
-        // TODO: Use this everywhere on grids later
-        className="!bg-transparent !shadow-none !p-0 !mb-0" 
       />
     </div>
   )

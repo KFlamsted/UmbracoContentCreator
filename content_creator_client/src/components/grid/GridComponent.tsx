@@ -1,8 +1,8 @@
 import React from 'react'
-import { CARD_CLASSES, DESIGN_TOKENS } from '../../constants/styles'
+import { DESIGN_TOKENS } from '../../constants/styles'
 
-export interface GridCardComponentProps<T> {
-  /** Unique identifier for the grid card component */
+export interface GridComponentProps<T> {
+  /** Unique identifier for the grid component */
   id: string
   /** Array of items to display in the grid */
   items: T[]
@@ -21,12 +21,12 @@ export interface GridCardComponentProps<T> {
 }
 
 /**
- * A reusable grid card component that displays items in a responsive grid layout.
+ * A reusable grid component that displays items in a responsive grid layout.
  * Supports 2, 3, or 4 columns and handles empty states gracefully.
  * 
  * @example
  * ```tsx
- * <GridCardComponent
+ * <GridComponent
  *   items={newsItems}
  *   maxItems={6}
  *   columns={3}
@@ -35,7 +35,7 @@ export interface GridCardComponentProps<T> {
  * />
  * ```
  */
-const GridCardComponent = <T,>({
+const GridComponent = <T,>({
   id,
   items,
   maxItems,
@@ -44,7 +44,7 @@ const GridCardComponent = <T,>({
   getItemKey,
   className,
   equalHeight = false,
-}: GridCardComponentProps<T>) => {
+}: GridComponentProps<T>) => {
   // Limit the number of items to display
   const itemsToShow = maxItems ? items.slice(0, maxItems) : items
   
@@ -72,7 +72,7 @@ const GridCardComponent = <T,>({
   }`
 
   return (
-    <div id={id} className={`${CARD_CLASSES} ${className ?? ''}`}>
+    <div id={id} className={`w-full ${className ?? ''}`}>
       <div id={`${id}-container`} className={gridClasses}>
         {itemsToShow.map((item, index) => (
           <React.Fragment key={getItemKey(item, index)}>
@@ -84,4 +84,4 @@ const GridCardComponent = <T,>({
   )
 }
 
-export default GridCardComponent
+export default GridComponent 
