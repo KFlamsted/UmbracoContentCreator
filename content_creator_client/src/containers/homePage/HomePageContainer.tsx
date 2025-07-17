@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { useHomePage } from '../../hooks/PageLoadHooks'
-import BodyTextCard from '../../components/content/BodyTextCard'
+import ContentCard from '../../components/content/ContentCard'
+import BodyTextSection from '../../components/content/BodyTextSection'
 import ScrollIndicatorComponent from '../../components/common/ScrollIndicatorComponent'
 import {
   HOMEPAGE_CONTAINER_CLASSES,
@@ -39,11 +40,15 @@ const HomePageContainer: React.FC<HomePageContainerProps> = ({
         className={`${HOMEPAGE_CONTENT_SECTION_CLASSES} homepage-scroll-section`}
       >
         <div id="homepage-content-wrapper" className={`${DESIGN_TOKENS.HOMEPAGE_MAX_WIDTH} mx-auto`}>
-          <BodyTextCard 
-            id="homepage-body-text-card"
-            bodyText={content.bodyText} 
-            hasBackgroundImage 
-          />
+          <ContentCard
+            id="homepage-content-card"
+            hasBackgroundImage={true}
+          >
+            <BodyTextSection 
+              id="homepage-body-text-section"
+              bodyText={content.bodyText} 
+            />
+          </ContentCard>
         </div>
       </section>
     </div>

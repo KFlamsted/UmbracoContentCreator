@@ -1,4 +1,5 @@
-import PageTitleCard from '../../components/content/PageTitleCard'
+import ContentCard from '../../components/content/ContentCard'
+import PageTitleSection from '../../components/content/PageTitleSection'
 import YoutubeFeaturedVideoCard from '../../components/youtube/YoutubeFeaturedVideoCard'
 import YoutubeVideoListCard from '../../components/youtube/YoutubeVideoListCard'
 import { NEWS_PAGE_CONTAINER_CLASSES } from '../../constants/styles'
@@ -11,24 +12,30 @@ interface YoutubeChannelContainerProps {
 const YoutubeChannelContainer: React.FC<YoutubeChannelContainerProps> = ({ channel }) => {
   return (
     <div id={`youtube-channel-container-${channel.channelId || 'unknown'}`} className={NEWS_PAGE_CONTAINER_CLASSES}>
-      <PageTitleCard 
-        id={`youtube-channel-${channel.channelId || 'unknown'}-title-card`}
-        title={channel.pageTitle} 
-      />
-      
-      {channel.featuredVideoUrl && (
-        <YoutubeFeaturedVideoCard 
-          id={`youtube-channel-${channel.channelId || 'unknown'}-featured-video`}
-          videoUrl={channel.featuredVideoUrl} 
+      <ContentCard
+        id={`youtube-channel-${channel.channelId || 'unknown'}-content-card`}
+        hasBackgroundImage={true}
+      >
+        <PageTitleSection 
+          id={`youtube-channel-${channel.channelId || 'unknown'}-title-section`}
+          title={channel.pageTitle} 
         />
-      )}
+        
+        {channel.featuredVideoUrl && (
+          <YoutubeFeaturedVideoCard 
+            id={`youtube-channel-${channel.channelId || 'unknown'}-featured-video`}
+            videoUrl={channel.featuredVideoUrl} 
+            hasBackgroundImage={false}
+          />
+        )}
 
-      {/* Latest Videos List */}
-      <YoutubeVideoListCard 
-        id={`youtube-channel-${channel.channelId || 'unknown'}-video-list-card`}
-        channel={channel} 
-        hasBackgroundImage={true} 
-      />
+        {/* Latest Videos List */}
+        <YoutubeVideoListCard 
+          id={`youtube-channel-${channel.channelId || 'unknown'}-video-list-card`}
+          channel={channel} 
+          hasBackgroundImage={false} 
+        />
+      </ContentCard>
     </div>
   )
 }

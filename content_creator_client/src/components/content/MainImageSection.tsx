@@ -1,36 +1,30 @@
-import { CARD_CLASSES } from '../../constants/styles'
+import { SECTION_SPACING } from '../../constants/styles'
 import type { ImageCropperValue } from '../../model/common/ImageCropperValue'
 
-// Create image card classes that include backdrop blur
-const NEWS_PAGE_IMAGE_CARD_CLASSES = `${CARD_CLASSES} backdrop-blur-sm`
-
-interface MainImageCardProps {
+interface MainImageSectionProps {
   /**
-   * Unique identifier for the main image card
+   * Unique identifier for the main image section
    */
   id: string
   mainImage?: ImageCropperValue
   alt?: string
-  isNewsPage?: boolean
 }
 
-const MainImageCard: React.FC<MainImageCardProps> = ({
+const MainImageSection: React.FC<MainImageSectionProps> = ({
   id,
   mainImage,
   alt = 'Main image',
-  isNewsPage = false,
 }) => {
   if (!mainImage?.url) {
     return null
   }
 
-  const cardClasses = isNewsPage ? NEWS_PAGE_IMAGE_CARD_CLASSES : CARD_CLASSES
-
   // Construct full image URL using API base URL + relative path
   const apiUrl = import.meta.env.VITE_API_URL
   const fullImageUrl = `${apiUrl}${mainImage.url}`
+  
   return (
-    <div id={id} className={cardClasses}>
+    <div id={id} className={SECTION_SPACING}>
       <img
         id={`${id}-image`}
         src={fullImageUrl}
@@ -46,4 +40,4 @@ const MainImageCard: React.FC<MainImageCardProps> = ({
   )
 }
 
-export default MainImageCard
+export default MainImageSection 

@@ -1,8 +1,9 @@
 import { useEffect } from 'react'
 import { useNewsPage, useNewsPageItems } from '../../hooks/PageLoadHooks'
-import PageTitleCard from '../../components/content/PageTitleCard'
-import BodyTextCard from '../../components/content/BodyTextCard'
-import MainImageCard from '../../components/content/MainImageCard'
+import ContentCard from '../../components/content/ContentCard'
+import PageTitleSection from '../../components/content/PageTitleSection'
+import BodyTextSection from '../../components/content/BodyTextSection'
+import MainImageSection from '../../components/content/MainImageSection'
 import MinimizedNewsItemPageListContainer from '../newsItemPage/MinimizedNewsItemPageListContainer'
 import { NEWS_PAGE_CONTAINER_CLASSES } from '../../constants/styles'
 
@@ -31,22 +32,24 @@ const NewsPageContainer: React.FC<NewsPageContainerProps> = ({
 
   return (
     <div id="news-page-container" className={NEWS_PAGE_CONTAINER_CLASSES}>
-      <PageTitleCard 
-        id="news-page-title-card"
-        title={content.title} 
-        isNewsPage={true} 
-      />
-      <MainImageCard
-        id="news-page-main-image-card"
-        mainImage={content.mainImage}
-        alt={content.title}
-        isNewsPage={true}
-      />
-      <BodyTextCard 
-        id="news-page-body-text-card"
-        bodyText={content.description?.markup} 
-        hasBackgroundImage 
-      />
+      <ContentCard
+        id="news-page-content-card"
+        hasBackgroundImage={true}
+      >
+        <PageTitleSection 
+          id="news-page-title-section"
+          title={content.title} 
+        />
+        <MainImageSection
+          id="news-page-main-image-section"
+          mainImage={content.mainImage}
+          alt={content.title}
+        />
+        <BodyTextSection 
+          id="news-page-body-text-section"
+          bodyText={content.description?.markup} 
+        />
+      </ContentCard>
       <MinimizedNewsItemPageListContainer
         newsItems={newsItems}
         maxItems={content.newsPerPage ?? 9}

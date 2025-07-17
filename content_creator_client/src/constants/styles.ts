@@ -57,6 +57,15 @@ export const CARD_CLASSES = `w-full ${DESIGN_TOKENS.CONTAINER_MAX_WIDTH} ${DESIG
 // Card classes with backdrop blur (used on pages with background images)
 export const BACKDROP_BLUR_CARD_CLASSES = `w-full ${DESIGN_TOKENS.CONTAINER_MAX_WIDTH} ${DESIGN_TOKENS.SURFACE_BG} bg-opacity-95 ${DESIGN_TOKENS.BORDER_RADIUS} ${DESIGN_TOKENS.CARD_SHADOW} ${DESIGN_TOKENS.CARD_PADDING} mb-2 backdrop-blur-sm`
 
+// Content Card Classes (new big card system)
+export const CONTENT_CARD_CLASSES = `w-full ${DESIGN_TOKENS.CONTAINER_MAX_WIDTH} ${DESIGN_TOKENS.SURFACE_BG} ${DESIGN_TOKENS.BORDER_RADIUS} ${DESIGN_TOKENS.CARD_SHADOW} ${DESIGN_TOKENS.CARD_PADDING}`
+
+// Content Card with backdrop blur (used on pages with background images)
+export const CONTENT_CARD_BACKDROP_BLUR_CLASSES = `w-full ${DESIGN_TOKENS.CONTAINER_MAX_WIDTH} ${DESIGN_TOKENS.SURFACE_BG} bg-opacity-95 ${DESIGN_TOKENS.BORDER_RADIUS} ${DESIGN_TOKENS.CARD_SHADOW} ${DESIGN_TOKENS.CARD_PADDING} backdrop-blur-sm`
+
+// Section spacing within content cards
+export const SECTION_SPACING = 'mb-2'
+
 export const TITLE_CARD_CLASSES = `${CARD_CLASSES} mb-2`
 
 export const TITLE_CLASSES = `${DESIGN_TOKENS.HEADING_SIZE} font-bold text-center ${DESIGN_TOKENS.TEXT_HEADING}`
