@@ -25,12 +25,14 @@ export const DESIGN_TOKENS = {
   // Typography Scale
   HEADING_SIZE: 'text-3xl',
   BODY_SIZE: 'text-lg',
+  
   // State Colors
   TEXT_MUTED: 'text-gray-600',
   TEXT_ERROR: 'text-red-600',
   TEXT_BODY: 'text-gray-700',
   TEXT_HEADING: 'text-gray-900',
-  TEXT_BUTTON_DEFAULT: 'text-gray-800',  TEXT_BUTTON_MUTED: 'text-gray-500',   // Grid & Layout
+  TEXT_BUTTON_DEFAULT: 'text-gray-800',
+  TEXT_BUTTON_MUTED: 'text-gray-500',   // Grid & Layout
   GRID_COLS_1_MD_2: 'grid-cols-1 md:grid-cols-2',
   GRID_COLS_2: 'grid-cols-2',
   GRID_COLS_3: 'grid-cols-3',
@@ -49,6 +51,11 @@ export const DESIGN_TOKENS = {
   YOUTUBE_THUMBNAIL_OVERLAY: 'bg-opacity-30 group-hover:bg-opacity-20',
   YOUTUBE_VIDEO_TITLE: 'text-white font-medium text-sm leading-tight mb-2 h-10 flex items-start',
   YOUTUBE_VIDEO_LINK: 'text-blue-400 hover:text-blue-300',
+  
+  // Badge design tokens
+  BADGE_PADDING: 'px-2 py-1',
+  BADGE_RADIUS: 'rounded-full',
+  BADGE_TEXT_SIZE: 'text-xs',
 } as const
 
 // Semantic Component Classes (meaningful combinations)
