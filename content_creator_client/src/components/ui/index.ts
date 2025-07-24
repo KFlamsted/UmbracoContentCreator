@@ -1,44 +1,47 @@
 // Typography Components
-export {
-  H1Component,
-  H2Component,
-  H3Component,
+export { 
+  H1Component, 
+  H2Component, 
+  H3Component, 
   ParagraphComponent, // ← Renamed from TextComponent for clarity
-  SpanComponent,
+  SpanComponent, 
   RichTextComponent,
   OverlayRichTextComponent,
   TextComponent, // ← Still available from TextComponents.tsx
-  BadgeComponent,
+  BadgeComponent, 
 } from './typography'
 
 // Layout Components
-export {
-  ContainerComponent,
-  SectionComponent,
-  FlexComponent,
-  GridComponent,
+export { 
+  ContainerComponent, 
+  SectionComponent, 
+  BackgroundComponent,
+  LayerComponent,
+  AppContainerComponent,
+  FlexComponent, 
+  GridComponent, 
   SpacerComponent,
 } from './layout'
 
 // Card Components
-export {
-  CardComponent,
-  ImageCardComponent,
+export { 
+  CardComponent, 
+  ImageCardComponent, 
   YouTubeCardComponent,
 } from './cards'
 
 // Button Components
-export {
-  ButtonComponent,
-  LinkButtonComponent,
-  NavButtonComponent,
+export { 
+  ButtonComponent, 
+  LinkButtonComponent, 
+  NavButtonComponent, 
   IconButtonComponent,
 } from './buttons'
 
 // Positioning Components
-export {
-  PositionedComponent,
-  AbsoluteTopRightComponent,
+export { 
+  PositionedComponent, 
+  AbsoluteTopRightComponent, 
   AbsoluteBottomRightComponent,
   CenteredPositionedComponent,
 } from './positioning'
