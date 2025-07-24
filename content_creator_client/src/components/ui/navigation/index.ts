@@ -1,2 +1,2 @@
 export { NavBarComponent } from './NavBarComponent'
-export { InPageNavBarCard } from './InPageNavBarCard'
+export { InPageNavBarComponent as InPageNavBarCard } from './InPageNavBarComponent'

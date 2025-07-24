@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useYoutubeParentPage } from '../../hooks/PageLoadHooks'
-import InPageNavBarComponent from '../../components/navigation/InPageNavBarComponent'
+import InPageNavBar from '../../components/navigation/InPageNavBar'
 import YoutubeChannelContainer from './YoutubeChannelContainer'
 import type { YoutubePage } from '../../model/YoutubePage'
 
@@ -30,7 +30,7 @@ const YoutubePageContainer: React.FC<YoutubePageContainerProps> = ({
       {/* Floating In-page navigation - only show if more than one channel */}
       {(children?.length ?? 0) > 1 && (
         <div id="youtube-page-navigation-wrapper">
-          <InPageNavBarComponent
+          <InPageNavBar
             id="youtube-channel-navigation"
             items={children ?? []}
             activeItem={activeChannel}

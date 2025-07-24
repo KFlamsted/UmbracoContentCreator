@@ -1,7 +1,7 @@
 import { FlexComponent, InPageNavBarCard, CenteredPositionedComponent } from '../ui'
 import InPageNavButton from './InPageNavButton'
 
-interface InPageNavBarComponentProps<T> {
+interface InPageNavBarProps<T> {
   /** Unique identifier for the in-page navbar */
   id: string
   items: T[]
@@ -12,7 +12,7 @@ interface InPageNavBarComponentProps<T> {
   floating?: boolean
 }
 
-const InPageNavBarComponent = <T,>({
+const InPageNavBar = <T,>({
   id,
   items,
   activeItem,
@@ -20,7 +20,7 @@ const InPageNavBarComponent = <T,>({
   getDisplayText,
   getId,
   floating = false,
-}: InPageNavBarComponentProps<T>) => {
+}: InPageNavBarProps<T>) => {
   const navbar = (
     <InPageNavBarCard id={id}>
       <FlexComponent 
@@ -47,7 +47,7 @@ const InPageNavBarComponent = <T,>({
       <CenteredPositionedComponent
         id={`${id}-floating-wrapper`}
         position="fixed"
-        top="top-24"
+        top="top-22"
         zIndex="z-40"
         width="w-full"
         maxWidth="max-w-6xl"
@@ -60,4 +60,4 @@ const InPageNavBarComponent = <T,>({
   return navbar
 }
 
-export default InPageNavBarComponent 
+export default InPageNavBar 
