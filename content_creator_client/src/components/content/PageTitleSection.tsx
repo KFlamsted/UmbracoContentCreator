@@ -1,4 +1,4 @@
-import { TITLE_CLASSES, SECTION_SPACING } from '../../constants/styles'
+import { H1Component, SectionComponent } from '../ui'
 
 interface PageTitleSectionProps {
   /**
@@ -12,12 +12,18 @@ const PageTitleSection: React.FC<PageTitleSectionProps> = ({
   id,
   title
 }) => {
+  if (!title) return null
+
   return (
-    <div id={id} className={SECTION_SPACING}>
-      <h1 id={`${id}-title`} className={TITLE_CLASSES}>
+    <SectionComponent id={id} variant="card-section" spacing="default">
+      <H1Component 
+        id={`${id}-title`} 
+        variant="page"
+        align="center"
+      >
         {title}
-      </h1>
-    </div>
+      </H1Component>
+    </SectionComponent>
   )
 }
 

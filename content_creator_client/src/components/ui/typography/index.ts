@@ -1,0 +1,7 @@
+export { H1Component } from './H1Component'
+export { H2Component } from './H2Component'
+export { H3Component } from './H3Component'
+export { ParagraphComponent } from './ParagraphComponent'
+export { SpanComponent } from './SpanComponent'
+export { TextComponent, RichTextComponent, OverlayRichTextComponent } from './TextComponents'
+export { BadgeComponent } from './BadgeComponent'

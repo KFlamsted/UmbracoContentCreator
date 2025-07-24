@@ -3,13 +3,7 @@ import { useHomePage } from '../../hooks/PageLoadHooks'
 import ContentCard from '../../components/content/ContentCard'
 import BodyTextSection from '../../components/content/BodyTextSection'
 import ScrollIndicatorComponent from '../../components/common/ScrollIndicatorComponent'
-import {
-  HOMEPAGE_CONTAINER_CLASSES,
-  HOMEPAGE_HERO_SECTION_CLASSES,
-  HOMEPAGE_CONTENT_SECTION_CLASSES,
-  HOMEPAGE_TITLE_CLASSES,
-  DESIGN_TOKENS,
-} from '../../constants/styles'
+import { ContainerComponent, SectionComponent, H1Component } from '../../components/ui'
 
 interface HomePageContainerProps {
   onStateChange?: (loading: boolean, error: string | null) => void
@@ -23,23 +17,33 @@ const HomePageContainer: React.FC<HomePageContainerProps> = ({
   useEffect(() => {
     onStateChange?.(loading, error)
   }, [loading, error, onStateChange])
+  
   return (
-    <div id="homepage-container" className={`${HOMEPAGE_CONTAINER_CLASSES} homepage-scroll-container`}>
+    <ContainerComponent id="homepage-container" variant="default" padding="none" className="homepage-scroll-container">
       {/* Hero Section - Full Screen */}
-      <section
+      <SectionComponent
         id="homepage-hero-section"
-        className={`${HOMEPAGE_HERO_SECTION_CLASSES} homepage-scroll-section`}
+        variant="hero"
+        className="homepage-scroll-section"
       >
-        <h1 id="homepage-title" className={HOMEPAGE_TITLE_CLASSES}>{content.pageTitle}</h1>
+        <H1Component 
+          id="homepage-title" 
+          variant="hero" 
+          align="center"
+        >
+          {content.pageTitle}
+        </H1Component>
         {/* Scroll Indicator */}
         <ScrollIndicatorComponent id="homepage-scroll-indicator" />
-      </section>
+      </SectionComponent>
+      
       {/* Content Section - Full Screen */}
-      <section
+      <SectionComponent
         id="homepage-content-section"
-        className={`${HOMEPAGE_CONTENT_SECTION_CLASSES} homepage-scroll-section`}
+        variant="content"
+        className="homepage-scroll-section homepage-content-overlay"
       >
-        <div id="homepage-content-wrapper" className={`${DESIGN_TOKENS.HOMEPAGE_MAX_WIDTH} mx-auto`}>
+        <ContainerComponent id="homepage-content-wrapper" variant="constrained">
           <ContentCard
             id="homepage-content-card"
             hasBackgroundImage={true}
@@ -49,9 +53,9 @@ const HomePageContainer: React.FC<HomePageContainerProps> = ({
               bodyText={content.bodyText} 
             />
           </ContentCard>
-        </div>
-      </section>
-    </div>
+        </ContainerComponent>
+      </SectionComponent>
+    </ContainerComponent>
   )
 }
 

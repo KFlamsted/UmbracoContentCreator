@@ -1,0 +1,1 @@
+export { HomeIconComponent } from './IconComponent'
