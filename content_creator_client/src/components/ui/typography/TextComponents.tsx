@@ -10,7 +10,7 @@ interface BaseTypographyProps {
 
 // Text Components
 interface TextProps extends BaseTypographyProps {
-  variant?: 'body' | 'small' | 'caption' | 'meta' | 'muted' | 'overlay' | 'overlay-muted' | 'overlay-subtle'
+  variant?: 'body' | 'small' | 'caption' | 'meta' | 'muted' | 'overlay' | 'overlay-muted' | 'overlay-subtle' | 'error'
   align?: 'left' | 'center' | 'right'
 }
 
@@ -33,6 +33,8 @@ export const TextComponent: React.FC<TextProps> = ({
         return `text-xs ${DESIGN_TOKENS.TEXT_OVERLAY_SUBTLE}`
       case 'muted':
         return `${DESIGN_TOKENS.BODY_SIZE} ${DESIGN_TOKENS.TEXT_MUTED}`
+      case 'error':
+        return `${DESIGN_TOKENS.BODY_SIZE} ${DESIGN_TOKENS.TEXT_ERROR}`
       case 'overlay':
         return `text-sm ${DESIGN_TOKENS.TEXT_OVERLAY} text-left`
       case 'overlay-muted':

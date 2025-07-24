@@ -5,6 +5,7 @@ interface SectionComponentProps {
   children: React.ReactNode
   variant?: 'default' | 'hero' | 'content' | 'card-section'
   spacing?: 'none' | 'small' | 'default' | 'large'
+  align?: 'left' | 'center' | 'right'
   className?: string
 }
 
@@ -13,7 +14,8 @@ export const SectionComponent: React.FC<SectionComponentProps> = ({
   children, 
   className = '', 
   variant = 'default',
-  spacing = 'default'
+  spacing = 'default',
+  align = 'left'
 }) => {
   const getVariantClasses = () => {
     switch (variant) {
@@ -43,10 +45,22 @@ export const SectionComponent: React.FC<SectionComponentProps> = ({
     }
   }
 
+  const getAlignClasses = () => {
+    switch (align) {
+      case 'center':
+        return 'text-center'
+      case 'right':
+        return 'text-right'
+      case 'left':
+      default:
+        return 'text-left'
+    }
+  }
+
   return (
     <section 
       id={id} 
-      className={`${getVariantClasses()} ${getSpacingClasses()} ${className}`}
+      className={`${getVariantClasses()} ${getSpacingClasses()} ${getAlignClasses()} ${className}`}
     >
       {children}
     </section>

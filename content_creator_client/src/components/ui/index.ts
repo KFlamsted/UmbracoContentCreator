@@ -50,4 +50,4 @@ export { NavBarComponent, InPageNavBarComponent } from './navigation'
 export { HomeIconComponent } from './common'
 
 // Media Components
-export { ImageComponent } from './media'
+export { ImageComponent, VideoComponent } from './media'

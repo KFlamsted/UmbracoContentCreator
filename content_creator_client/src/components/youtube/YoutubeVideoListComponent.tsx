@@ -1,5 +1,6 @@
 import { useYouTubeData } from '../../hooks/useYouTubeData'
 import YoutubeVideoList from './YoutubeVideoList'
+import { SectionComponent } from '../ui'
 import type { YoutubePage } from '../../model/YoutubePage'
 
 interface YoutubeVideoListComponentProps {
@@ -23,14 +24,14 @@ const YoutubeVideoListComponent: React.FC<YoutubeVideoListComponentProps> = ({
   const listId = `${id}-list`
 
   return (
-    <div id={id}>
+    <SectionComponent id={id} variant="card-section" spacing="default">
       <YoutubeVideoList
         id={listId}
         videos={videos ?? []}
         loading={loading}
         error={error}
       />
-    </div>
+    </SectionComponent>
   )
 }
 

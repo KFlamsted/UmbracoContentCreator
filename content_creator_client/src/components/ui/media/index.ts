@@ -1,1 +1,2 @@
-export { ImageComponent } from './ImageComponent' 
+export { ImageComponent } from './ImageComponent'
+export { VideoComponent } from './VideoComponent' 

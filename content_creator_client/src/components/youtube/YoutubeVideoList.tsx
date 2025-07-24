@@ -1,6 +1,6 @@
 import { GridComponent } from '../grid'
 import YoutubeVideoPlayer from './YoutubeVideoPlayer'
-import { LOADING_MESSAGE_CLASSES } from '../../constants/styles'
+import { SectionComponent, TextComponent } from '../ui'
 import type { VideoSummary } from '../../model/VideoSummary'
 
 interface YoutubeVideoListProps {
@@ -19,26 +19,26 @@ const YoutubeVideoList: React.FC<YoutubeVideoListProps> = ({
 }) => {
   if (loading) {
     return (
-      <div id={`${id}-loading`} className="text-center py-8">
-        <p id={`${id}-loading-text`} className={LOADING_MESSAGE_CLASSES}>
+      <SectionComponent id={`${id}-loading`} variant="card-section" spacing="default" align="center">
+        <TextComponent id={`${id}-loading-text`} variant="muted">
           Loading latest videos...
-        </p>
-      </div>
+        </TextComponent>
+      </SectionComponent>
     )
   }
 
   if (error) {
     return (
-      <div id={`${id}-error`} className="text-center py-8">
-        <p id={`${id}-error-text`} className="text-red-600">
+      <SectionComponent id={`${id}-error`} variant="card-section" spacing="default" align="center">
+        <TextComponent id={`${id}-error-text`} variant="error">
           Error loading videos: {error}
-        </p>
-      </div>
+        </TextComponent>
+      </SectionComponent>
     )
   }
 
   return (
-    <div id={`${id}-container`}>
+    <SectionComponent id={`${id}-container`} variant="card-section" spacing="none">
       <GridComponent
         id={`${id}-grid`}
         items={videos}
@@ -47,7 +47,7 @@ const YoutubeVideoList: React.FC<YoutubeVideoListProps> = ({
         renderItem={(video) => <YoutubeVideoPlayer videoId={video.videoId} />}
         getItemKey={(video) => video.videoId}
       />
-    </div>
+    </SectionComponent>
   )
 }
 
