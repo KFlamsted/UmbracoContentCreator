@@ -12,6 +12,17 @@ interface PositionedComponentProps {
   className?: string
 }
 
+interface CenteredPositionedComponentProps {
+  id: string
+  children: React.ReactNode
+  position?: 'absolute' | 'fixed'
+  top?: 'auto' | 'top-0' | 'top-1' | 'top-2' | 'top-4' | 'top-8' | 'top-12' | 'top-16' | 'top-20' | 'top-24'
+  bottom?: 'auto' | 'bottom-0' | 'bottom-1' | 'bottom-2' | 'bottom-4' | 'bottom-8'
+  zIndex?: 'z-0' | 'z-10' | 'z-20' | 'z-30' | 'z-40' | 'z-50'
+  width?: 'w-full' | 'w-auto' | 'w-1/2' | 'w-3/4' | 'w-4/5' | 'w-11/12'
+  maxWidth?: 'max-w-none' | 'max-w-sm' | 'max-w-md' | 'max-w-lg' | 'max-w-xl' | 'max-w-2xl' | 'max-w-3xl' | 'max-w-4xl' | 'max-w-5xl' | 'max-w-6xl' | 'max-w-7xl'
+}
+
 export const PositionedComponent: React.FC<PositionedComponentProps> = ({
   id,
   children,
@@ -94,6 +105,35 @@ export const AbsoluteBottomRightComponent: React.FC<{
       id={id}
       className={`absolute ${getSpacingClasses()} ${className}`}
     >
+      {children}
+    </div>
+  )
+}
+
+export const CenteredPositionedComponent: React.FC<CenteredPositionedComponentProps> = ({
+  id,
+  children,
+  position = 'fixed',
+  top = 'auto',
+  bottom = 'auto',
+  zIndex = 'z-0',
+  width = 'w-full',
+  maxWidth = 'max-w-6xl'
+}) => {
+  const baseClasses = [
+    position,
+    'left-1/2',
+    'transform',
+    '-translate-x-1/2',
+    width,
+    maxWidth,
+    top,
+    bottom,
+    zIndex
+  ].join(' ')
+  
+  return (
+    <div id={id} className={baseClasses}>
       {children}
     </div>
   )

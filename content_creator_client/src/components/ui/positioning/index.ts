@@ -1,5 +1,6 @@
 export { 
-  PositionedComponent, 
-  AbsoluteTopRightComponent, 
-  AbsoluteBottomRightComponent 
+  PositionedComponent,
+  AbsoluteTopRightComponent,
+  AbsoluteBottomRightComponent,
+  CenteredPositionedComponent
 } from './PositioningComponents'

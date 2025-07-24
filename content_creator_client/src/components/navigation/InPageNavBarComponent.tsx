@@ -1,4 +1,4 @@
-import { DESIGN_TOKENS } from '../../constants/styles'
+import { FlexComponent, InPageNavBarCard, CenteredPositionedComponent } from '../ui'
 import InPageNavButton from './InPageNavButton'
 
 interface InPageNavBarComponentProps<T> {
@@ -12,13 +12,6 @@ interface InPageNavBarComponentProps<T> {
   floating?: boolean
 }
 
-// Smaller version of navbar for in-page navigation
-const IN_PAGE_NAVBAR_CLASSES = `w-full ${DESIGN_TOKENS.HOMEPAGE_MAX_WIDTH} ${DESIGN_TOKENS.MUTED_BG} ${DESIGN_TOKENS.BORDER_RADIUS} ${DESIGN_TOKENS.CARD_SHADOW} py-2 px-3 mb-4`
-const IN_PAGE_NAVBAR_FLEX_CLASSES = `flex gap-2 justify-center flex-wrap`
-
-// Fixed positioning wrapper for floating navbar
-const FLOATING_WRAPPER_CLASSES = `fixed top-24 left-1/2 transform -translate-x-1/2 w-full max-w-6xl z-25`
-
 const InPageNavBarComponent = <T,>({
   id,
   items,
@@ -29,8 +22,13 @@ const InPageNavBarComponent = <T,>({
   floating = false,
 }: InPageNavBarComponentProps<T>) => {
   const navbar = (
-    <nav id={id} className={IN_PAGE_NAVBAR_CLASSES}>
-      <div id={`${id}-flex`} className={IN_PAGE_NAVBAR_FLEX_CLASSES}>
+    <InPageNavBarCard id={id}>
+      <FlexComponent 
+        id={`${id}-flex`} 
+        justify="center" 
+        gap="small" 
+        wrap={true}
+      >
         {items.map((item) => (
           <InPageNavButton
             key={getId(item)}
@@ -40,12 +38,23 @@ const InPageNavBarComponent = <T,>({
             {getDisplayText(item)}
           </InPageNavButton>
         ))}
-      </div>
-    </nav>
+      </FlexComponent>
+    </InPageNavBarCard>
   )
 
   if (floating) {
-    return <div id={`${id}-floating-wrapper`} className={FLOATING_WRAPPER_CLASSES}>{navbar}</div>
+    return (
+      <CenteredPositionedComponent
+        id={`${id}-floating-wrapper`}
+        position="fixed"
+        top="top-24"
+        zIndex="z-40"
+        width="w-full"
+        maxWidth="max-w-6xl"
+      >
+        {navbar}
+      </CenteredPositionedComponent>
+    )
   }
 
   return navbar
