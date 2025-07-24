@@ -118,18 +118,6 @@ Eliminate all inline Tailwind CSS classes throughout the codebase by using struc
   }
   ```
 
-- [ ] **VideoComponent** - For YouTube and video content
-  ```tsx
-  // src/components/ui/media/VideoComponent.tsx
-  interface VideoComponentProps {
-    id: string
-    videoId: string
-    provider?: 'youtube' | 'vimeo'
-    autoplay?: boolean
-    controls?: boolean
-  }
-  ```
-
 - [ ] **LoadingComponent** - For loading states
   ```tsx
   // src/components/ui/feedback/LoadingComponent.tsx
