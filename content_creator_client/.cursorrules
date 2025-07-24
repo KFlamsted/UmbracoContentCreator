@@ -2,6 +2,7 @@
 - Always reference AI.md when creating new components or making architectural decisions
 - Update AI.md when introducing new patterns or changing existing ones
 - Follow the patterns documented in AI.md for consistency
+- AI.md contains the authoritative guide for the UI component system architecture
 
 ## Tailwind CSS & Styling Rules (MANDATORY)
 - **NEVER use inline Tailwind classes** in components outside of `src/components/ui/`
