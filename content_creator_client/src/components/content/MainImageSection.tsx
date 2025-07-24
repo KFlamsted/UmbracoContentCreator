@@ -1,4 +1,5 @@
-import { SECTION_SPACING } from '../../constants/styles'
+import React from 'react'
+import { SectionComponent, ImageComponent } from '../ui'
 import type { ImageCropperValue } from '../../model/common/ImageCropperValue'
 
 interface MainImageSectionProps {
@@ -24,19 +25,19 @@ const MainImageSection: React.FC<MainImageSectionProps> = ({
   const fullImageUrl = `${apiUrl}${mainImage.url}`
   
   return (
-    <div id={id} className={SECTION_SPACING}>
-      <img
+    <SectionComponent id={id} variant="card-section" spacing="default">
+      <ImageComponent
         id={`${id}-image`}
         src={fullImageUrl}
         alt={alt}
-        className="w-full h-auto object-cover rounded-lg"
+        variant="cover"
+        rounded={true}
         style={{
           aspectRatio: 'auto',
           maxHeight: '400px',
-          objectFit: 'cover',
         }}
       />
-    </div>
+    </SectionComponent>
   )
 }
 

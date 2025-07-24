@@ -1,4 +1,4 @@
-import { FlexComponent, InPageNavBarCard, CenteredPositionedComponent } from '../ui'
+import { FlexComponent, InPageNavBarComponent, CenteredPositionedComponent } from '../ui'
 import InPageNavButton from './InPageNavButton'
 
 interface InPageNavBarProps<T> {
@@ -22,7 +22,7 @@ const InPageNavBar = <T,>({
   floating = false,
 }: InPageNavBarProps<T>) => {
   const navbar = (
-    <InPageNavBarCard id={id}>
+    <InPageNavBarComponent id={id}>
       <FlexComponent 
         id={`${id}-flex`} 
         justify="center" 
@@ -39,7 +39,7 @@ const InPageNavBar = <T,>({
           </InPageNavButton>
         ))}
       </FlexComponent>
-    </InPageNavBarCard>
+    </InPageNavBarComponent>
   )
 
   if (floating) {

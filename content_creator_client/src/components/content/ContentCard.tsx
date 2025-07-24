@@ -1,4 +1,5 @@
-import { CONTENT_CARD_CLASSES, CONTENT_CARD_BACKDROP_BLUR_CLASSES } from '../../constants/styles'
+import React from 'react'
+import { CardComponent } from '../ui'
 
 interface ContentCardProps {
   /**
@@ -26,14 +27,14 @@ const ContentCard: React.FC<ContentCardProps> = ({
   children,
   hasBackgroundImage = false,
 }) => {
-  const cardClasses = hasBackgroundImage 
-    ? CONTENT_CARD_BACKDROP_BLUR_CLASSES 
-    : CONTENT_CARD_CLASSES
-
   return (
-    <div id={id} className={cardClasses}>
+    <CardComponent 
+      id={id} 
+      variant="content" 
+      hasBackdropBlur={hasBackgroundImage}
+    >
       {children}
-    </div>
+    </CardComponent>
   )
 }
 

@@ -1,38 +1,38 @@
 // Typography Components
-export { 
-  H1Component, 
-  H2Component, 
-  H3Component, 
-  ParagraphComponent,  // ← Renamed from TextComponent for clarity
-  SpanComponent, 
+export {
+  H1Component,
+  H2Component,
+  H3Component,
+  ParagraphComponent, // ← Renamed from TextComponent for clarity
+  SpanComponent,
   RichTextComponent,
   OverlayRichTextComponent,
-  TextComponent,       // ← Still available from TextComponents.tsx
-  BadgeComponent, 
+  TextComponent, // ← Still available from TextComponents.tsx
+  BadgeComponent,
 } from './typography'
 
 // Layout Components
-export { 
-  ContainerComponent, 
-  SectionComponent, 
-  FlexComponent, 
-  GridComponent, 
-  SpacerComponent 
+export {
+  ContainerComponent,
+  SectionComponent,
+  FlexComponent,
+  GridComponent,
+  SpacerComponent,
 } from './layout'
 
 // Card Components
-export { 
-  CardComponent, 
-  ImageCardComponent, 
-  YouTubeCardComponent 
+export {
+  CardComponent,
+  ImageCardComponent,
+  YouTubeCardComponent,
 } from './cards'
 
 // Button Components
-export { 
-  ButtonComponent, 
-  NavButtonComponent, 
-  IconButtonComponent, 
-  LinkButtonComponent 
+export {
+  ButtonComponent,
+  LinkButtonComponent,
+  NavButtonComponent,
+  IconButtonComponent,
 } from './buttons'
 
 // Positioning Components
@@ -40,16 +40,14 @@ export {
   PositionedComponent,
   AbsoluteTopRightComponent,
   AbsoluteBottomRightComponent,
-  CenteredPositionedComponent
+  CenteredPositionedComponent,
 } from './positioning'
 
-// Common Components
-export {
-  HomeIconComponent
-} from './common'
-
 // Navigation Components
-export {
-  NavBarComponent,
-  InPageNavBarCard
-} from './navigation'
+export { NavBarComponent, InPageNavBarComponent } from './navigation'
+
+// Common Components
+export { HomeIconComponent } from './common'
+
+// Media Components
+export { ImageComponent } from './media'
