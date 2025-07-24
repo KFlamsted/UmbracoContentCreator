@@ -19,7 +19,7 @@ export const H1Component: React.FC<H1ComponentProps> = ({
   const getVariantClasses = () => {
     switch (variant) {
       case 'hero':
-        return 'text-5xl md:text-7xl font-bold text-white drop-shadow-2xl'
+        return 'text-5xl md:text-7xl font-bold text-white drop-shadow-2xl mb-8'
       case 'page':
         return `${DESIGN_TOKENS.HEADING_SIZE} font-bold ${DESIGN_TOKENS.TEXT_HEADING}`
       case 'section':

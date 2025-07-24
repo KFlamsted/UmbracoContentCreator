@@ -3,6 +3,7 @@ import { useYoutubeParentPage } from '../../hooks/PageLoadHooks'
 import InPageNavBar from '../../components/navigation/InPageNavBar'
 import YoutubeChannelContainer from './YoutubeChannelContainer'
 import type { YoutubePage } from '../../model/YoutubePage'
+import { ContainerComponent } from '../../components/ui'
 
 interface YoutubePageContainerProps {
   onStateChange: (loading: boolean, error: string | null) => void
@@ -26,7 +27,7 @@ const YoutubePageContainer: React.FC<YoutubePageContainerProps> = ({
   }, [loading, error, onStateChange])
 
   return (
-    <div id="youtube-page-container" className='w-full'>
+    <ContainerComponent id="youtube-page-container" variant="default" padding="none">
       {/* Floating In-page navigation - only show if more than one channel */}
       {(children?.length ?? 0) > 1 && (
         <div id="youtube-page-navigation-wrapper">
@@ -48,7 +49,7 @@ const YoutubePageContainer: React.FC<YoutubePageContainerProps> = ({
           <YoutubeChannelContainer channel={activeChannel} />
         </div>
       )}
-    </div>
+    </ContainerComponent>
   )
 }
 

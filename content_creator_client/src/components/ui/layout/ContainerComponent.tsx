@@ -4,7 +4,7 @@ import { DESIGN_TOKENS } from '../../../constants/styles'
 interface ContainerComponentProps {
   id: string
   children: React.ReactNode
-  variant?: 'default' | 'homepage' | 'constrained'
+  variant?: 'default' | 'homepage' | 'constrained' | 'page'
   padding?: 'none' | 'small' | 'default' | 'large'
   className?: string
 }
@@ -22,6 +22,8 @@ export const ContainerComponent: React.FC<ContainerComponentProps> = ({
         return `w-full ${DESIGN_TOKENS.HOMEPAGE_MAX_WIDTH}`
       case 'constrained':
         return `w-full ${DESIGN_TOKENS.CONTAINER_MAX_WIDTH}`
+      case 'page':
+        return 'w-full min-h-screen flex flex-col items-center justify-start'
       case 'default':
       default:
         return 'w-full'
