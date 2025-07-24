@@ -49,7 +49,7 @@ Instead of using Tailwind classes directly throughout the codebase, we centraliz
 
 ### Typography (`typography/`)
 
-**Components:** `H1Component`, `H2Component`, `H3Component`, `TextComponent`, `SpanComponent`, `RichTextComponent`, `BadgeComponent`
+**Components:** `H1Component`, `H2Component`, `H3Component`, `TextComponent`, `SpanComponent`, `RichTextComponent`, `OverlayRichTextComponent`, `BadgeComponent`
 
 Replace inline heading and text styling with semantic, variant-based components.
 
@@ -69,7 +69,8 @@ Replace inline heading and text styling with semantic, variant-based components.
 - `H1Component`: `hero`, `page`, `section`, `card`
 - `H2Component`: `hero`, `page`, `section`, `card` 
 - `H3Component`: `hero`, `page`, `section`, `card`
-- `TextComponent`: `body`, `small`, `caption`, `meta`, `muted`
+- `TextComponent`: `body`, `small`, `caption`, `meta`, `muted`, `overlay`, `overlay-muted`, `overlay-subtle`
+- `OverlayRichTextComponent`: For parsed HTML content on dark overlays (automatically applies white text)
 - `BadgeComponent`: `primary`, `secondary`, `success`, `warning`, `danger`, `info`
 
 ### Layout (`Layout.tsx`)
@@ -275,6 +276,7 @@ export { NewComponent } from './NewComponent'
     <div className="absolute inset-0 bg-black bg-opacity-40 flex flex-col justify-between p-4">
       <h3 className="text-lg font-bold mb-2 text-left text-white">{title}</h3>
       <div className="text-xs opacity-80 mb-2 text-white">By {author} • {date}</div>
+      <div className="text-sm opacity-90 text-left text-white">{parsedSummary}</div>
     </div>
     <div className="absolute top-2 right-2">
       <span className="bg-blue-600 text-white px-2 py-1 rounded-full text-xs">Featured</span>
@@ -283,27 +285,32 @@ export { NewComponent } from './NewComponent'
 </div>
 ```
 
-**After (Using UI Component System):**
+**After (Current GridItem using UI Component System):**
 ```tsx
-// Clean, semantic components with no inline styling
+// Clean, semantic components with zero inline styling
 <ImageCardComponent
-  id="grid-item"
+  id={`grid-item-${prefixId ?? 'item'}`}
   imageUrl={imageUrl}
   title={title}
   author={author}
   publishDate={publishDate}
   height="h-64"
   onClick={onClick}
+  overlayVariant="dark"
 >
   <AbsoluteTopRightComponent id="badge-container" spacing="default">
     <BadgeComponent id="featured-badge" variant="primary">
       Featured
     </BadgeComponent>
   </AbsoluteTopRightComponent>
+  
+  <OverlayRichTextComponent id="summary-content">
+    {parsedSummary}
+  </OverlayRichTextComponent>
 </ImageCardComponent>
 ```
 
 See the refactored components:
 - `PageTitleSection.tsx` - Simple heading section
 - `BodyTextSection.tsx` - Rich text content
-- `GridItemRefactored.tsx` - Complex card component with zero inline styling
+- `GridItem.tsx` - Complex card component with zero inline styling (successfully migrated from inline classes to UI component system)

@@ -6,6 +6,7 @@ export {
   ParagraphComponent,  // ← Renamed from TextComponent for clarity
   SpanComponent, 
   RichTextComponent,
+  OverlayRichTextComponent,
   TextComponent,       // ← Still available from TextComponents.tsx
   BadgeComponent, 
 } from './typography'

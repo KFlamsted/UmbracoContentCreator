@@ -32,7 +32,12 @@ export const DESIGN_TOKENS = {
   TEXT_BODY: 'text-gray-700',
   TEXT_HEADING: 'text-gray-900',
   TEXT_BUTTON_DEFAULT: 'text-gray-800',
-  TEXT_BUTTON_MUTED: 'text-gray-500',   // Grid & Layout
+  TEXT_BUTTON_MUTED: 'text-gray-500',
+  
+  // Overlay Text Colors
+  TEXT_OVERLAY: 'text-white',
+  TEXT_OVERLAY_MUTED: 'text-white opacity-90',
+  TEXT_OVERLAY_SUBTLE: 'text-white opacity-80',   // Grid & Layout
   GRID_COLS_1_MD_2: 'grid-cols-1 md:grid-cols-2',
   GRID_COLS_2: 'grid-cols-2',
   GRID_COLS_3: 'grid-cols-3',
