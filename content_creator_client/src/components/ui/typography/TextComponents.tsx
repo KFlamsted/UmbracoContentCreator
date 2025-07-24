@@ -122,8 +122,10 @@ export const SpanComponent: React.FC<TextProps> = ({
 }
 
 // Rich Text Component for parsed HTML content
-interface RichTextProps extends BaseTypographyProps {
+interface RichTextProps {
+  id: string
   content: string
+  className?: string
 }
 
 export const RichTextComponent: React.FC<RichTextProps> = ({ 

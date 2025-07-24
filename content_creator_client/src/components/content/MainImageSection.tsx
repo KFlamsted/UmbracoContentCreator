@@ -32,10 +32,6 @@ const MainImageSection: React.FC<MainImageSectionProps> = ({
         alt={alt}
         variant="cover"
         rounded={true}
-        style={{
-          aspectRatio: 'auto',
-          maxHeight: '400px',
-        }}
       />
     </SectionComponent>
   )
