@@ -5,7 +5,7 @@ import PageTitleSection from '../../components/content/PageTitleSection'
 import BodyTextSection from '../../components/content/BodyTextSection'
 import MainImageSection from '../../components/content/MainImageSection'
 import MinimizedNewsItemPageListContainer from '../newsItemPage/MinimizedNewsItemPageListContainer'
-import { NEWS_PAGE_CONTAINER_CLASSES } from '../../constants/styles'
+import { ContainerComponent } from '../../components/ui'
 
 interface NewsPageContainerProps {
   onStateChange?: (loading: boolean, error: string | null) => void
@@ -31,7 +31,7 @@ const NewsPageContainer: React.FC<NewsPageContainerProps> = ({
   }, [loading, newsItemsLoading, error, newsItemsError, onStateChange])
 
   return (
-    <div id="news-page-container" className={NEWS_PAGE_CONTAINER_CLASSES}>
+    <ContainerComponent id="news-page-container" variant="page" padding="default">
       <ContentCard id="news-page-content-card" hasBackgroundImage={true}>
         <PageTitleSection id="news-page-title-section" title={content.title} />
         <MainImageSection
@@ -48,7 +48,7 @@ const NewsPageContainer: React.FC<NewsPageContainerProps> = ({
           maxItems={content.newsPerPage ?? 9}
         />
       </ContentCard>
-    </div>
+    </ContainerComponent>
   )
 }
 

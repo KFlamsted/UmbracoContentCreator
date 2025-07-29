@@ -1,7 +1,7 @@
 import type { NewsItemPage } from '../../model/NewsItemPage'
 import MinimizedNewsItemPageContainer from './MinimizedNewsItemPageContainer'
 import { GridComponent } from '../../components/grid'
-import { DESIGN_TOKENS, SECTION_SPACING } from '../../constants/styles'
+import { SectionComponent } from '../../components/ui'
 
 interface MinimizedNewsItemPageListContainerProps {
   newsItems: NewsItemPage[]
@@ -12,10 +12,12 @@ const MinimizedNewsItemPageListContainer: React.FC<
   MinimizedNewsItemPageListContainerProps
 > = ({ newsItems, maxItems }) => {
   const minimizedListContainerId = 'minimized-news-item-page-list-container'
+  
   return (
-    <div
-      id={minimizedListContainerId}
-      className={`w-full ${DESIGN_TOKENS.CONTAINER_MAX_WIDTH} ${SECTION_SPACING}`}
+    <SectionComponent 
+      id={minimizedListContainerId} 
+      variant="card-section" 
+      spacing="default"
     >
       <GridComponent
         id={`${minimizedListContainerId}-grid`}
@@ -27,7 +29,7 @@ const MinimizedNewsItemPageListContainer: React.FC<
         )}
         getItemKey={(newsItem, index) => newsItem.id || newsItem.title || index}
       />
-    </div>
+    </SectionComponent>
   )
 }
 

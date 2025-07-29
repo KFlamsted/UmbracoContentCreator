@@ -1,5 +1,4 @@
-import parse from 'html-react-parser'
-import { BODY_TEXT_CLASSES, SECTION_SPACING } from '../../constants/styles'
+import { SectionComponent, RichTextComponent } from '../ui'
 
 interface BodyTextSectionProps {
   /**
@@ -13,12 +12,15 @@ const BodyTextSection: React.FC<BodyTextSectionProps> = ({
   id,
   bodyText
 }) => {
+  if (!bodyText) return null
+
   return (
-    <div id={id} className={SECTION_SPACING}>
-      <div id={`${id}-content`} className={BODY_TEXT_CLASSES}>
-        {bodyText ? parse(bodyText) : ''}
-      </div>
-    </div>
+    <SectionComponent id={id} variant="card-section" spacing="default">
+      <RichTextComponent 
+        id={`${id}-content`}
+        content={bodyText}
+      />
+    </SectionComponent>
   )
 }
 

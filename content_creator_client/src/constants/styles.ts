@@ -3,7 +3,7 @@ export const DESIGN_TOKENS = {
   // Layout & Spacing
   CONTAINER_MAX_WIDTH: 'max-w-6xl',
   CARD_PADDING: 'p-6',
-  SECTION_PADDING_Y: 'py-8',
+  SECTION_PADDING_Y: 'py-6',
   SECTION_PADDING_X: 'px-4',
   BUTTON_PADDING: 'px-6 py-3',
   BUTTON_WIDTH: 'w-32',
@@ -25,12 +25,19 @@ export const DESIGN_TOKENS = {
   // Typography Scale
   HEADING_SIZE: 'text-3xl',
   BODY_SIZE: 'text-lg',
+  
   // State Colors
   TEXT_MUTED: 'text-gray-600',
   TEXT_ERROR: 'text-red-600',
   TEXT_BODY: 'text-gray-700',
   TEXT_HEADING: 'text-gray-900',
-  TEXT_BUTTON_DEFAULT: 'text-gray-800',  TEXT_BUTTON_MUTED: 'text-gray-500',   // Grid & Layout
+  TEXT_BUTTON_DEFAULT: 'text-gray-800',
+  TEXT_BUTTON_MUTED: 'text-gray-500',
+  
+  // Overlay Text Colors
+  TEXT_OVERLAY: 'text-white',
+  TEXT_OVERLAY_MUTED: 'text-white opacity-90',
+  TEXT_OVERLAY_SUBTLE: 'text-white opacity-80',   // Grid & Layout
   GRID_COLS_1_MD_2: 'grid-cols-1 md:grid-cols-2',
   GRID_COLS_2: 'grid-cols-2',
   GRID_COLS_3: 'grid-cols-3',
@@ -49,6 +56,11 @@ export const DESIGN_TOKENS = {
   YOUTUBE_THUMBNAIL_OVERLAY: 'bg-opacity-30 group-hover:bg-opacity-20',
   YOUTUBE_VIDEO_TITLE: 'text-white font-medium text-sm leading-tight mb-2 h-10 flex items-start',
   YOUTUBE_VIDEO_LINK: 'text-blue-400 hover:text-blue-300',
+  
+  // Badge design tokens
+  BADGE_PADDING: 'px-2 py-1',
+  BADGE_RADIUS: 'rounded-full',
+  BADGE_TEXT_SIZE: 'text-xs',
 } as const
 
 // Semantic Component Classes (meaningful combinations)
@@ -110,7 +122,7 @@ export const NAVBAR_BUTTON_SELECTED_CLASSES = `${DESIGN_TOKENS.PRIMARY_BG} ${DES
 export const NAVBAR_BUTTON_DEFAULT_CLASSES = `${DESIGN_TOKENS.SURFACE_BG} ${DESIGN_TOKENS.TEXT_BUTTON_DEFAULT} hover:${DESIGN_TOKENS.MUTED_BG_HOVER} hover:text-gray-900`
 
 // Navigation - Fixed floating navbar with centered rounded design
-export const NAVBAR_CLASSES = `fixed top-4 left-1/2 transform -translate-x-1/2 w-full ${DESIGN_TOKENS.HOMEPAGE_MAX_WIDTH} ${DESIGN_TOKENS.MUTED_BG} ${DESIGN_TOKENS.BORDER_RADIUS} ${DESIGN_TOKENS.CARD_SHADOW} py-3 px-4 z-30`
+export const NAVBAR_CLASSES = `fixed top-4 left-1/2 transform -translate-x-1/2 w-full ${DESIGN_TOKENS.HOMEPAGE_MAX_WIDTH} ${DESIGN_TOKENS.MUTED_BG} ${DESIGN_TOKENS.BORDER_RADIUS} ${DESIGN_TOKENS.CARD_SHADOW} py-2 px-4 z-30`
 export const NAVBAR_CONTAINER_CLASSES = `w-full`
 export const NAVBAR_FLEX_CLASSES = `flex gap-4 justify-center`
 
