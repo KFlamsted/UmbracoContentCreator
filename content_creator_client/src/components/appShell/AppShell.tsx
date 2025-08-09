@@ -1,13 +1,6 @@
 import type { ReactNode } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
-import {
-  getAppShellContainerClasses,
-  LOADING_MESSAGE_CLASSES,
-  ERROR_MESSAGE_CLASSES,
-  BACKGROUND_IMAGE_CLASSES,
-  BACKGROUND_IMAGE_BLURRED_CLASSES,
-  CONTENT_LAYER_CLASSES,
-} from '../../constants/styles'
+import { BackgroundComponent, LayerComponent, AppContainerComponent, TextComponent } from '../ui'
 import NavBar, { NavBarButton } from '../navigation/NavBar'
 import { ROUTES } from '../../constants/routes'
 
@@ -31,6 +24,7 @@ const AppShell: React.FC<AppShellProps> = ({
   }
 
   const isHomePage = location.pathname === ROUTES.HOME
+  const isYoutubePage = location.pathname === ROUTES.YOUTUBE
 
   // TODO for navigation buttons:
   // - Use Umbraco API to get page names
@@ -49,17 +43,12 @@ const AppShell: React.FC<AppShellProps> = ({
           in the content section (homepage-content-overlay class in CSS)
         - All other pages: Uses globally blurred background image for consistent blur coverage
       */}
-      {fullBackgroundImageUrl && (
-        <div
-          id={isHomePage ? "background-image-sharp" : "background-image-blurred"}
-          className={
-            isHomePage
-              ? BACKGROUND_IMAGE_CLASSES
-              : BACKGROUND_IMAGE_BLURRED_CLASSES
-          }
-          style={{ backgroundImage: `url(${fullBackgroundImageUrl})` }}
-        />
-      )}
+      <BackgroundComponent
+        id={isHomePage ? "background-image-sharp" : "background-image-blurred"}
+        imageUrl={fullBackgroundImageUrl}
+        variant={isHomePage ? "sharp" : "blurred"}
+        zIndex="background"
+      />
 
       {/* Fixed Navigation Layer */}
       <NavBar>
@@ -86,23 +75,28 @@ const AppShell: React.FC<AppShellProps> = ({
       </NavBar>
 
       {/* Content Layer */}
-      <div id="content-layer" className={CONTENT_LAYER_CLASSES}>
-        <div
+      <LayerComponent id="content-layer" layer="content" relative={true}>
+        <AppContainerComponent
           id="app-shell-container"
-          className={
-            isHomePage
-              ? 'w-full'
-              : getAppShellContainerClasses(!!fullBackgroundImageUrl, location.pathname === ROUTES.YOUTUBE)
-          }
+          variant={isHomePage ? 'homepage' : (isYoutubePage ? 'page-with-nav' : 'page')}
+          hasBackgroundImage={!!fullBackgroundImageUrl}
         >
-          {loading && <div id="loading-message" className={LOADING_MESSAGE_CLASSES}>Loading...</div>}
-          {error && <div id="error-message" className={ERROR_MESSAGE_CLASSES}>Error: {error}</div>}
+          {loading && (
+            <TextComponent id="loading-message" variant="muted">
+              Loading...
+            </TextComponent>
+          )}
+          {error && (
+            <TextComponent id="error-message" variant="error">
+              Error: {error}
+            </TextComponent>
+          )}
           {/* Always render children so React hooks can execute, but hide visually when loading/error */}
           <div id="app-content" style={{ display: loading || error ? 'none' : 'contents' }}>
             {children}
           </div>
-        </div>
-      </div>
+        </AppContainerComponent>
+      </LayerComponent>
     </>
   )
 }

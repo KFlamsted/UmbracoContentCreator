@@ -2,8 +2,8 @@ import ContentCard from '../../components/content/ContentCard'
 import PageTitleSection from '../../components/content/PageTitleSection'
 import YoutubeFeaturedVideoComponent from '../../components/youtube/YoutubeFeaturedVideoComponent'
 import YoutubeVideoListComponent from '../../components/youtube/YoutubeVideoListComponent'
-import { NEWS_PAGE_CONTAINER_CLASSES } from '../../constants/styles'
 import type { YoutubePage } from '../../model/YoutubePage'
+import { ContainerComponent } from '../../components/ui'
 
 interface YoutubeChannelContainerProps {
   channel: YoutubePage
@@ -13,9 +13,10 @@ const YoutubeChannelContainer: React.FC<YoutubeChannelContainerProps> = ({
   channel,
 }) => {
   return (
-    <div
+    <ContainerComponent
       id={`youtube-channel-container-${channel.channelId || 'unknown'}`}
-      className={NEWS_PAGE_CONTAINER_CLASSES}
+      variant="page" 
+      padding="default"
     >
       <ContentCard
         id={`youtube-channel-${channel.channelId || 'unknown'}-content-card`}
@@ -43,7 +44,7 @@ const YoutubeChannelContainer: React.FC<YoutubeChannelContainerProps> = ({
           channel={channel}
         />
       </ContentCard>
-    </div>
+    </ContainerComponent>
   )
 }
 

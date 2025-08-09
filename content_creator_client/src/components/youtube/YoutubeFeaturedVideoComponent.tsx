@@ -1,6 +1,5 @@
 import { useState } from 'react'
-import YouTube from 'react-youtube'
-import { SECTION_SPACING } from '../../constants/styles'
+import { SectionComponent, VideoComponent } from '../ui'
 
 interface YoutubeFeaturedVideoComponentProps {
   /** Unique identifier for the youtube featured video card */
@@ -32,29 +31,17 @@ const YoutubeFeaturedVideoComponent: React.FC<
 
   if (!videoId || videoError) return null
 
-  const youtubeOptions = {
-    width: '100%',
-    height: '100%',
-    playerVars: {
-      autoplay: 0,
-      modestbranding: 1,
-      rel: 0,
-    },
-  }
-
   return (
-    <div id={componentId} className={SECTION_SPACING}>
-      <div id={`${componentId}-aspect`} className="aspect-video">
-        <YouTube
-          videoId={videoId}
-          opts={youtubeOptions}
-          onError={() => {
-            setVideoError(true)
-          }}
-          className="w-full h-full"
-        />
-      </div>
-    </div>
+    <SectionComponent id={componentId} variant="card-section" spacing="default">
+      <VideoComponent
+        id={`${componentId}-video`}
+        videoId={videoId}
+        variant="featured"
+        aspectRatio="video"
+        rounded={true}
+        onError={() => setVideoError(true)}
+      />
+    </SectionComponent>
   )
 }
 

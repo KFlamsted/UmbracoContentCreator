@@ -1,14 +1,5 @@
 import type { ReactNode } from 'react'
-import { 
-  NAVBAR_BUTTON_BASE_CLASSES, 
-  NAVBAR_BUTTON_SELECTED_CLASSES, 
-  NAVBAR_BUTTON_DEFAULT_CLASSES,
-  ICON_CONTAINER,
-  ICON_SIZE,
-  NAVBAR_CLASSES,
-  NAVBAR_CONTAINER_CLASSES,
-  NAVBAR_FLEX_CLASSES
-} from '../../constants/styles'
+import { NavButtonComponent, FlexComponent, HomeIconComponent, NavBarComponent } from '../ui'
 
 interface NavBarButtonProps {
   /** Unique identifier for the navigation button */
@@ -26,34 +17,19 @@ const NavBarButton: React.FC<NavBarButtonProps> = ({
   isSelected = false, 
   onClick 
 }) => {
-  const selectedClasses = isSelected 
-    ? NAVBAR_BUTTON_SELECTED_CLASSES
-    : NAVBAR_BUTTON_DEFAULT_CLASSES
-    
   return (
-    <button 
+    <NavButtonComponent
       id={id}
-      className={`${NAVBAR_BUTTON_BASE_CLASSES} ${selectedClasses}`}
+      isSelected={isSelected}
       onClick={onClick}
-      style={{ outline: 'none', border: 'none' }}
+      fixedWidth={true}
     >
       {isHomePageButton ? (
-        <div id={`${id}-icon`} className={ICON_CONTAINER}>
-          <svg 
-            id={`${id}-svg`}
-            className={ICON_SIZE}
-            fill="currentColor" 
-            viewBox="0 0 20 20"
-          >
-            <path id={`${id}-path`} d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
-          </svg>
-        </div>
+        <HomeIconComponent id={id} size="default" />
       ) : (
-        <span id={`${id}-text`}>
-          {children}
-        </span>
+        children
       )}
-    </button>
+    </NavButtonComponent>
   )
 }
 
@@ -63,13 +39,11 @@ interface NavBarProps {
 
 const NavBar: React.FC<NavBarProps> = ({ children }) => {
   return (
-    <nav id="main-navbar" className={NAVBAR_CLASSES}>
-      <div id="navbar-container" className={NAVBAR_CONTAINER_CLASSES}>
-        <div id="navbar-flex" className={NAVBAR_FLEX_CLASSES}>
-          {children}
-        </div>
-      </div>
-    </nav>
+    <NavBarComponent id="main-navbar">
+      <FlexComponent id="navbar-flex" justify="center" gap="default">
+        {children}
+      </FlexComponent>
+    </NavBarComponent>
   )
 }
 
