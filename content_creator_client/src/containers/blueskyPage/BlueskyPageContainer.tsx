@@ -27,7 +27,8 @@ const BlueskyPageContainer: React.FC<BlueskyPageContainerProps> = ({
         </TextComponent>
       )
     }
-
+    // The inline styling in custom-styles is not ideal however it's the best option we have for now.
+    // It's necessary because of how the theme is working. Could be removed by having dark theme implemented to the site.
     return (
       <bsky-embed
         username={content.profile}
