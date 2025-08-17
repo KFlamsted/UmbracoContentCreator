@@ -72,6 +72,13 @@ const AppShell: React.FC<AppShellProps> = ({
         >
           Youtube
         </NavBarButton>
+        <NavBarButton
+          id="nav-bluesky-button"
+          isSelected={location.pathname === ROUTES.BLUESKY}
+          onClick={() => handleNavigation(ROUTES.BLUESKY)}
+        >
+          Bluesky
+        </NavBarButton>
       </NavBar>
 
       {/* Content Layer */}

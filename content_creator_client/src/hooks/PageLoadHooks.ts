@@ -2,9 +2,10 @@ import { useState, useEffect, useMemo } from 'react'
 import type { HomePage } from '../model/HomePage'
 import type { News } from '../model/News'
 import type { NewsItemPage, AuthorReference, Link } from '../model/NewsItemPage'
+import type { BlueskyPage } from '../model/BlueskyPage'
 import type { ImageCropperValue } from '../model/common/ImageCropperValue'
 import type { IUmbracoBlock, IUmbracoItem } from '../model/common/UmbracoCommon'
-import { fetchNewsPage, fetchNewsItemPage } from '../services/PageLoaderService'
+import { fetchNewsPage, fetchNewsItemPage, fetchBlueskyPage } from '../services/PageLoaderService'
 import { fetchChildrenById } from '../services/ContentServiceApi'
 import type { IUmbracoContentResponse } from '../model/common/UmbracoCommon'
 import { useGlobalData } from './useGlobalData'
@@ -182,6 +183,8 @@ export const useHomePage = () => {
   }
 }
 export const useNewsPage = () => useContent<News>(fetchNewsPage)
+
+export const useBlueskyPage = () => useContent<BlueskyPage>(fetchBlueskyPage)
 
 export const useYoutubeParentPage = () => {
   // First get the YouTube parent page content (similar to useNewsPage)
