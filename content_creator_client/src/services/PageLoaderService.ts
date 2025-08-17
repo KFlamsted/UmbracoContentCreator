@@ -2,12 +2,14 @@ import type { HomePage } from '../model/HomePage'
 import type { News } from '../model/News'
 import type { NewsItemPage, AuthorReference, Link } from '../model/NewsItemPage'
 import type { YoutubeParentPage } from '../model/YoutubeParentPage'
+import type { BlueskyPage } from '../model/BlueskyPage'
 import type { ImageCropperValue } from '../model/common/ImageCropperValue'
 import type {
   IHomePageProperties,
   INewsProperties,
   INewsItemProperties,
   IYoutubeParentPageProperties,
+  IBlueskyPageProperties,
 } from '../model/common/UmbracoCommon'
 import { executeContentApiQuery, fetchContentByIdOrPath } from './ContentServiceApi'
 
@@ -96,5 +98,22 @@ export const fetchYoutubeParentPage = async (): Promise<YoutubeParentPage> => {
 
   return {
     id: youtubeParentContent.id,
+  }
+}
+
+export const fetchBlueskyPage = async (): Promise<BlueskyPage> => {
+  const result = await executeContentApiQuery<IBlueskyPageProperties>('blueskyPage')
+  const blueskyContent = result.items?.[0]
+
+  if (!blueskyContent) {
+    throw new Error('Bluesky page not found')
+  }
+
+  return {
+    amountOfPosts: blueskyContent.properties.amountOfPosts || 10,
+    description: blueskyContent.properties.description,
+    enableLoadMore: blueskyContent.properties.enableLoadMore || false,
+    pageTitle: blueskyContent.properties.pageTitle,
+    profile: blueskyContent.properties.profile,
   }
 }

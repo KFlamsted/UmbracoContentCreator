@@ -95,3 +95,12 @@ export interface INewsItemProperties {
 // YoutubeParentPage specific properties
 export interface IYoutubeParentPageProperties {
 }
+
+// BlueskyPage specific properties
+export interface IBlueskyPageProperties {
+  amountOfPosts?: number
+  description?: string
+  enableLoadMore?: boolean
+  pageTitle?: string
+  profile?: string
+}
