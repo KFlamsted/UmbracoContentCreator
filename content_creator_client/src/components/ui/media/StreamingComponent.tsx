@@ -1,6 +1,13 @@
 import React, { useRef, useEffect } from 'react'
 import { DESIGN_TOKENS } from '../../../constants/styles'
 
+interface TwitchPlayerOptions {
+  width?: string
+  height?: string
+  autoplay?: boolean
+  muted?: boolean
+}
+
 interface StreamingComponentProps {
   id: string
   channel: string
@@ -9,6 +16,7 @@ interface StreamingComponentProps {
   rounded?: boolean
   parent?: string // for Twitch embed parent domain
   className?: string
+  playerOptions?: TwitchPlayerOptions
   onError?: () => void
 }
 
@@ -26,6 +34,7 @@ export const StreamingComponent: React.FC<StreamingComponentProps> = ({
   rounded = true,
   parent,
   className = '',
+  playerOptions,
   onError,
 }) => {
   const iframeRef = useRef<HTMLIFrameElement>(null)
@@ -61,7 +70,9 @@ export const StreamingComponent: React.FC<StreamingComponentProps> = ({
 
   // Twitch requires the parent domain for security
   const parentDomain = parent || window.location.hostname
-  const src = `https://player.twitch.tv/?channel=${channel}&parent=${parentDomain}&autoplay=false`;
+  const src = `https://player.twitch.tv/?channel=${channel}&parent=${parentDomain}&autoplay=${
+    playerOptions?.autoplay ?? 'false'
+  }&muted=${playerOptions?.muted ?? 'false'}`
 
   useEffect(() => {
     // Optionally, handle error events
@@ -84,8 +95,8 @@ export const StreamingComponent: React.FC<StreamingComponentProps> = ({
           ref={iframeRef}
           src={src}
           allowFullScreen
-          height="100%"
-          width="100%"
+          height={playerOptions?.height ?? '100%'}
+          width={playerOptions?.width ?? '100%'}
           title={`Twitch stream for ${channel}`}
         />
       </div>
