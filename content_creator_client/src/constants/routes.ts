@@ -3,4 +3,5 @@ export const ROUTES = {
   NEWS: '/nyheder',
   YOUTUBE: '/youtube',
   BLUESKY: '/bluesky',
+  STREAMING: '/streaming',
 } as const

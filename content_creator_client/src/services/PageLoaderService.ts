@@ -3,6 +3,7 @@ import type { News } from '../model/News'
 import type { NewsItemPage, AuthorReference, Link } from '../model/NewsItemPage'
 import type { YoutubeParentPage } from '../model/YoutubeParentPage'
 import type { BlueskyPage } from '../model/BlueskyPage'
+import type { StreamingPage } from '../model/StreamingPage'
 import type { ImageCropperValue } from '../model/common/ImageCropperValue'
 import type {
   IHomePageProperties,
@@ -10,6 +11,7 @@ import type {
   INewsItemProperties,
   IYoutubeParentPageProperties,
   IBlueskyPageProperties,
+  IStreamingPageProperties,
 } from '../model/common/UmbracoCommon'
 import { executeContentApiQuery, fetchContentByIdOrPath } from './ContentServiceApi'
 
@@ -115,5 +117,17 @@ export const fetchBlueskyPage = async (): Promise<BlueskyPage> => {
     enableLoadMore: blueskyContent.properties.enableLoadMore || false,
     pageTitle: blueskyContent.properties.pageTitle,
     profile: blueskyContent.properties.profile,
+  }
+}
+
+export const fetchStreamingPage = async (): Promise<StreamingPage> => {
+  const result = await executeContentApiQuery<IStreamingPageProperties>('streamingPage')
+  const streamingContent = result.items?.[0]
+
+  return {
+    description: streamingContent?.properties?.description,
+    pageTitle: streamingContent?.properties?.pageTitle,
+    twitchUsername: streamingContent?.properties?.twitchUsername,
+    youtubeChannelName: streamingContent?.properties?.youtubeChannelName,
   }
 }

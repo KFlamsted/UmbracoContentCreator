@@ -104,3 +104,11 @@ export interface IBlueskyPageProperties {
   pageTitle?: string
   profile?: string
 }
+
+// StreamingPage specific properties
+export interface IStreamingPageProperties {
+  description?: string
+  pageTitle?: string
+  twitchUsername?: string
+  youtubeChannelName?: string
+}

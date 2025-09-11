@@ -79,6 +79,13 @@ const AppShell: React.FC<AppShellProps> = ({
         >
           Bluesky
         </NavBarButton>
+        <NavBarButton
+          id="nav-streaming-button"
+          isSelected={location.pathname === ROUTES.STREAMING}
+          onClick={() => handleNavigation(ROUTES.STREAMING)}
+        >
+          Streaming
+        </NavBarButton>
       </NavBar>
 
       {/* Content Layer */}
