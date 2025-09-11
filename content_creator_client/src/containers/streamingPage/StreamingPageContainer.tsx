@@ -4,6 +4,7 @@ import ContentCard from '../../components/content/ContentCard'
 import PageTitleSection from '../../components/content/PageTitleSection'
 import { ContainerComponent, TextComponent } from '../../components/ui'
 import { SectionComponent } from '../../components/ui/layout/LayoutComponents'
+import TwitchStreamingPlayer from '../../components/streaming/TwitchStreamingPlayer'
 
 interface StreamingPageContainerProps {
   onStateChange?: (loading: boolean, error: string | null) => void
@@ -42,11 +43,15 @@ const StreamingPageContainer: React.FC<StreamingPageContainerProps> = ({
           </SectionComponent>
         )}
 
-        {/* Placeholder for future Twitch embed */}
+        {/* Twitch embed */}
         {content.twitchUsername && (
-          <TextComponent id="streaming-twitch-placeholder" variant="muted">
-            Twitch stream for {content.twitchUsername} will be embedded here
-          </TextComponent>
+          <SectionComponent
+            id="streaming-twitch-section"
+            variant="card-section"
+            spacing="default"
+          >
+            <TwitchStreamingPlayer channel={content.twitchUsername} />
+          </SectionComponent>
         )}
       </ContentCard>
     </ContainerComponent>
