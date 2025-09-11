@@ -2,7 +2,7 @@
 
 This project pairs an Umbraco CMS backend with a React thin client to manage and display content. It demonstrates surfacing content from the CMS alongside external sources such as YouTube, Bluesky/Twitter, and Twitch.
 
-Be aware this project is a work in progress — some pages, styling and integrations are still being refined.
+Be aware this project is a work in progress; some pages, styling and integrations are still being refined.
 
 ## Features
 
