@@ -121,8 +121,8 @@ export const NAVBAR_BUTTON_BASE_CLASSES = `${DESIGN_TOKENS.BUTTON_PADDING} ${DES
 export const NAVBAR_BUTTON_SELECTED_CLASSES = `${DESIGN_TOKENS.PRIMARY_BG} ${DESIGN_TOKENS.TEXT_BUTTON_MUTED} hover:${DESIGN_TOKENS.PRIMARY_BG_HOVER}`
 export const NAVBAR_BUTTON_DEFAULT_CLASSES = `${DESIGN_TOKENS.SURFACE_BG} ${DESIGN_TOKENS.TEXT_BUTTON_DEFAULT} hover:${DESIGN_TOKENS.MUTED_BG_HOVER} hover:text-gray-900`
 
-// Navigation - Fixed floating navbar with centered rounded design
-export const NAVBAR_CLASSES = `fixed top-4 left-1/2 transform -translate-x-1/2 w-full ${DESIGN_TOKENS.HOMEPAGE_MAX_WIDTH} ${DESIGN_TOKENS.MUTED_BG} ${DESIGN_TOKENS.BORDER_RADIUS} ${DESIGN_TOKENS.CARD_SHADOW} py-2 px-4 z-30`
+// Navigation - Fixed full-width navbar with centered content
+export const NAVBAR_CLASSES = `fixed top-0 left-0 w-full ${DESIGN_TOKENS.MUTED_BG} ${DESIGN_TOKENS.CARD_SHADOW} py-2 px-4 z-30`
 export const NAVBAR_CONTAINER_CLASSES = `w-full`
 export const NAVBAR_FLEX_CLASSES = `flex gap-4 justify-center`
 

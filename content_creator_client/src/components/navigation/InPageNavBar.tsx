@@ -47,10 +47,10 @@ const InPageNavBar = <T,>({
       <CenteredPositionedComponent
         id={`${id}-floating-wrapper`}
         position="fixed"
-        top="top-22"
+        top="top-16"
         zIndex="z-40"
         width="w-full"
-        maxWidth="max-w-6xl"
+        maxWidth="max-w-none"
       >
         {navbar}
       </CenteredPositionedComponent>
