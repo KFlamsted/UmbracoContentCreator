@@ -13,12 +13,13 @@ const InPageNavButton: React.FC<InPageNavButtonProps> = ({
   onClick,
 }) => {
   const prefixId = children?.toString().toLowerCase().replace(/\s+/g, '-')
-  
+
   return (
     <ButtonComponent
       id={`in-page-nav-button-${prefixId ?? 'button'}`}
-      variant={isSelected ? 'secondary' : 'muted'}
-      size="small"
+      isSelected={isSelected}
+      size="x-small"
+      fixedWidth={false}
       onClick={onClick}
     >
       {children}

@@ -19,44 +19,35 @@ interface BaseButtonProps {
 
 // Standard Button Component
 interface ButtonProps extends BaseButtonProps {
-  variant?: 'primary' | 'secondary' | 'muted' | 'danger'
-  size?: 'small' | 'default' | 'large'
-  fullWidth?: boolean
+  isSelected?: boolean
+  size?: 'x-small' | 'small' | 'default' | 'large'
+  fixedWidth?: boolean
 }
 
 export const ButtonComponent: React.FC<ButtonProps> = ({ 
   id, 
   children, 
   className = '', 
-  variant = 'primary',
+  isSelected = false,
   size = 'default',
-  fullWidth = false,
+  fixedWidth = true,
   disabled = false,
   type = 'button',
   ariaLabel,
   onClick
 }) => {
-  const getVariantClasses = () => {
-    switch (variant) {
-      case 'primary':
-        return `${DESIGN_TOKENS.PRIMARY_BG} text-white hover:${DESIGN_TOKENS.PRIMARY_BG_HOVER} focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50`
-      case 'secondary':
-        return `${DESIGN_TOKENS.SURFACE_BG} ${DESIGN_TOKENS.TEXT_BUTTON_DEFAULT} border border-gray-300 hover:${DESIGN_TOKENS.MUTED_BG_HOVER} hover:text-gray-900`
-      case 'muted':
-        return `${DESIGN_TOKENS.MUTED_BG} ${DESIGN_TOKENS.TEXT_BUTTON_DEFAULT} hover:${DESIGN_TOKENS.MUTED_BG_HOVER} hover:text-gray-900`
-      case 'danger':
-        return 'bg-red-600 text-white hover:bg-red-700 focus:ring-2 focus:ring-red-500 focus:ring-opacity-50'
-      default:
-        return `${DESIGN_TOKENS.PRIMARY_BG} text-white hover:${DESIGN_TOKENS.PRIMARY_BG_HOVER}`
-    }
+  const getStateClasses = () => {
+    return isSelected ? NAVBAR_BUTTON_SELECTED_CLASSES : NAVBAR_BUTTON_DEFAULT_CLASSES
   }
 
   const getSizeClasses = () => {
     switch (size) {
+      case 'x-small':
+        return 'px-1.5 py-0.5 text-xs'
       case 'small':
-        return 'px-3 py-2 text-sm'
+        return 'px-3 py-2 text-base'
       case 'large':
-        return 'px-8 py-4 text-lg'
+        return 'px-6 py-3 text-lg'
       case 'default':
       default:
         return DESIGN_TOKENS.BUTTON_PADDING
@@ -64,11 +55,11 @@ export const ButtonComponent: React.FC<ButtonProps> = ({
   }
 
   const getWidthClass = () => {
-    return fullWidth ? 'w-full' : ''
+    return fixedWidth ? DESIGN_TOKENS.BUTTON_WIDTH : ''
   }
 
   const getDisabledClasses = () => {
-    return disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'
+    return disabled ? 'opacity-50 cursor-not-allowed' : ''
   }
 
   return (
@@ -76,12 +67,9 @@ export const ButtonComponent: React.FC<ButtonProps> = ({
       id={id}
       type={type}
       className={`
+        ${NAVBAR_BUTTON_BASE_CLASSES}
         ${getSizeClasses()} 
-        ${DESIGN_TOKENS.BORDER_RADIUS} 
-        font-medium 
-        transition-colors 
-        focus:outline-none 
-        ${getVariantClasses()} 
+        ${getStateClasses()} 
         ${getWidthClass()} 
         ${getDisabledClasses()} 
         ${className}
@@ -89,6 +77,7 @@ export const ButtonComponent: React.FC<ButtonProps> = ({
       onClick={onClick}
       disabled={disabled}
       aria-label={ariaLabel}
+      aria-pressed={isSelected}
     >
       {children}
     </button>
@@ -111,36 +100,19 @@ export const NavButtonComponent: React.FC<NavButtonProps> = ({
   ariaLabel,
   onClick
 }) => {
-  const getStateClasses = () => {
-    return isSelected ? NAVBAR_BUTTON_SELECTED_CLASSES : NAVBAR_BUTTON_DEFAULT_CLASSES
-  }
-
-  const getWidthClass = () => {
-    return fixedWidth ? DESIGN_TOKENS.BUTTON_WIDTH : ''
-  }
-
-  const getDisabledClasses = () => {
-    return disabled ? 'opacity-50 cursor-not-allowed' : ''
-  }
-
   return (
-    <button 
+    <ButtonComponent 
       id={id}
-      type="button"
-      className={`
-        ${NAVBAR_BUTTON_BASE_CLASSES} 
-        ${getStateClasses()} 
-        ${getWidthClass()} 
-        ${getDisabledClasses()} 
-        ${className}
-      `}
-      onClick={onClick}
+      size="default"
+      isSelected={isSelected}
+      fixedWidth={fixedWidth}
       disabled={disabled}
-      aria-label={ariaLabel}
-      aria-pressed={isSelected}
+      ariaLabel={ariaLabel}
+      onClick={onClick}
+      className={className}
     >
       {children}
-    </button>
+    </ButtonComponent>
   )
 }
 
@@ -226,19 +198,20 @@ export const IconButtonComponent: React.FC<IconButtonProps> = ({
 }
 
 // Link Button Component (styled like button but behaves like link)
-interface LinkButtonProps extends Omit<ButtonProps, 'type'> {
+interface LinkButtonProps extends BaseButtonProps {
   href?: string
   target?: '_blank' | '_self' | '_parent' | '_top'
   rel?: string
+  size?: 'x-small' | 'small' | 'default' | 'large'
+  isSelected?: boolean
 }
 
 export const LinkButtonComponent: React.FC<LinkButtonProps> = ({ 
   id, 
   children, 
   className = '', 
-  variant = 'primary',
   size = 'default',
-  fullWidth = false,
+  isSelected = false,
   disabled = false,
   ariaLabel,
   href,
@@ -246,35 +219,22 @@ export const LinkButtonComponent: React.FC<LinkButtonProps> = ({
   rel,
   onClick
 }) => {
-  const getVariantClasses = () => {
-    switch (variant) {
-      case 'primary':
-        return `${DESIGN_TOKENS.PRIMARY_BG} text-white hover:${DESIGN_TOKENS.PRIMARY_BG_HOVER} focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50`
-      case 'secondary':
-        return `${DESIGN_TOKENS.SURFACE_BG} ${DESIGN_TOKENS.TEXT_BUTTON_DEFAULT} border border-gray-300 hover:${DESIGN_TOKENS.MUTED_BG_HOVER} hover:text-gray-900`
-      case 'muted':
-        return `${DESIGN_TOKENS.MUTED_BG} ${DESIGN_TOKENS.TEXT_BUTTON_DEFAULT} hover:${DESIGN_TOKENS.MUTED_BG_HOVER} hover:text-gray-900`
-      case 'danger':
-        return 'bg-red-600 text-white hover:bg-red-700 focus:ring-2 focus:ring-red-500 focus:ring-opacity-50'
-      default:
-        return `${DESIGN_TOKENS.PRIMARY_BG} text-white hover:${DESIGN_TOKENS.PRIMARY_BG_HOVER}`
-    }
+  const getStateClasses = () => {
+    return isSelected ? NAVBAR_BUTTON_SELECTED_CLASSES : NAVBAR_BUTTON_DEFAULT_CLASSES
   }
 
   const getSizeClasses = () => {
     switch (size) {
+      case 'x-small':
+        return 'px-1.5 py-0.5 text-xs'
       case 'small':
-        return 'px-3 py-2 text-sm'
+        return 'px-3 py-2 text-base'
       case 'large':
-        return 'px-8 py-4 text-lg'
+        return 'px-6 py-3 text-lg'
       case 'default':
       default:
         return DESIGN_TOKENS.BUTTON_PADDING
     }
-  }
-
-  const getWidthClass = () => {
-    return fullWidth ? 'w-full' : ''
   }
 
   const getDisabledClasses = () => {
@@ -291,23 +251,15 @@ export const LinkButtonComponent: React.FC<LinkButtonProps> = ({
     <a 
       id={id}
       className={`
-        inline-flex 
-        items-center 
-        justify-center 
-        text-center 
-        no-underline 
+        ${NAVBAR_BUTTON_BASE_CLASSES}
         ${getSizeClasses()} 
-        ${DESIGN_TOKENS.BORDER_RADIUS} 
-        font-medium 
-        transition-colors 
-        focus:outline-none 
-        ${getVariantClasses()} 
-        ${getWidthClass()} 
+        ${getStateClasses()}
         ${getDisabledClasses()} 
         ${className}
       `}
       onClick={onClick}
       aria-label={ariaLabel}
+      aria-pressed={isSelected}
       {...linkProps}
     >
       {children}
