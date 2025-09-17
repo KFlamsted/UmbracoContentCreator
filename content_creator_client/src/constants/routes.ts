@@ -1,6 +1,6 @@
 export const ROUTES = {
   HOME: '/',
-  NEWS: '/nyheder',
+  NEWS: '/news',
   YOUTUBE: '/youtube',
   BLUESKY: '/bluesky',
   STREAMING: '/streaming',

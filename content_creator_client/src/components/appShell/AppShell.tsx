@@ -1,6 +1,11 @@
 import type { ReactNode } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
-import { BackgroundComponent, LayerComponent, AppContainerComponent, TextComponent } from '../ui'
+import {
+  BackgroundComponent,
+  LayerComponent,
+  AppContainerComponent,
+  TextComponent,
+} from '../ui'
 import NavBar, { NavBarButton } from '../navigation/NavBar'
 import { ROUTES } from '../../constants/routes'
 
@@ -44,26 +49,20 @@ const AppShell: React.FC<AppShellProps> = ({
         - All other pages: Uses globally blurred background image for consistent blur coverage
       */}
       <BackgroundComponent
-        id={isHomePage ? "background-image-sharp" : "background-image-blurred"}
+        id={isHomePage ? 'background-image-sharp' : 'background-image-blurred'}
         imageUrl={fullBackgroundImageUrl}
-        variant={isHomePage ? "sharp" : "blurred"}
+        variant={isHomePage ? 'sharp' : 'blurred'}
         zIndex="background"
       />
 
       {/* Fixed Navigation Layer */}
       <NavBar>
         <NavBarButton
-          id="nav-home-button"
-          isHomePageButton
-          isSelected={location.pathname === ROUTES.HOME}
-          onClick={() => handleNavigation(ROUTES.HOME)}
-        />
-        <NavBarButton
           id="nav-news-button"
           isSelected={location.pathname === ROUTES.NEWS}
           onClick={() => handleNavigation(ROUTES.NEWS)}
         >
-          Nyheder
+          News
         </NavBarButton>
         <NavBarButton
           id="nav-youtube-button"
@@ -72,6 +71,12 @@ const AppShell: React.FC<AppShellProps> = ({
         >
           Youtube
         </NavBarButton>
+        <NavBarButton
+          id="nav-home-button"
+          isHomePageButton
+          isSelected={location.pathname === ROUTES.HOME}
+          onClick={() => handleNavigation(ROUTES.HOME)}
+        />
         <NavBarButton
           id="nav-bluesky-button"
           isSelected={location.pathname === ROUTES.BLUESKY}
@@ -92,7 +97,9 @@ const AppShell: React.FC<AppShellProps> = ({
       <LayerComponent id="content-layer" layer="content" relative={true}>
         <AppContainerComponent
           id="app-shell-container"
-          variant={isHomePage ? 'homepage' : (isYoutubePage ? 'page-with-nav' : 'page')}
+          variant={
+            isHomePage ? 'homepage' : isYoutubePage ? 'page-with-nav' : 'page'
+          }
           hasBackgroundImage={!!fullBackgroundImageUrl}
         >
           {loading && (
@@ -106,7 +113,10 @@ const AppShell: React.FC<AppShellProps> = ({
             </TextComponent>
           )}
           {/* Always render children so React hooks can execute, but hide visually when loading/error */}
-          <div id="app-content" style={{ display: loading || error ? 'none' : 'contents' }}>
+          <div
+            id="app-content"
+            style={{ display: loading || error ? 'none' : 'contents' }}
+          >
             {children}
           </div>
         </AppContainerComponent>
