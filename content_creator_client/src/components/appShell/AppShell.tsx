@@ -74,7 +74,6 @@ const AppShell: React.FC<AppShellProps> = ({
         <NavBarButton
           id="nav-home-button"
           isHomePageButton
-          isSelected={location.pathname === ROUTES.HOME}
           onClick={() => handleNavigation(ROUTES.HOME)}
         />
         <NavBarButton

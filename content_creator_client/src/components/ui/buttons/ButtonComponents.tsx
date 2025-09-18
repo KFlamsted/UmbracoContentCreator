@@ -84,7 +84,7 @@ export const ButtonComponent: React.FC<ButtonProps> = ({
   )
 }
 
-// Navigation Button Component (for navbar use)
+// Navigation Button Component (uses LinkButtonComponent for consistency)
 interface NavButtonProps extends BaseButtonProps {
   isSelected?: boolean
   fixedWidth?: boolean
@@ -101,18 +101,17 @@ export const NavButtonComponent: React.FC<NavButtonProps> = ({
   onClick
 }) => {
   return (
-    <ButtonComponent 
+    <LinkButtonComponent
       id={id}
-      size="default"
       isSelected={isSelected}
-      fixedWidth={fixedWidth}
+      size="default"
       disabled={disabled}
       ariaLabel={ariaLabel}
       onClick={onClick}
-      className={className}
+      className={`${fixedWidth ? DESIGN_TOKENS.BUTTON_WIDTH : ''} ${className}`}
     >
       {children}
-    </ButtonComponent>
+    </LinkButtonComponent>
   )
 }
 
@@ -197,7 +196,7 @@ export const IconButtonComponent: React.FC<IconButtonProps> = ({
   )
 }
 
-// Link Button Component (styled like button but behaves like link)
+// Link Button Component (minimalistic design with vertical lines)
 interface LinkButtonProps extends BaseButtonProps {
   href?: string
   target?: '_blank' | '_self' | '_parent' | '_top'
@@ -220,20 +219,24 @@ export const LinkButtonComponent: React.FC<LinkButtonProps> = ({
   onClick
 }) => {
   const getStateClasses = () => {
-    return isSelected ? NAVBAR_BUTTON_SELECTED_CLASSES : NAVBAR_BUTTON_DEFAULT_CLASSES
+    if (isSelected) {
+      return `${DESIGN_TOKENS.PRIMARY_BG} text-white`
+    }
+
+    return `bg-transparent ${DESIGN_TOKENS.TEXT_BUTTON_DEFAULT} hover:${DESIGN_TOKENS.MUTED_BG_HOVER} hover:text-gray-900`
   }
 
   const getSizeClasses = () => {
     switch (size) {
       case 'x-small':
-        return 'px-1.5 py-0.5 text-xs'
+        return 'px-3 py-1 text-sm'
       case 'small':
-        return 'px-3 py-2 text-base'
+        return 'px-4 py-2 text-base'
       case 'large':
-        return 'px-6 py-3 text-lg'
+        return 'px-6 py-3 text-xl'
       case 'default':
       default:
-        return DESIGN_TOKENS.BUTTON_PADDING
+        return 'px-5 py-2 text-lg'
     }
   }
 
@@ -251,10 +254,17 @@ export const LinkButtonComponent: React.FC<LinkButtonProps> = ({
     <a 
       id={id}
       className={`
-        ${NAVBAR_BUTTON_BASE_CLASSES}
-        ${getSizeClasses()} 
+        inline-flex
+        items-center
+        justify-center
+        relative
+        font-medium
+        transition-all
+        duration-200
+        ease-in-out
+        ${getSizeClasses()}
         ${getStateClasses()}
-        ${getDisabledClasses()} 
+        ${getDisabledClasses()}
         ${className}
       `}
       onClick={onClick}

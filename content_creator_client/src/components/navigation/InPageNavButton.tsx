@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import { ButtonComponent } from '../ui'
+import { LinkButtonComponent } from '../ui'
 
 interface InPageNavButtonProps {
   children: ReactNode
@@ -15,15 +15,14 @@ const InPageNavButton: React.FC<InPageNavButtonProps> = ({
   const prefixId = children?.toString().toLowerCase().replace(/\s+/g, '-')
 
   return (
-    <ButtonComponent
+    <LinkButtonComponent
       id={`in-page-nav-button-${prefixId ?? 'button'}`}
       isSelected={isSelected}
       size="x-small"
-      fixedWidth={false}
       onClick={onClick}
     >
       {children}
-    </ButtonComponent>
+    </LinkButtonComponent>
   )
 }
 
