@@ -31,7 +31,8 @@ export const DESIGN_TOKENS = {
   TEXT_ERROR: 'text-red-600',
   TEXT_BODY: 'text-gray-700',
   TEXT_HEADING: 'text-gray-900',
-  TEXT_BUTTON_DEFAULT: 'text-gray-800',
+  TEXT_BUTTON_DEFAULT: 'text-blue-900',
+  TEXT_BUTTON_HOVER: 'text-blue-400',
   TEXT_BUTTON_MUTED: 'text-gray-500',
   
   // Overlay Text Colors

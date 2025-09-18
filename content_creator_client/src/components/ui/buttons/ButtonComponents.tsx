@@ -141,7 +141,7 @@ export const IconButtonComponent: React.FC<IconButtonProps> = ({
       case 'primary':
         return `${DESIGN_TOKENS.PRIMARY_BG} text-white hover:${DESIGN_TOKENS.PRIMARY_BG_HOVER}`
       case 'secondary':
-        return `${DESIGN_TOKENS.SURFACE_BG} ${DESIGN_TOKENS.TEXT_BUTTON_DEFAULT} border border-gray-300 hover:${DESIGN_TOKENS.MUTED_BG_HOVER}`
+        return `${DESIGN_TOKENS.SURFACE_BG} ${DESIGN_TOKENS.TEXT_BUTTON_DEFAULT} border border-gray-300 hover:${DESIGN_TOKENS.TEXT_BUTTON_HOVER}`
       case 'ghost':
       default:
         return 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
@@ -223,7 +223,7 @@ export const LinkButtonComponent: React.FC<LinkButtonProps> = ({
       return `${DESIGN_TOKENS.PRIMARY_BG} text-white`
     }
 
-    return `bg-transparent ${DESIGN_TOKENS.TEXT_BUTTON_DEFAULT} hover:${DESIGN_TOKENS.MUTED_BG_HOVER} hover:text-gray-900`
+    return `bg-transparent ${DESIGN_TOKENS.TEXT_BUTTON_DEFAULT} hover:${DESIGN_TOKENS.TEXT_BUTTON_HOVER}`
   }
 
   const getSizeClasses = () => {
