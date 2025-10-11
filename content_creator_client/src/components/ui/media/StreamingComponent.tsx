@@ -1,9 +1,10 @@
-import React, { useRef, useEffect } from 'react'
+import React from 'react'
+import { TwitchLive } from 'react-twitch-live-embed'
 import { DESIGN_TOKENS } from '../../../constants/styles'
 
 interface TwitchPlayerOptions {
-  width?: string
-  height?: string
+  width?: string | number
+  height?: string | number
   autoplay?: boolean
   muted?: boolean
 }
@@ -14,7 +15,7 @@ interface StreamingComponentProps {
   variant?: 'featured' | 'player' | 'thumbnail'
   aspectRatio?: 'video' | 'square' | 'auto'
   rounded?: boolean
-  parent?: string // for Twitch embed parent domain
+  parent?: string | string[] // for Twitch embed parent domain
   className?: string
   playerOptions?: TwitchPlayerOptions
   onError?: () => void
@@ -35,10 +36,7 @@ export const StreamingComponent: React.FC<StreamingComponentProps> = ({
   parent,
   className = '',
   playerOptions,
-  onError,
 }) => {
-  const iframeRef = useRef<HTMLIFrameElement>(null)
-
   const getVariantClasses = () => {
     switch (variant) {
       case 'featured':
@@ -68,22 +66,12 @@ export const StreamingComponent: React.FC<StreamingComponentProps> = ({
     return rounded ? DESIGN_TOKENS.BORDER_RADIUS : ''
   }
 
-  // Twitch requires the parent domain for security
-  const parentDomain = parent || window.location.hostname
-  const src = `https://player.twitch.tv/?channel=${channel}&parent=${parentDomain}&autoplay=${
-    playerOptions?.autoplay ?? 'false'
-  }&muted=${playerOptions?.muted ?? 'false'}`
-
-  useEffect(() => {
-    // Optionally, handle error events
-    const iframe = iframeRef.current
-    if (!iframe || !onError) return
-    const handleError = () => onError()
-    iframe.addEventListener('error', handleError)
-    return () => {
-      iframe.removeEventListener('error', handleError)
-    }
-  }, [onError])
+  // Convert parent to array format if it's a string
+  const parentArray = parent
+    ? Array.isArray(parent)
+      ? parent
+      : [parent]
+    : undefined
 
   return (
     <div
@@ -91,13 +79,14 @@ export const StreamingComponent: React.FC<StreamingComponentProps> = ({
       className={`${getVariantClasses()} ${getRoundedClasses()} ${className}`}
     >
       <div id={`${id}-aspect`} className={getAspectRatioClasses()}>
-        <iframe
-          ref={iframeRef}
-          src={src}
-          allowFullScreen
-          height={playerOptions?.height ?? '100%'}
+        <TwitchLive
+          channel={channel}
           width={playerOptions?.width ?? '100%'}
-          title={`Twitch stream for ${channel}`}
+          height={playerOptions?.height ?? '100%'}
+          autoplay={playerOptions?.autoplay ?? true}
+          muted={playerOptions?.muted ?? false}
+          parent={parentArray}
+          id={`${id}-twitch-embed`}
         />
       </div>
     </div>
