@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react'
 import { NavButtonComponent, FlexComponent, HomeIconComponent, NavBarComponent } from '../ui'
+import { useScrollDirection } from '../../hooks/useScrollDirection'
 
 interface NavBarButtonProps {
   /** Unique identifier for the navigation button */
@@ -38,8 +39,10 @@ interface NavBarProps {
 }
 
 const NavBar: React.FC<NavBarProps> = ({ children }) => {
+  const isVisible = useScrollDirection()
+
   return (
-    <NavBarComponent id="main-navbar">
+    <NavBarComponent id="main-navbar" isVisible={isVisible}>
       <FlexComponent id="navbar-flex" justify="center" gap="default">
         {children}
       </FlexComponent>
