@@ -1,5 +1,6 @@
 import { FlexComponent, InPageNavBarComponent, CenteredPositionedComponent } from '../ui'
 import InPageNavButton from './InPageNavButton'
+import { useScrollDirection } from '../../hooks/useScrollDirection'
 
 interface InPageNavBarProps<T> {
   /** Unique identifier for the in-page navbar */
@@ -21,8 +22,10 @@ const InPageNavBar = <T,>({
   getId,
   floating = false,
 }: InPageNavBarProps<T>) => {
+  const isVisible = useScrollDirection()
+
   const navbar = (
-    <InPageNavBarComponent id={id}>
+    <InPageNavBarComponent id={id} isVisible={isVisible}>
       <FlexComponent 
         id={`${id}-flex`} 
         justify="center" 

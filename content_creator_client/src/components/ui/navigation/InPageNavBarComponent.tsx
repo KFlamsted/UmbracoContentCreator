@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { DESIGN_TOKENS } from '../../../constants/styles'
 
 interface InPageNavBarComponentProps {
@@ -12,22 +12,6 @@ export const InPageNavBarComponent: React.FC<InPageNavBarComponentProps> = ({
   children,
   isVisible = true,
 }) => {
-  const [isAnimating, setIsAnimating] = useState(false)
-  const [shouldRender, setShouldRender] = useState(isVisible)
-
-  useEffect(() => {
-    if (isVisible) {
-      // Show the component and start animation
-      setShouldRender(true)
-      setTimeout(() => setIsAnimating(true), 10) // Small delay for initial render
-    } else {
-      // Start hide animation
-      setIsAnimating(false)
-      // Remove from DOM after animation completes
-      setTimeout(() => setShouldRender(false), 300)
-    }
-  }, [isVisible])
-
   // Match the main navbar styling from NAVBAR_CLASSES but without positioning - full width, no rounded edges
   const navbarCardClasses = `
     w-full 
@@ -35,17 +19,11 @@ export const InPageNavBarComponent: React.FC<InPageNavBarComponentProps> = ({
     ${DESIGN_TOKENS.CARD_SHADOW} 
     py-2 
     px-4
-    transform
-    transition-all
+    transition-transform
     duration-300
     ease-in-out
-    animate-in
-    slide-in-from-top
-    fade-in
-    ${isAnimating ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'}
+    ${isVisible ? 'transform translate-y-0' : 'transform -translate-y-full'}
   `
-
-  if (!shouldRender) return null
 
   return (
     <div id={id} className={navbarCardClasses}>
