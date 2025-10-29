@@ -98,6 +98,14 @@ namespace Umbraco.Cms.Web.Common.PublishedModels
 		public virtual string FooterText => this.Value<string>(_publishedValueFallback, "footerText");
 
 		///<summary>
+		/// Menu icon: Icon shown in the menu.
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "15.4.1+0ad020f")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		[ImplementPropertyType("menuIcon")]
+		public virtual global::Umbraco.Cms.Core.Models.MediaWithCrops MenuIcon => this.Value<global::Umbraco.Cms.Core.Models.MediaWithCrops>(_publishedValueFallback, "menuIcon");
+
+		///<summary>
 		/// Page Title: The main title of the page
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "15.4.1+0ad020f")]
