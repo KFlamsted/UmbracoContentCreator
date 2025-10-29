@@ -1,4 +1,4 @@
-import { FlexComponent, InPageNavBarComponent, CenteredPositionedComponent } from '../ui'
+import { FlexComponent, InPageNavBarComponent } from '../ui'
 import InPageNavButton from './InPageNavButton'
 import { useScrollDirection } from '../../hooks/useScrollDirection'
 
@@ -25,12 +25,12 @@ const InPageNavBar = <T,>({
   const isVisible = useScrollDirection()
 
   const navbar = (
-    <InPageNavBarComponent id={id} isVisible={isVisible}>
+    <InPageNavBarComponent id={id} isVisible={isVisible} floating={floating}>
       <FlexComponent 
         id={`${id}-flex`} 
         justify="center" 
         gap="small" 
-        wrap={true}
+        wrap
       >
         {items.map((item) => (
           <InPageNavButton
@@ -44,21 +44,6 @@ const InPageNavBar = <T,>({
       </FlexComponent>
     </InPageNavBarComponent>
   )
-
-  if (floating) {
-    return (
-      <CenteredPositionedComponent
-        id={`${id}-floating-wrapper`}
-        position="fixed"
-        top="top-16"
-        zIndex="z-40"
-        width="w-full"
-        maxWidth="max-w-none"
-      >
-        {navbar}
-      </CenteredPositionedComponent>
-    )
-  }
 
   return navbar
 }
