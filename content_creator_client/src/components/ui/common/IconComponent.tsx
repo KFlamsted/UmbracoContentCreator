@@ -4,12 +4,14 @@ interface IconComponentProps {
   id: string
   size?: 'small' | 'default' | 'large'
   className?: string
+  imageUrl?: string
 }
 
 export const HomeIconComponent: React.FC<IconComponentProps> = ({ 
   id, 
   size = 'default',
-  className = '' 
+  className = '',
+  imageUrl
 }) => {
   const getSizeClass = () => {
     switch (size) {
@@ -23,6 +25,21 @@ export const HomeIconComponent: React.FC<IconComponentProps> = ({
     }
   }
 
+  // If an image URL is provided, render it instead of the SVG
+  if (imageUrl) {
+    return (
+      <div id={`${id}-icon`} className="flex items-center justify-center w-full h-full">
+        <img 
+          id={`${id}-img`}
+          src={imageUrl}
+          alt="Home"
+          className={`${getSizeClass()} ${className} object-contain`}
+        />
+      </div>
+    )
+  }
+
+  // Default SVG icon
   return (
     <div id={`${id}-icon`} className="flex items-center justify-center w-full h-full">
       <svg 

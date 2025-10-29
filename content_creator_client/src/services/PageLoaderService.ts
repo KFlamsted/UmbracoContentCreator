@@ -27,11 +27,16 @@ export const fetchHomePage = async (): Promise<HomePage> => {
   const backgroundImageArray = homepageContent.properties.backgroundImage as unknown as ImageCropperValue[]
   const backgroundImage = backgroundImageArray && backgroundImageArray.length > 0 ? backgroundImageArray[0] : undefined
 
+  // Extract menuIcon if it exists
+  const menuIconArray = homepageContent.properties.menuIcon as unknown as ImageCropperValue[]
+  const menuIcon = menuIconArray && menuIconArray.length > 0 ? menuIconArray[0] : undefined
+
   return {
     pageTitle: homepageContent.properties.pageTitle,
     bodyText: homepageContent.properties.bodyText?.markup,
     footerText: homepageContent.properties.footerText,
     backgroundImage,
+    menuIcon,
     color1: homepageContent.properties.color1,
     color2: homepageContent.properties.color2,
     color3: homepageContent.properties.color3,

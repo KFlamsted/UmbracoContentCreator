@@ -32,4 +32,8 @@ export interface HomePage {
    * Hexadecimal color used for the webpage theme
    */
   color3?: string;
+  /**
+   * Icon shown in the menu
+   */
+  menuIcon?: ImageCropperValue;
 }

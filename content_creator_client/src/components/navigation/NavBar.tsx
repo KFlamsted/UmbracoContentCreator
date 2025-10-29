@@ -9,6 +9,7 @@ interface NavBarButtonProps {
   isHomePageButton?: boolean
   isSelected?: boolean
   onClick?: () => void
+  menuIcon?: string
 }
 
 const NavBarButton: React.FC<NavBarButtonProps> = ({ 
@@ -16,7 +17,8 @@ const NavBarButton: React.FC<NavBarButtonProps> = ({
   children, 
   isHomePageButton = false, 
   isSelected = false, 
-  onClick 
+  onClick,
+  menuIcon
 }) => {
   return (
     <NavButtonComponent
@@ -26,7 +28,7 @@ const NavBarButton: React.FC<NavBarButtonProps> = ({
       fixedWidth={true}
     >
       {isHomePageButton ? (
-        <HomeIconComponent id={id} size="default" />
+        <HomeIconComponent id={id} size="default" imageUrl={menuIcon} />
       ) : (
         children
       )}

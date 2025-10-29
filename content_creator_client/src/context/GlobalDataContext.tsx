@@ -8,6 +8,7 @@ interface GlobalData {
    */
   footerText?: string
   backgroundImage?: HomePage['backgroundImage']
+  menuIcon?: HomePage['menuIcon']
   pageTitle?: string
   bodyText?: string
   /**
@@ -54,6 +55,7 @@ export const GlobalDataProvider: React.FC<GlobalDataProviderProps> = ({
       setGlobalData({
         footerText: homePage.footerText,
         backgroundImage: homePage.backgroundImage,
+        menuIcon: homePage.menuIcon,
         pageTitle: homePage.pageTitle,
         bodyText: homePage.bodyText,
         color1: homePage.color1,

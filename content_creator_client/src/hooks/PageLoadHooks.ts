@@ -175,6 +175,7 @@ export const useHomePage = () => {
       bodyText: globalData.bodyText,
       footerText: globalData.footerText,
       backgroundImage: globalData.backgroundImage,
+      menuIcon: globalData.menuIcon,
       color1: globalData.color1,
       color2: globalData.color2,
       color3: globalData.color3,

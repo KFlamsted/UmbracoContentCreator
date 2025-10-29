@@ -8,6 +8,7 @@ import {
 } from '../ui'
 import NavBar, { NavBarButton } from '../navigation/NavBar'
 import { ROUTES } from '../../constants/routes'
+import { useGlobalData } from '../../hooks/useGlobalData'
 
 interface AppShellProps {
   children: ReactNode
@@ -24,6 +25,8 @@ const AppShell: React.FC<AppShellProps> = ({
 }) => {
   const navigate = useNavigate()
   const location = useLocation()
+  const { globalData } = useGlobalData()
+  
   const handleNavigation = (path: string) => {
     navigate(path)
   }
@@ -37,6 +40,10 @@ const AppShell: React.FC<AppShellProps> = ({
   const apiUrl = import.meta.env.VITE_API_URL
   const fullBackgroundImageUrl = backgroundImage
     ? `${apiUrl}${backgroundImage}`
+    : undefined
+  
+  const fullMenuIconUrl = globalData.menuIcon?.url
+    ? `${apiUrl}${globalData.menuIcon.url}`
     : undefined
 
   return (
@@ -75,6 +82,7 @@ const AppShell: React.FC<AppShellProps> = ({
           id="nav-home-button"
           isHomePageButton
           onClick={() => handleNavigation(ROUTES.HOME)}
+          menuIcon={fullMenuIconUrl}
         />
         <NavBarButton
           id="nav-bluesky-button"
