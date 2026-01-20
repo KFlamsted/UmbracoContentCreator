@@ -28,7 +28,7 @@ const NavBarButton: React.FC<NavBarButtonProps> = ({
       fixedWidth={true}
     >
       {isHomePageButton ? (
-        <HomeIconComponent id={id} size="default" imageUrl={menuIcon} />
+        <HomeIconComponent id={id} size="xl" imageUrl={menuIcon} />
       ) : (
         children
       )}
@@ -45,7 +45,7 @@ const NavBar: React.FC<NavBarProps> = ({ children }) => {
 
   return (
     <NavBarComponent id="main-navbar" isVisible={isVisible}>
-      <FlexComponent id="navbar-flex" justify="center" gap="default">
+      <FlexComponent id="navbar-flex" justify="center" align="center" gap="default">
         {children}
       </FlexComponent>
     </NavBarComponent>

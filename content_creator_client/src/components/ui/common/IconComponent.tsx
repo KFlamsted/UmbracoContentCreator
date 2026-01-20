@@ -2,7 +2,7 @@ import React from 'react'
 
 interface IconComponentProps {
   id: string
-  size?: 'small' | 'default' | 'large'
+  size?: 'small' | 'default' | 'large' | 'xl'
   className?: string
   imageUrl?: string
 }
@@ -19,6 +19,8 @@ export const HomeIconComponent: React.FC<IconComponentProps> = ({
         return 'w-4 h-4'
       case 'large':
         return 'w-8 h-8'
+      case 'xl':
+        return 'w-12 h-12'
       case 'default':
       default:
         return 'w-6 h-6'

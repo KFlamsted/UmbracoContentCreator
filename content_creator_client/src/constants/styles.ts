@@ -137,16 +137,16 @@ export const getNavBarClasses = (isVisible: boolean) =>
 // Helper function for InPageNavBar (floating mode)
 export const getInPageNavBarClasses = (isVisible: boolean, floating: boolean) => {
   const baseClasses = `w-full ${DESIGN_TOKENS.MUTED_BG} ${DESIGN_TOKENS.CARD_SHADOW} py-2 px-4 transition-transform duration-300 ease-in-out`
-  
+
   if (floating) {
     // Fixed positioning with combined transforms for centering and hide/show
-    // Note: top-16 = 64px, so we need to hide it completely off-screen
-    const positionClasses = 'fixed top-16 left-1/2 z-40 max-w-none'
+    // Note: top-20 = 80px (increased from top-16 to account for larger main navbar)
+    const positionClasses = 'fixed top-20 left-1/2 z-40 max-w-none'
     // IMPORTANT: Must use 'transform' keyword and combine all transform values
-    // When hidden: -translate-y-full moves up by element height, -top-16 moves up additional 64px
-    const transformClasses = isVisible 
-      ? 'transform -translate-x-1/2 translate-y-0' 
-      : 'transform -translate-x-1/2 -translate-y-[calc(100%+4rem)]'
+    // When hidden: -translate-y-full moves up by element height, -top-20 moves up additional 80px
+    const transformClasses = isVisible
+      ? 'transform -translate-x-1/2 translate-y-0'
+      : 'transform -translate-x-1/2 -translate-y-[calc(100%+5rem)]'
     return `${baseClasses} ${positionClasses} ${transformClasses}`
   } else {
     // Non-floating mode - use same pattern as main navbar
